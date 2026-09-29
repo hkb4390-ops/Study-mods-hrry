@@ -10,6 +10,9 @@
 
 <title>studymods.hrry - Himanshu Raj Yadav</title>
 
+<!-- Telegram Web App SDK -->
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -170,6 +173,66 @@ a{
         transform:scale(1.25) translate(30px,-30px);
         opacity:.7
     }
+}
+
+/* ================= BINDING LOCK SCREEN ================= */
+
+#binding-lock-screen{
+    position:fixed;
+    inset:0;
+    background:#030407;
+    z-index:9999999;
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:30px;
+    text-align:center;
+}
+
+.lock-card{
+    background:rgba(15,20,32,.95);
+    border:1.5px solid var(--neon-pink);
+    padding:40px 30px;
+    border-radius:32px;
+    box-shadow:0 0 50px rgba(255,8,68,.3);
+    max-width:380px;
+    width:100%;
+}
+
+.lock-icon{
+    width:80px;
+    height:80px;
+    margin:0 auto 20px;
+    background:rgba(255,8,68,.15);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--neon-pink);
+    border:1px solid rgba(255,8,68,.4);
+}
+
+.lock-icon svg{
+    width:40px;
+    height:40px;
+    stroke:currentColor;
+    fill:none;
+    stroke-width:2;
+}
+
+.lock-title{
+    font-size:24px;
+    font-weight:900;
+    color:#fff;
+    margin-bottom:12px;
+}
+
+.lock-desc{
+    font-size:14px;
+    color:var(--text-muted);
+    line-height:1.6;
+    margin-bottom:24px;
 }
 
 /* ================= LOADER ================= */
@@ -368,7 +431,7 @@ header{
     padding:
         calc(var(--safe-top) + 12px)
         20px
-        16px;
+        14px;
 
     display:flex;
     justify-content:space-between;
@@ -388,14 +451,14 @@ header{
 .header-left{
     display:flex;
     align-items:center;
-    gap:14px;
+    gap:12px;
 }
 
 .header-logo{
-    width:48px;
-    height:48px;
+    width:44px;
+    height:44px;
     object-fit:cover;
-    border-radius:16px;
+    border-radius:14px;
     background:rgba(255,255,255,.04);
     border:1.5px solid var(--border-glow-cyan);
     box-shadow:0 0 20px rgba(0,242,254,.25);
@@ -408,7 +471,7 @@ header{
 
 .header-title{
     font-family:'Space Grotesk',sans-serif;
-    font-size:22px;
+    font-size:20px;
     font-weight:900;
     letter-spacing:-.5px;
     line-height:1.1;
@@ -425,41 +488,52 @@ header{
 }
 
 .header-subtitle{
-    font-size:11px;
+    font-size:10px;
     color:var(--neon-cyan);
     font-weight:800;
-    margin-top:3px;
+    margin-top:2px;
     letter-spacing:1px;
     text-transform:uppercase;
 }
 
-.header-actions{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
+/* TOP TAB SWITCHER BUTTONS IN HEADER */
 
-.icon-btn{
-    width:44px;
-    height:44px;
-    border-radius:16px;
-    background:rgba(255,255,255,.05);
+.top-nav-tabs{
+    display:flex;
+    background:rgba(15,20,32,.8);
+    padding:4px;
+    border-radius:22px;
     border:1px solid rgba(255,255,255,.12);
-    color:#fff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
+    gap:4px;
 }
 
-.icon-btn svg{
-    width:20px;
-    height:20px;
+.top-tab-btn{
+    padding:8px 16px;
+    border-radius:18px;
+    border:none;
+    background:transparent;
+    color:var(--text-muted);
+    font-size:13px;
+    font-weight:800;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    transition:all .3s ease;
+}
+
+.top-tab-btn svg{
+    width:16px;
+    height:16px;
     stroke:currentColor;
     fill:none;
-    stroke-linecap:round;
-    stroke-linejoin:round;
     stroke-width:2.2;
+}
+
+.top-tab-btn.active{
+    background:var(--grad-cyan-blue);
+    color:#000;
+    box-shadow:0 0 15px rgba(0,242,254,.4);
 }
 
 /* ================= PROMO BANNER ================= */
@@ -764,6 +838,83 @@ header{
     background:rgba(255,179,71,.15);
     color:#ffb347;
     border:1px solid rgba(255,179,71,.35);
+}
+
+/* ================= PROFILE PAGE VIEW ================= */
+
+.profile-page-card{
+    background:rgba(15,20,32,.8);
+    border:1.5px solid var(--border-glow-cyan);
+    border-radius:30px;
+    padding:30px 20px;
+    text-align:center;
+    box-shadow:0 20px 60px rgba(0,0,0,.7);
+    margin-top:10px;
+}
+
+.profile-avatar-wrapper{
+    position:relative;
+    width:110px;
+    height:110px;
+    margin:0 auto 20px;
+}
+
+.profile-avatar-img{
+    width:100%;
+    height:100%;
+    border-radius:50%;
+    object-fit:cover;
+    border:3px solid var(--neon-cyan);
+    box-shadow:0 0 30px rgba(0,242,254,.4);
+}
+
+.profile-avatar-fallback{
+    width:100%;
+    height:100%;
+    border-radius:50%;
+    background:var(--grad-cyan-blue);
+    color:#000;
+    font-size:42px;
+    font-weight:900;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:3px solid var(--neon-cyan);
+    box-shadow:0 0 30px rgba(0,242,254,.4);
+}
+
+.profile-tg-badge{
+    position:absolute;
+    bottom:2px;
+    right:2px;
+    background:#229ED9;
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:2px solid #030407;
+}
+
+.profile-tg-badge svg{
+    width:18px;
+    height:18px;
+    fill:#fff;
+}
+
+.profile-user-name{
+    font-size:24px;
+    font-weight:900;
+    color:#fff;
+    margin-bottom:4px;
+}
+
+.profile-user-handle{
+    font-size:14px;
+    color:var(--neon-cyan);
+    font-weight:700;
+    margin-bottom:20px;
 }
 
 /* ================= EMPTY ================= */
@@ -1188,9 +1339,7 @@ header{
     }
 }
 
-/* =========================================================
-   PREMIUM GLASS UI REFRESH
-   ========================================================= */
+/* GLASS REFRESH */
 :root{
     --bg-base:#07090f;
     --bg-surface:#0b0f18;
@@ -1216,269 +1365,6 @@ body{
       radial-gradient(circle at 90% 85%,rgba(255,77,141,.07),transparent 32%),
       #07090f;
 }
-body::before{
-    content:"";
-    position:fixed;inset:0;pointer-events:none;z-index:-3;
-    background:linear-gradient(135deg,rgba(255,255,255,.018),transparent 35%,rgba(255,255,255,.012));
-}
-
-.glow-sphere-1{background:radial-gradient(circle,rgba(79,216,255,.16),transparent 70%)}
-.glow-sphere-2{background:radial-gradient(circle,rgba(255,77,141,.13),transparent 70%)}
-.glow-sphere-3{background:radial-gradient(circle,rgba(246,200,95,.09),transparent 70%)}
-
-#top-loader-bar{
-    height:3px;
-    box-shadow:0 0 18px rgba(79,216,255,.75),0 0 35px rgba(109,140,255,.35);
-}
-
-#splash-screen{
-    background:
-      radial-gradient(circle at 50% 42%,rgba(79,216,255,.09),transparent 25%),
-      radial-gradient(circle at 50% 60%,rgba(255,77,141,.06),transparent 35%),
-      #07090f;
-}
-.splash-ring-container{width:178px;height:178px}
-.splash-pulse-ring{
-    background:conic-gradient(from 0deg,var(--neon-cyan),var(--neon-blue),var(--neon-pink),var(--neon-gold),var(--neon-cyan));
-    filter:blur(22px);opacity:.55;
-}
-.splash-logo-box{
-    width:132px;height:132px;border-radius:32px;
-    background:rgba(16,22,35,.72);
-    border:1px solid rgba(255,255,255,.18);
-    box-shadow:0 22px 70px rgba(0,0,0,.55),0 0 45px rgba(79,216,255,.22);
-    backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
-}
-.splash-logo-img{border-radius:30px}
-.splash-brand-title{
-    font-size:36px;letter-spacing:-1.3px;
-    text-shadow:0 10px 35px rgba(0,0,0,.4);
-}
-.splash-brand-title .text-part-2{
-    background:var(--grad-cyan-blue);
-    -webkit-background-clip:text;
-    filter:drop-shadow(0 0 15px rgba(79,216,255,.3));
-}
-.splash-author-badge{
-    background:rgba(255,255,255,.045);
-    border-color:rgba(255,255,255,.11);
-    box-shadow:inset 0 1px rgba(255,255,255,.06),0 12px 35px rgba(0,0,0,.22);
-}
-.author-cyan{color:var(--neon-cyan);text-shadow:0 0 12px rgba(79,216,255,.5)}
-
-#main-app{background:transparent}
-header{
-    background:rgba(7,9,15,.62);
-    border-bottom:1px solid rgba(255,255,255,.07);
-    box-shadow:0 12px 35px rgba(0,0,0,.18);
-    backdrop-filter:blur(24px) saturate(140%);
-    -webkit-backdrop-filter:blur(24px) saturate(140%);
-}
-.header-logo{
-    border-color:rgba(79,216,255,.32);
-    box-shadow:0 0 25px rgba(79,216,255,.18);
-}
-.h-part-2{
-    background:var(--grad-cyan-blue);
-    -webkit-background-clip:text;
-}
-.header-subtitle{color:var(--neon-cyan)}
-.icon-btn{
-    background:rgba(255,255,255,.055);
-    border:1px solid rgba(255,255,255,.11);
-    box-shadow:inset 0 1px rgba(255,255,255,.06),0 8px 24px rgba(0,0,0,.2);
-    transition:transform .22s ease,background .22s ease,border-color .22s ease,box-shadow .22s ease;
-}
-.icon-btn:hover{transform:translateY(-2px);background:rgba(79,216,255,.09);border-color:rgba(79,216,255,.3);box-shadow:0 10px 28px rgba(0,0,0,.25),0 0 20px rgba(79,216,255,.12)}
-
-.hero-section{padding-top:30px}
-.ecosystem-pill{
-    background:rgba(79,216,255,.07);
-    border-color:rgba(79,216,255,.24);
-    box-shadow:0 8px 28px rgba(79,216,255,.08),inset 0 1px rgba(255,255,255,.05);
-    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-}
-.pill-dot{background:var(--neon-cyan);box-shadow:0 0 13px var(--neon-cyan)}
-.pill-text{color:var(--neon-cyan)}
-.main-heading-bold{text-shadow:0 12px 30px rgba(0,0,0,.35)}
-.bold-gold{
-    background:var(--grad-cyan-blue);
-    -webkit-background-clip:text;
-    filter:drop-shadow(0 0 13px rgba(79,216,255,.25));
-}
-.search-input{
-    background:rgba(16,22,35,.62);
-    border-color:rgba(255,255,255,.11);
-    box-shadow:inset 0 1px rgba(255,255,255,.035),0 12px 35px rgba(0,0,0,.16);
-    backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-}
-.search-input::placeholder{color:#7f8ca2}
-.search-input:focus{
-    border-color:rgba(79,216,255,.55);
-    box-shadow:0 0 0 4px rgba(79,216,255,.07),0 16px 40px rgba(0,0,0,.22),0 0 28px rgba(79,216,255,.14);
-}
-
-.view-section{padding-top:12px}
-.app-card{
-    background:linear-gradient(145deg,rgba(21,28,43,.68),rgba(11,15,24,.55));
-    border:1px solid rgba(255,255,255,.09);
-    border-radius:24px;
-    box-shadow:0 18px 50px rgba(0,0,0,.30),inset 0 1px rgba(255,255,255,.045);
-    backdrop-filter:blur(22px) saturate(135%);
-    -webkit-backdrop-filter:blur(22px) saturate(135%);
-    transition:transform .28s cubic-bezier(.2,.8,.2,1),border-color .28s ease,box-shadow .28s ease,background .28s ease;
-    animation:cardReveal .55s cubic-bezier(.2,.8,.2,1) both;
-}
-.app-card:hover{
-    transform:translateY(-4px);
-    border-color:rgba(79,216,255,.22);
-    background:linear-gradient(145deg,rgba(25,34,53,.76),rgba(12,17,27,.64));
-    box-shadow:0 22px 55px rgba(0,0,0,.38),0 0 28px rgba(79,216,255,.06),inset 0 1px rgba(255,255,255,.06);
-}
-.app-card::before{
-    background:linear-gradient(135deg,rgba(79,216,255,.34),transparent 55%,rgba(255,77,141,.20));
-    opacity:.65;
-}
-.card-logo{
-    width:68px;height:68px;border-radius:20px;
-    border-color:rgba(255,255,255,.13);
-    box-shadow:0 10px 28px rgba(0,0,0,.28),inset 0 1px rgba(255,255,255,.08);
-    transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s ease;
-}
-.app-card:hover .card-logo{transform:scale(1.05) rotate(-2deg);box-shadow:0 14px 32px rgba(0,0,0,.34),0 0 22px rgba(79,216,255,.1)}
-.card-title{font-size:19px}
-.card-desc{color:#94a1b5}
-.card-action-btn{
-    width:46px;height:46px;
-    background:rgba(79,216,255,.09);
-    color:var(--neon-cyan);
-    border-color:rgba(79,216,255,.25);
-    box-shadow:inset 0 1px rgba(255,255,255,.05),0 8px 20px rgba(0,0,0,.2);
-    transition:transform .25s ease,background .25s ease,box-shadow .25s ease;
-}
-.app-card:hover .card-action-btn{transform:translateX(3px);background:rgba(79,216,255,.15);box-shadow:0 0 22px rgba(79,216,255,.13)}
-.status-badge{
-    background:rgba(246,200,95,.09);
-    color:var(--neon-gold);
-    border-color:rgba(246,200,95,.22);
-    box-shadow:inset 0 1px rgba(255,255,255,.04);
-}
-
-.empty-state{color:var(--text-muted);padding:70px 20px}
-.empty-icon{
-    width:74px;height:74px;padding:18px;
-    border-radius:24px;
-    background:rgba(255,255,255,.035);
-    border:1px solid rgba(255,255,255,.08);
-    box-shadow:0 18px 45px rgba(0,0,0,.22);
-    animation:softFloat 3.5s ease-in-out infinite;
-}
-.empty-text{color:#9aa7bb}
-
-.bottom-nav-wrapper{bottom:calc(10px + var(--safe-bottom))}
-.bottom-nav{
-    width:90%;max-width:370px;
-    padding:7px;
-    gap:7px;
-    background:rgba(13,18,29,.70);
-    border-color:rgba(255,255,255,.10);
-    box-shadow:0 22px 60px rgba(0,0,0,.52),0 0 28px rgba(79,216,255,.08),inset 0 1px rgba(255,255,255,.07);
-    backdrop-filter:blur(30px) saturate(150%);
-    -webkit-backdrop-filter:blur(30px) saturate(150%);
-}
-.nav-item{
-    padding:10px 0;
-    color:#7f8ca1;
-    transition:transform .25s ease,color .25s ease,background .25s ease,box-shadow .25s ease;
-}
-.nav-item:active{transform:scale(.94)}
-.nav-item.active{
-    background:rgba(79,216,255,.10);
-    color:var(--neon-cyan);
-    border-color:rgba(79,216,255,.23);
-    box-shadow:0 0 24px rgba(79,216,255,.10),inset 0 1px rgba(255,255,255,.05);
-}
-.nav-icon{width:24px;height:24px}
-.nav-label{font-size:10.5px}
-
-#launch-loader{
-    background:rgba(5,8,14,.74);
-    backdrop-filter:blur(30px) saturate(135%);
-    -webkit-backdrop-filter:blur(30px) saturate(135%);
-}
-.launch-card{
-    background:rgba(16,22,35,.72);
-    border:1px solid rgba(79,216,255,.23);
-    padding:34px 42px;
-    border-radius:30px;
-    box-shadow:0 30px 90px rgba(0,0,0,.55),0 0 35px rgba(79,216,255,.11),inset 0 1px rgba(255,255,255,.06);
-    backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
-}
-.mono-spinner circle{stroke:var(--neon-cyan)}
-.launch-text{color:#f8fafc}
-
-.modal-overlay{
-    background:rgba(2,5,10,.68);
-    backdrop-filter:blur(25px) saturate(125%);
-    -webkit-backdrop-filter:blur(25px) saturate(125%);
-}
-.modal-card{
-    background:linear-gradient(145deg,rgba(20,27,42,.86),rgba(9,13,21,.82));
-    border:1px solid rgba(255,255,255,.12);
-    border-radius:30px;
-    box-shadow:0 35px 100px rgba(0,0,0,.62),0 0 35px rgba(79,216,255,.09),inset 0 1px rgba(255,255,255,.06);
-    backdrop-filter:blur(28px) saturate(145%);
-    -webkit-backdrop-filter:blur(28px) saturate(145%);
-}
-.tg-icon,.update-icon{
-    background:rgba(79,216,255,.09);
-    color:var(--neon-cyan);
-    border-color:rgba(79,216,255,.24);
-    box-shadow:0 0 28px rgba(79,216,255,.12),inset 0 1px rgba(255,255,255,.05);
-}
-.modal-title{color:#f8fafc}
-.modal-desc{color:#9aa7bb}
-.form-input{
-    background:rgba(255,255,255,.045);
-    border-color:rgba(255,255,255,.10);
-    color:#fff;
-    box-shadow:inset 0 1px rgba(255,255,255,.04);
-}
-.form-input::placeholder{color:#77849a}
-.form-input:focus{
-    border-color:rgba(79,216,255,.45);
-    box-shadow:0 0 0 4px rgba(79,216,255,.06),0 0 24px rgba(79,216,255,.10);
-}
-.btn-primary{
-    background:var(--grad-cyan-blue);
-    color:#061019;
-    border:1px solid rgba(255,255,255,.18);
-    box-shadow:0 12px 30px rgba(79,216,255,.16),inset 0 1px rgba(255,255,255,.45);
-    transition:transform .2s ease,box-shadow .2s ease,filter .2s ease;
-}
-.btn-primary:hover{filter:brightness(1.06);box-shadow:0 15px 36px rgba(79,216,255,.22),inset 0 1px rgba(255,255,255,.5)}
-.btn-primary:active{transform:scale(.97)}
-.btn-secondary{color:#8f9bb0}
-.profile-info-box{
-    background:rgba(255,255,255,.035);
-    border-color:rgba(255,255,255,.08);
-    box-shadow:inset 0 1px rgba(255,255,255,.04);
-}
-.profile-row{border-bottom-color:rgba(255,255,255,.06)}
-.profile-label{color:#8f9bb0}
-.profile-val{color:#f7f9fc}
-
-@keyframes cardReveal{
-    from{opacity:0;transform:translateY(14px) scale(.985)}
-    to{opacity:1;transform:translateY(0) scale(1)}
-}
-@keyframes softFloat{
-    0%,100%{transform:translateY(0)}
-    50%{transform:translateY(-5px)}
-}
-@media (prefers-reduced-motion:reduce){
-    *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
-}
 </style>
 </head>
 
@@ -1493,6 +1379,23 @@ header{
 </div>
 
 <div id="top-loader-bar"></div>
+
+<!-- ================= ACCESS RESTRICTED SCREEN (BINDING CHECK) ================= -->
+
+<div id="binding-lock-screen">
+    <div class="lock-card">
+        <div class="lock-icon">
+            <svg viewBox="0 0 24 24">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+        </div>
+        <h2 class="lock-title">Access Restricted</h2>
+        <p class="lock-desc">
+            यह ऐप केवल Telegram Bot से बाइंडेड यूज़र्स के लिए उपलब्ध है। कृपया पहले Telegram Bot में अपना अकाउंट बाइंड करें और Bot के अंदर से इसे खोलें।
+        </p>
+    </div>
+</div>
 
 <!-- ================= SPLASH ================= -->
 
@@ -1547,7 +1450,7 @@ header{
 
 </div>
 
-<!-- ================= MAIN ================= -->
+<!-- ================= MAIN APP ================= -->
 
 <div id="main-app">
 
@@ -1575,113 +1478,154 @@ header{
 
     </div>
 
-    <div class="header-actions">
+    <!-- TOP OPTION BUTTONS: STUDY & PROFILE -->
+    <div class="top-nav-tabs">
+        <button class="top-tab-btn active" id="btn-top-study" onclick="switchMainView('study')">
+            <svg viewBox="0 0 24 24">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+            </svg>
+            Study
+        </button>
 
-        <button
-            class="icon-btn"
-            onclick="openProfile()"
-            aria-label="Profile">
-
+        <button class="top-tab-btn" id="btn-top-profile" onclick="switchMainView('profile')">
             <svg viewBox="0 0 24 24">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                 <circle cx="12" cy="7" r="4"></circle>
             </svg>
-
+            Profile
         </button>
-
     </div>
 
 </header>
 
-<!-- ================= PROMO BANNER ================= -->
+<!-- MAIN STUDY VIEW (INDEX CONTENT) -->
+<div id="main-study-view">
 
-<div id="promo-banner-wrapper" class="promo-banner-wrapper">
+    <!-- ================= PROMO BANNER ================= -->
 
-    <div class="promo-banner-viewport">
+    <div id="promo-banner-wrapper" class="promo-banner-wrapper">
 
-        <div id="promo-banner-track" class="promo-banner-track"></div>
+        <div class="promo-banner-viewport">
 
-    </div>
+            <div id="promo-banner-track" class="promo-banner-track"></div>
 
-    <div id="promo-banner-dots" class="promo-banner-dots"></div>
+        </div>
 
-</div>
-
-<div class="hero-section">
-
-    <div class="ecosystem-pill">
-
-        <span class="pill-dot"></span>
-
-        <span class="pill-text">
-            ULTRA PLATFORM HUB
-        </span>
+        <div id="promo-banner-dots" class="promo-banner-dots"></div>
 
     </div>
 
-    <h2 class="main-heading-bold">
+    <div class="hero-section">
 
-        <span>Choose Your</span>
+        <div class="ecosystem-pill">
 
-        <span class="bold-gold">
-            Platform
-        </span>
+            <span class="pill-dot"></span>
 
-    </h2>
+            <span class="pill-text">
+                ULTRA PLATFORM HUB
+            </span>
 
-    <div class="search-box">
+        </div>
 
-        <svg
-            class="search-icon"
-            viewBox="0 0 24 24">
+        <h2 class="main-heading-bold">
 
-            <circle cx="11"
-                    cy="11"
-                    r="8"></circle>
+            <span>Choose Your</span>
 
-            <line x1="21"
-                  y1="21"
-                  x2="16.65"
-                  y2="16.65"></line>
+            <span class="bold-gold">
+                Platform
+            </span>
 
-        </svg>
+        </h2>
 
-        <input
-            type="text"
-            id="app-search-input"
-            class="search-input"
-            placeholder="Search platforms, notes, features..."
-            onkeyup="filterApps()">
+        <div class="search-box">
+
+            <svg
+                class="search-icon"
+                viewBox="0 0 24 24">
+
+                <circle cx="11"
+                        cy="11"
+                        r="8"></circle>
+
+                <line x1="21"
+                      y1="21"
+                      x2="16.65"
+                      y2="16.65"></line>
+
+            </svg>
+
+            <input
+                type="text"
+                id="app-search-input"
+                class="search-input"
+                placeholder="Search platforms, notes, features..."
+                onkeyup="filterApps()">
+
+        </div>
 
     </div>
 
-</div>
+    <!-- HOME -->
 
-<!-- HOME -->
+    <div id="view-home"
+         class="view-section active">
 
-<div id="view-home"
-     class="view-section active">
+        <div id="apps-container">
 
-    <div id="apps-container">
+            <div class="empty-state">
 
-        <div class="empty-state">
+                <div class="empty-icon">
 
-            <div class="empty-icon">
+                    <svg viewBox="0 0 24 24">
 
-                <svg viewBox="0 0 24 24">
+                        <circle cx="12"
+                                cy="12"
+                                r="10"></circle>
 
-                    <circle cx="12"
-                            cy="12"
-                            r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
 
-                    <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
 
-                </svg>
+                </div>
+
+                <div class="empty-text">
+                    Loading platforms...
+                </div>
 
             </div>
 
-            <div class="empty-text">
-                Loading platforms...
+        </div>
+
+    </div>
+
+    <!-- UPCOMING -->
+
+    <div id="view-upcoming"
+         class="view-section">
+
+        <div id="upcoming-container">
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+
+                    <svg viewBox="0 0 24 24">
+
+                        <circle cx="12"
+                                cy="12"
+                                r="10"></circle>
+
+                        <polyline points="12 6 12 12 16 14"></polyline>
+
+                    </svg>
+
+                </div>
+
+                <div class="empty-text">
+                    Loading upcoming...
+                </div>
+
             </div>
 
         </div>
@@ -1690,31 +1634,46 @@ header{
 
 </div>
 
-<!-- UPCOMING -->
+<!-- MAIN PROFILE VIEW (BOUND TELEGRAM USER DETAILS) -->
+<div id="main-profile-view" class="view-section">
 
-<div id="view-upcoming"
-     class="view-section">
+    <div class="profile-page-card">
 
-    <div id="upcoming-container">
-
-        <div class="empty-state">
-
-            <div class="empty-icon">
-
+        <div class="profile-avatar-wrapper" id="profile-avatar-container">
+            <!-- Dynamic Avatar or Initials -->
+            <div class="profile-avatar-fallback" id="profile-avatar-fallback">S</div>
+            <div class="profile-tg-badge">
                 <svg viewBox="0 0 24 24">
-
-                    <circle cx="12"
-                            cy="12"
-                            r="10"></circle>
-
-                    <polyline points="12 6 12 12 16 14"></polyline>
-
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .24z"></path>
                 </svg>
+            </div>
+        </div>
 
+        <h3 class="profile-user-name" id="view-prof-name">Student Name</h3>
+        <p class="profile-user-handle" id="view-prof-handle">@username</p>
+
+        <div class="profile-info-box">
+
+            <div class="profile-row">
+                <span class="profile-label">Binding Status</span>
+                <span class="profile-val" style="color:var(--neon-green);">
+                    ✔ Bound Account
+                </span>
             </div>
 
-            <div class="empty-text">
-                Loading upcoming...
+            <div class="profile-row">
+                <span class="profile-label">Telegram ID</span>
+                <span class="profile-val" id="view-prof-tgid">-</span>
+            </div>
+
+            <div class="profile-row">
+                <span class="profile-label">Active Time</span>
+                <span class="profile-val" id="view-prof-time">0m</span>
+            </div>
+
+            <div class="profile-row">
+                <span class="profile-label">Access Level</span>
+                <span class="profile-val">Full Access (Free)</span>
             </div>
 
         </div>
@@ -1797,57 +1756,7 @@ header{
 
 </div>
 
-<!-- ================= NAME MODAL ================= -->
-
-<div
-    class="modal-overlay"
-    id="onboard-modal"
-    style="display:none;z-index:6000;">
-
-    <div class="modal-card">
-
-        <div class="tg-icon">
-
-            <svg viewBox="0 0 24 24">
-
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-
-                <circle cx="12"
-                        cy="7"
-                        r="4"></circle>
-
-            </svg>
-
-        </div>
-
-        <h3 class="modal-title">
-            Welcome Student
-        </h3>
-
-        <p class="modal-desc">
-            Enter your full name to start learning.
-        </p>
-
-        <input
-            type="text"
-            id="input-student-name"
-            class="form-input"
-            placeholder="Your Full Name"
-            maxlength="80">
-
-        <button
-            class="btn-primary"
-            onclick="saveStudentData()">
-
-            Start Exploring
-
-        </button>
-
-    </div>
-
-</div>
-
-<!-- ================= TELEGRAM ================= -->
+<!-- ================= TELEGRAM MODAL ================= -->
 
 <div
     class="modal-overlay"
@@ -1889,89 +1798,6 @@ header{
             onclick="closeTelegram()">
 
             Skip for now
-
-        </button>
-
-    </div>
-
-</div>
-
-<!-- ================= PROFILE ================= -->
-
-<div
-    class="modal-overlay"
-    id="profile-modal"
-    style="display:none;z-index:5500;">
-
-    <div class="modal-card">
-
-        <div class="tg-icon">
-
-            <svg viewBox="0 0 24 24">
-
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-
-                <circle cx="12"
-                        cy="7"
-                        r="4"></circle>
-
-            </svg>
-
-        </div>
-
-        <h3 class="modal-title">
-            Student Analytics
-        </h3>
-
-        <p class="modal-desc">
-            Your registered account information
-        </p>
-
-        <div class="profile-info-box">
-
-            <div class="profile-row">
-                <span class="profile-label">
-                    Student Name
-                </span>
-
-                <span
-                    class="profile-val"
-                    id="prof-display-name">
-                    -
-                </span>
-            </div>
-
-            <div class="profile-row">
-                <span class="profile-label">
-                    Active Time
-                </span>
-
-                <span
-                    class="profile-val"
-                    id="prof-display-time">
-                    0m
-                </span>
-            </div>
-
-            <div class="profile-row">
-                <span class="profile-label">
-                    Access
-                </span>
-
-                <span
-                    class="profile-val"
-                    id="prof-display-access">
-                    Full Access (Free)
-                </span>
-            </div>
-
-        </div>
-
-        <button
-            class="btn-primary"
-            onclick="closeProfile()">
-
-            Close Profile
 
         </button>
 
@@ -2043,152 +1869,146 @@ header{
 </div>
 
 <script>
-/* =========================================================
-   1. BACKGROUND PARTICLES
-   ========================================================= */
+/* TELEGRAM BINDING & AUTO-EXTRACT CHECK */
+window.telegramBoundUser = null;
 
-const canvas =
-    document.getElementById("particle-canvas");
+function verifyTelegramBinding(){
+    const tg = window.Telegram?.WebApp;
+    if(tg){
+        tg.ready();
+        tg.expand();
+    }
+    
+    const tgUser = tg?.initDataUnsafe?.user;
+    
+    // अगर यूज़र बाइंडेड नहीं है तो एक्सेस ब्लॉक करें
+    if(!tgUser || !tgUser.id){
+        document.getElementById("splash-screen").style.display = "none";
+        document.getElementById("binding-lock-screen").style.display = "flex";
+        return false;
+    }
 
+    // यूज़र डेटा एक्सट्रैक्ट करें
+    const fullName = `${tgUser.first_name || ''} ${tgUser.last_name || ''}`.trim() || 'Student';
+    const username = tgUser.username ? `@${tgUser.username}` : 'No Username';
+    const userId = tgUser.id;
+    const photoUrl = tgUser.photo_url || '';
+
+    window.telegramBoundUser = {
+        name: fullName,
+        username: username,
+        id: userId,
+        photo: photoUrl
+    };
+
+    localStorage.setItem("student_name", fullName);
+
+    // प्रोफाइल व्यू को यूज़र डेटा से अपडेट करें
+    document.getElementById("view-prof-name").textContent = fullName;
+    document.getElementById("view-prof-handle").textContent = username;
+    document.getElementById("view-prof-tgid").textContent = userId;
+
+    const avatarContainer = document.getElementById("profile-avatar-container");
+    if(photoUrl){
+        avatarContainer.innerHTML = `
+            <img src="${photoUrl}" class="profile-avatar-img" alt="Profile Picture" onerror="this.style.display='none'; document.getElementById('profile-avatar-fallback').style.display='flex';">
+            <div class="profile-avatar-fallback" id="profile-avatar-fallback" style="display:none;">${fullName.charAt(0)}</div>
+            <div class="profile-tg-badge">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .24z"></path></svg>
+            </div>
+        `;
+    }else{
+        document.getElementById("profile-avatar-fallback").textContent = fullName.charAt(0).toUpperCase();
+    }
+
+    return true;
+}
+
+/* TOP VIEW SWITCHING (STUDY & PROFILE) */
+window.switchMainView = function(viewName){
+    const btnStudy = document.getElementById("btn-top-study");
+    const btnProfile = document.getElementById("btn-top-profile");
+
+    const studyView = document.getElementById("main-study-view");
+    const profileView = document.getElementById("main-profile-view");
+
+    if(viewName === 'study'){
+        btnStudy.classList.add("active");
+        btnProfile.classList.remove("active");
+
+        studyView.style.display = "block";
+        profileView.classList.remove("active");
+        profileView.style.display = "none";
+    }else if(viewName === 'profile'){
+        btnProfile.classList.add("active");
+        btnStudy.classList.remove("active");
+
+        studyView.style.display = "none";
+        profileView.style.display = "block";
+        profileView.classList.add("active");
+    }
+
+    window.scrollTo({top:0, behavior:"smooth"});
+};
+
+/* ================= BACKGROUND PARTICLES ================= */
+
+const canvas = document.getElementById("particle-canvas");
 const ctx = canvas.getContext("2d");
 
 function resizeCanvas(){
-
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-
 }
 
 resizeCanvas();
-
-window.addEventListener(
-    "resize",
-    resizeCanvas
-);
+window.addEventListener("resize", resizeCanvas);
 
 const particles = [];
-
-const particleCount =
-    Math.min(
-        Math.floor(window.innerWidth / 15),
-        45
-    );
+const particleCount = Math.min(Math.floor(window.innerWidth / 15), 45);
 
 class Particle{
-
-    constructor(){
-        this.reset();
-    }
-
+    constructor(){ this.reset(); }
     reset(){
-
-        this.x =
-            Math.random() *
-            canvas.width;
-
-        this.y =
-            Math.random() *
-            canvas.height;
-
-        this.size =
-            Math.random() * 2 + .8;
-
-        this.speedX =
-            (Math.random()-.5)*.4;
-
-        this.speedY =
-            (Math.random()-.5)*.4;
-
-        this.opacity =
-            Math.random()*.5+.2;
-
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + .8;
+        this.speedX = (Math.random()-.5)*.4;
+        this.speedY = (Math.random()-.5)*.4;
+        this.opacity = Math.random()*.5+.2;
     }
-
     update(){
-
         this.x += this.speedX;
         this.y += this.speedY;
-
-        if(
-            this.x < 0 ||
-            this.x > canvas.width ||
-            this.y < 0 ||
-            this.y > canvas.height
-        ){
-
+        if(this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height){
             this.reset();
-
         }
-
     }
-
     draw(){
-
-        ctx.fillStyle =
-            `rgba(0,242,254,${this.opacity})`;
-
+        ctx.fillStyle = `rgba(0,242,254,${this.opacity})`;
         ctx.beginPath();
-
-        ctx.arc(
-            this.x,
-            this.y,
-            this.size,
-            0,
-            Math.PI*2
-        );
-
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
         ctx.fill();
-
     }
-
 }
 
-for(
-    let i=0;
-    i<particleCount;
-    i++
-){
-
-    particles.push(
-        new Particle()
-    );
-
+for(let i=0; i<particleCount; i++){
+    particles.push(new Particle());
 }
 
 function animateParticles(){
-
-    ctx.clearRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
-
-    particles.forEach(
-        p=>{
-            p.update();
-            p.draw();
-        }
-    );
-
-    requestAnimationFrame(
-        animateParticles
-    );
-
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p=>{ p.update(); p.draw(); });
+    requestAnimationFrame(animateParticles);
 }
-
 animateParticles();
 </script>
 
 <script type="module">
 
-/* =========================================================
-   2. FIREBASE IMPORTS
-   ========================================================= */
+/* ================= FIREBASE IMPORTS ================= */
 
-import {
-    initializeApp
-} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
 
 import {
     getDatabase,
@@ -2208,1044 +2028,318 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
 
-/* =========================================================
-   3. FIREBASE CONFIG
-   ========================================================= */
+/* ================= FIREBASE CONFIG ================= */
 
 const firebaseConfig = {
-
     apiKey:"AIzaSyAGJsBtv72SIH0rQjk42SMFgMb2DpzwlBI",
-
     authDomain:"ewhe-1827a.firebaseapp.com",
-
-    databaseURL:
-        "https://ewhe-1827a-default-rtdb.firebaseio.com/",
-
+    databaseURL:"https://ewhe-1827a-default-rtdb.firebaseio.com/",
     projectId:"ewhe-1827a",
-
     storageBucket:"ewhe-1827a.firebasestorage.app",
-
     messagingSenderId:"528686843390",
-
     appId:"1:528686843390:web:08daf51901bd1c58ffacaf"
-
 };
 
-const app =
-    initializeApp(firebaseConfig);
-
-const db =
-    getDatabase(app);
-
-const auth =
-    getAuth(app);
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+const auth = getAuth(app);
 
 
-/* =========================================================
-   4. LINK CONFIGURATION
-   ========================================================= */
+/* ================= LINK CONFIGURATION ================= */
 
 const KEY_CONFIG = {
-
-    TELEGRAM_URL:
-        "https://t.me/hrbseb10thallcorse"
-
+    TELEGRAM_URL:"https://t.me/hrbseb10thallcorse"
 };
 
 
-/* =========================================================
-   5. ACCESS SETTINGS
-   ========================================================= */
+/* ================= ACCESS SETTINGS ================= */
 
 window.CURRENT_APP_VERSION = "5";
-
 window.isUpdateMandatory = false;
-
 window.updateDownloadLink = "";
 
 window.firebaseUser = null;
 window.firebaseAuthReady = false;
 
 let realtimeUserRef = null;
-
 let totalSecondsSpent = 0;
-
 let trackingTimer = null;
-
 let isDataListeningStarted = false;
 
 
-/* =========================================================
-   6. LOCAL USER ID
-   ========================================================= */
+/* ================= LOCAL USER ID ================= */
 
-let userId =
-    localStorage.getItem(
-        "study_user_id"
-    );
+let userId = localStorage.getItem("study_user_id");
 
 if(!userId){
-
-    userId =
-        "usr_" +
-        Date.now() +
-        "_" +
-        Math.random()
-            .toString(36)
-            .substring(2,8);
-
-    localStorage.setItem(
-        "study_user_id",
-        userId
-    );
-
+    userId = "usr_" + Date.now() + "_" + Math.random().toString(36).substring(2,8);
+    localStorage.setItem("study_user_id", userId);
 }
 
 
-/* =========================================================
-   7. AUTH & INITIALIZATION
-   ========================================================= */
+/* ================= AUTH & INITIALIZATION ================= */
 
-signInAnonymously(auth)
-.catch(error=>{
-    console.error(
-        "Anonymous authentication failed:",
-        error
-    );
-    // Auth fail hone par bhi database load karne ki koshish karein
+signInAnonymously(auth).catch(error=>{
+    console.error("Anonymous authentication failed:", error);
     startDatabaseListeners();
 });
 
-onAuthStateChanged(
-    auth,
-    async user=>{
+onAuthStateChanged(auth, async user=>{
+    if(user){
+        window.firebaseUser = user;
+        userId = user.uid;
+        localStorage.setItem("study_user_id", userId);
+        window.firebaseAuthReady = true;
 
-        if(user){
-
-            window.firebaseUser = user;
-
-            userId = user.uid;
-
-            localStorage.setItem(
-                "study_user_id",
-                userId
-            );
-
-            window.firebaseAuthReady = true;
-
-            try{
-                await startUserRealtime();
-            }catch(error){
-                console.error(
-                    "User realtime setup failed:",
-                    error
-                );
-            }
-
-        }else{
-            window.firebaseUser = null;
-            window.firebaseAuthReady = false;
+        try{
+            await startUserRealtime();
+        }catch(error){
+            console.error("User realtime setup failed:", error);
         }
-
-        // Auth ready hote hi ya change hone par listeners confirm karein
-        startDatabaseListeners();
+    }else{
+        window.firebaseUser = null;
+        window.firebaseAuthReady = false;
     }
-);
+    startDatabaseListeners();
+});
 
 
-/* =========================================================
-   8. USER REALTIME RECORD
-   ========================================================= */
+/* ================= USER REALTIME RECORD ================= */
 
 async function startUserRealtime(){
+    if(!window.firebaseUser) return;
 
-    if(!window.firebaseUser){
-        return;
-    }
+    realtimeUserRef = ref(db, "users/" + userId);
 
-    realtimeUserRef =
-        ref(
-            db,
-            "users/" + userId
-        );
-
-    onValue(
-        realtimeUserRef,
-        snapshot=>{
-
-            if(!snapshot.exists()){
-                return;
-            }
-
-            const data =
-                snapshot.val();
-
-            if(data.totalSeconds){
-
-                totalSecondsSpent =
-                    Number(
-                        data.totalSeconds
-                    );
-
-            }
-
+    onValue(realtimeUserRef, snapshot=>{
+        if(!snapshot.exists()) return;
+        const data = snapshot.val();
+        if(data.totalSeconds){
+            totalSecondsSpent = Number(data.totalSeconds);
+            updateProfileTimeDisplay();
         }
-    );
+    });
+}
 
+function updateProfileTimeDisplay(){
+    const hrs = Math.floor(totalSecondsSpent / 3600);
+    const mins = Math.floor((totalSecondsSpent % 3600) / 60);
+    const timeText = `${hrs}h ${mins}m`;
+    const elem = document.getElementById("view-prof-time");
+    if(elem) elem.textContent = timeText;
 }
 
 
-/* =========================================================
-   9. REGISTER / SAVE STUDENT
-   ========================================================= */
+/* ================= STUDENT TRACKING ================= */
 
-window.saveStudentData =
-    async function(){
+async function initStudentTracking(){
+    if(!window.firebaseUser) return;
 
-        const input =
-            document.getElementById(
-                "input-student-name"
-            );
+    const boundName = window.telegramBoundUser?.name || localStorage.getItem("student_name") || "Telegram Student";
 
-        const name =
-            input.value.trim();
+    const userRef = ref(db, "users/" + userId);
 
-        if(!name){
-
-            alert(
-                "Please enter your valid name."
-            );
-
-            return;
-
-        }
-
-        localStorage.setItem(
-            "student_name",
-            name
-        );
-
-        const onboard =
-            document.getElementById(
-                "onboard-modal"
-            );
-
-        onboard.classList.remove(
-            "active"
-        );
-
-        setTimeout(
-            ()=>{
-                onboard.style.display =
-                    "none";
-            },
-            400
-        );
-
-        await initStudentTracking(
-            name
-        );
-
-        setTimeout(
-            ()=>{
-                showTelegramIfNeeded();
-            },
-            450
-        );
-
-    };
-
-
-/* =========================================================
-   10. STUDENT TRACKING
-   ========================================================= */
-
-async function initStudentTracking(name){
-
-    if(!window.firebaseUser){
-        return;
-    }
-
-    const userRef =
-        ref(
-            db,
-            "users/" + userId
-        );
-
-    onValue(
-        userRef,
-        snapshot=>{
-
-            if(
-                snapshot.exists()
-            ){
-
-                const data =
-                    snapshot.val();
-
-                if(data.totalSeconds){
-
-                    totalSecondsSpent =
-                        Number(
-                            data.totalSeconds
-                        );
-
-                }
-
+    onValue(userRef, snapshot=>{
+        if(snapshot.exists()){
+            const data = snapshot.val();
+            if(data.totalSeconds){
+                totalSecondsSpent = Number(data.totalSeconds);
+                updateProfileTimeDisplay();
             }
-
-        },
-        {
-            onlyOnce:true
         }
-    );
+    }, { onlyOnce:true });
 
-    await update(
-        userRef,
-        {
+    await update(userRef, {
+        id: userId,
+        uid: userId,
+        deviceId: userId,
+        name: boundName,
+        telegramId: window.telegramBoundUser?.id || '',
+        telegramUsername: window.telegramBoundUser?.username || '',
+        online: true,
+        lastSeen: serverTimestamp()
+    });
 
-            id:userId,
-
-            uid:userId,
-
-            deviceId:userId,
-
-            name:name,
-
-            online:true,
-
-            lastSeen:
-                serverTimestamp()
-
-        }
-    );
-
-    onDisconnect(
-        ref(
-            db,
-            `users/${userId}/online`
-        )
-    ).set(false);
-
-    onDisconnect(
-        ref(
-            db,
-            `users/${userId}/lastSeen`
-        )
-    ).set(
-        serverTimestamp()
-    );
+    onDisconnect(ref(db, `users/${userId}/online`)).set(false);
+    onDisconnect(ref(db, `users/${userId}/lastSeen`)).set(serverTimestamp());
 
     if(!trackingTimer){
-
-        trackingTimer =
-            setInterval(
-                ()=>{
-
-                    totalSecondsSpent += 5;
-
-                    update(
-                        userRef,
-                        {
-
-                            totalSeconds:
-                                totalSecondsSpent,
-
-                            online:true,
-
-                            lastSeen:
-                                serverTimestamp()
-
-                        }
-                    );
-
-                },
-                5000
-            );
-
+        trackingTimer = setInterval(()=>{
+            totalSecondsSpent += 5;
+            updateProfileTimeDisplay();
+            update(userRef, {
+                totalSeconds: totalSecondsSpent,
+                online: true,
+                lastSeen: serverTimestamp()
+            });
+        }, 5000);
     }
-
 }
 
 
-/* =========================================================
-   11. TELEGRAM
-   ========================================================= */
+/* ================= TELEGRAM ================= */
 
 function showTelegramIfNeeded(){
-
-    if(
-        !sessionStorage.getItem(
-            "telegram_popup_seen"
-        )
-    ){
-
-        document
-            .getElementById(
-                "tg-modal"
-            )
-            .classList.add("active");
-
+    if(!sessionStorage.getItem("telegram_popup_seen")){
+        document.getElementById("tg-modal").classList.add("active");
     }
-
 }
 
-window.closeTelegram =
-    function(){
+window.closeTelegram = function(){
+    sessionStorage.setItem("telegram_popup_seen", "1");
+    document.getElementById("tg-modal").classList.remove("active");
+};
 
-        sessionStorage.setItem(
-            "telegram_popup_seen",
-            "1"
-        );
-
-        document
-            .getElementById(
-                "tg-modal"
-            )
-            .classList.remove(
-                "active"
-            );
-
-    };
+window.joinTelegram = function(){
+    sessionStorage.setItem("telegram_popup_seen", "1");
+    document.getElementById("tg-modal").classList.remove("active");
+    launchExternal(KEY_CONFIG.TELEGRAM_URL, "Connecting to Telegram...");
+};
 
 
-window.joinTelegram =
-    function(){
+/* ================= APP ACCESS ================= */
 
-        sessionStorage.setItem(
-            "telegram_popup_seen",
-            "1"
-        );
+window.launchApp = function(url){
+    if(!url || window.isUpdateMandatory) return;
+    launchExternal(url, "Launching Platform...");
+};
 
-        document
-            .getElementById(
-                "tg-modal"
-            )
-            .classList.remove(
-                "active"
-            );
-
-        launchExternal(
-            KEY_CONFIG.TELEGRAM_URL,
-            "Connecting to Telegram..."
-        );
-
-    };
-
-
-/* =========================================================
-   12. APP ACCESS (DIRECT LAUNCH)
-   ========================================================= */
-
-window.launchApp =
-    function(url){
-
-        if(!url){
-            return;
-        }
-
-        if(window.isUpdateMandatory){
-            return;
-        }
-
-        launchExternal(
-            url,
-            "Launching Platform..."
-        );
-
-    };
-
-
-/* =========================================================
-   13. EXTERNAL LAUNCH
-   ========================================================= */
-
-function launchExternal(
-    url,
-    message
-){
-
+function launchExternal(url, message){
     if(!url){
-
-        alert(
-            "Link is not configured."
-        );
-
+        alert("Link is not configured.");
         return;
-
     }
-
-    const loader =
-        document.getElementById(
-            "launch-loader"
-        );
-
-    const text =
-        document.getElementById(
-            "loader-text"
-        );
-
-    text.textContent =
-        message ||
-        "Launching...";
-
-    loader.classList.add(
-        "active"
-    );
-
-    setTimeout(
-        ()=>{
-
-            window.location.href =
-                url;
-
-        },
-        650
-    );
-
+    const loader = document.getElementById("launch-loader");
+    const text = document.getElementById("loader-text");
+    text.textContent = message || "Launching...";
+    loader.classList.add("active");
+    setTimeout(()=>{ window.location.href = url; }, 650);
 }
 
 
-/* =========================================================
-   14. PROFILE
-   ========================================================= */
+/* ================= TABS ================= */
 
-window.openProfile =
-    function(){
+window.switchTab = function(tabName, element){
+    document.querySelectorAll(".view-section").forEach(el => el.classList.remove("active"));
+    document.querySelectorAll(".nav-item").forEach(el => el.classList.remove("active"));
 
-        const name =
-            localStorage.getItem(
-                "student_name"
-            ) ||
-            "Not Registered";
+    document.getElementById("view-" + tabName).classList.add("active");
+    element.classList.add("active");
 
-        document
-            .getElementById(
-                "prof-display-name"
-            )
-            .textContent =
-                name;
-
-        const hrs =
-            Math.floor(
-                totalSecondsSpent /
-                3600
-            );
-
-        const mins =
-            Math.floor(
-                (totalSecondsSpent %
-                3600) / 60
-            );
-
-        document
-            .getElementById(
-                "prof-display-time"
-            )
-            .textContent =
-                `${hrs}h ${mins}m`;
-
-        document
-            .getElementById(
-                "prof-display-access"
-            )
-            .textContent =
-                "Full Access (Free)";
-
-        const modal =
-            document.getElementById(
-                "profile-modal"
-            );
-
-        modal.style.display =
-            "flex";
-
-        setTimeout(
-            ()=>{
-                modal.classList.add(
-                    "active"
-                );
-            },
-            30
-        );
-
-    };
+    window.scrollTo({ top:0, behavior:"smooth" });
+};
 
 
-window.closeProfile =
-    function(){
+/* ================= SEARCH ================= */
 
-        const modal =
-            document.getElementById(
-                "profile-modal"
-            );
-
-        modal.classList.remove(
-            "active"
-        );
-
-        setTimeout(
-            ()=>{
-                modal.style.display =
-                    "none";
-            },
-            350
-        );
-
-    };
+window.filterApps = function(){
+    const query = document.getElementById("app-search-input").value.toLowerCase().trim();
+    document.querySelectorAll("#apps-container .app-card").forEach(card=>{
+        const title = card.querySelector(".card-title").textContent.toLowerCase();
+        const desc = card.querySelector(".card-desc").textContent.toLowerCase();
+        card.style.display = (title.includes(query) || desc.includes(query)) ? "flex" : "none";
+    });
+};
 
 
-/* =========================================================
-   15. TABS
-   ========================================================= */
-
-window.switchTab =
-    function(
-        tabName,
-        element
-    ){
-
-        document
-            .querySelectorAll(
-                ".view-section"
-            )
-            .forEach(
-                el =>
-                    el.classList.remove(
-                        "active"
-                    )
-            );
-
-        document
-            .querySelectorAll(
-                ".nav-item"
-            )
-            .forEach(
-                el =>
-                    el.classList.remove(
-                        "active"
-                    )
-            );
-
-        document
-            .getElementById(
-                "view-" + tabName
-            )
-            .classList.add(
-                "active"
-            );
-
-        element.classList.add(
-            "active"
-        );
-
-        window.scrollTo({
-            top:0,
-            behavior:"smooth"
-        });
-
-    };
-
-
-/* =========================================================
-   16. SEARCH
-   ========================================================= */
-
-window.filterApps =
-    function(){
-
-        const query =
-            document
-                .getElementById(
-                    "app-search-input"
-                )
-                .value
-                .toLowerCase()
-                .trim();
-
-        document
-            .querySelectorAll(
-                "#apps-container .app-card"
-            )
-            .forEach(
-                card=>{
-
-                    const title =
-                        card
-                            .querySelector(
-                                ".card-title"
-                            )
-                            .textContent
-                            .toLowerCase();
-
-                    const desc =
-                        card
-                            .querySelector(
-                                ".card-desc"
-                            )
-                            .textContent
-                            .toLowerCase();
-
-                    card.style.display =
-                        (
-                            title.includes(query) ||
-                            desc.includes(query)
-                        )
-                        ? "flex"
-                        : "none";
-
-                }
-            );
-
-    };
-
-
-/* =========================================================
-   17. UPDATE SYSTEM
-   ========================================================= */
+/* ================= UPDATE SYSTEM ================= */
 
 function listenToUpdates(){
+    const updateRef = ref(db, "appUpdate/live");
+    onValue(updateRef, snapshot=>{
+        if(!snapshot.exists()) return;
+        const data = snapshot.val();
+        if(!data || data.enabled === false) return;
 
-    const updateRef =
-        ref(
-            db,
-            "appUpdate/live"
-        );
+        const currentVer = parseFloat(String(window.CURRENT_APP_VERSION).replace(/[^0-9.]/g, ""));
+        const liveVer = parseFloat(String(data.version || "0").replace(/[^0-9.]/g, ""));
 
-    onValue(
-        updateRef,
-        snapshot=>{
+        if(liveVer > currentVer){
+            window.isUpdateMandatory = true;
+            window.updateDownloadLink = data.downloadLink || "";
 
-            if(!snapshot.exists()){
-                return;
-            }
-
-            const data =
-                snapshot.val();
-
-            if(
-                !data ||
-                data.enabled === false
-            ){
-                return;
-            }
-
-            const currentVer =
-                parseFloat(
-                    String(
-                        window.CURRENT_APP_VERSION
-                    )
-                    .replace(
-                        /[^0-9.]/g,
-                        ""
-                    )
-                );
-
-            const liveVer =
-                parseFloat(
-                    String(
-                        data.version || "0"
-                    )
-                    .replace(
-                        /[^0-9.]/g,
-                        ""
-                    )
-                );
-
-            if(
-                liveVer > currentVer
-            ){
-
-                window.isUpdateMandatory =
-                    true;
-
-                window.updateDownloadLink =
-                    data.downloadLink || "";
-
-                document
-                    .getElementById(
-                        "update-version-text"
-                    )
-                    .textContent =
-                        `VERSION ${data.version}`;
-
-                document
-                    .getElementById(
-                        "update-important-message"
-                    )
-                    .textContent =
-                        data.importantMessage ||
-                        "A new update is available.";
-
-                document
-                    .getElementById(
-                        "update-modal"
-                    )
-                    .style.display =
-                        "flex";
-
-                setTimeout(
-                    ()=>{
-                        document
-                            .getElementById(
-                                "update-modal"
-                            )
-                            .classList.add(
-                                "active"
-                            );
-                    },
-                    40
-                );
-
-            }
-
-        },
-        error => {
-            console.error("Update listener error:", error);
+            document.getElementById("update-version-text").textContent = `VERSION ${data.version}`;
+            document.getElementById("update-important-message").textContent = data.importantMessage || "A new update is available.";
+            
+            const modal = document.getElementById("update-modal");
+            modal.style.display = "flex";
+            setTimeout(()=>{ modal.classList.add("active"); }, 40);
         }
-    );
+    });
 }
 
-window.processUpdate =
-    function(){
-
-        if(
-            !window.updateDownloadLink
-        ){
-
-            return;
-
-        }
-
-        launchExternal(
-            window.updateDownloadLink,
-            "Downloading Update..."
-        );
-
-    };
+window.processUpdate = function(){
+    if(!window.updateDownloadLink) return;
+    launchExternal(window.updateDownloadLink, "Downloading Update...");
+};
 
 
-/* =========================================================
-   18. FETCH PUBLISHED APPS
-   ========================================================= */
+/* ================= FETCH PUBLISHED APPS ================= */
 
 function listenToApps(){
+    onValue(ref(db,"apps"), snapshot=>{
+        const container = document.getElementById("apps-container");
+        if(!container) return;
+        container.innerHTML = "";
 
-    onValue(
-        ref(db,"apps"),
-        snapshot=>{
-
-            const container =
-                document.getElementById(
-                    "apps-container"
-                );
-
-            if(!container) return;
-
-            container.innerHTML = "";
-
-            const appsList = [];
-
-            if(snapshot.exists()){
-
-                const data =
-                    snapshot.val();
-
-                Object.keys(data)
-                    .forEach(
-                        key=>{
-
-                            const item =
-                                data[key];
-
-                            if(
-                                item &&
-                                item.status ===
-                                    "Published"
-                            ){
-
-                                appsList.push({
-                                    id:key,
-                                    ...item
-                                });
-
-                            }
-
-                        }
-                    );
-
-            }
-
-            appsList.sort(
-                (a,b)=>
-                    (
-                        Number(a.order)||999
-                    ) -
-                    (
-                        Number(b.order)||999
-                    )
-            );
-
-            if(!appsList.length){
-
-                container.innerHTML =
-                    `<div class="empty-state">
-                        <div class="empty-text">
-                            No Platforms Available
-                        </div>
-                    </div>`;
-
-                return;
-
-            }
-
-            appsList.forEach(
-                appData=>{
-
-                    const card =
-                        document.createElement(
-                            "div"
-                        );
-
-                    card.className =
-                        "app-card";
-
-                    card.onclick =
-                        ()=>{
-                            launchApp(
-                                appData.link
-                            );
-                        };
-
-                    const img =
-                        document.createElement(
-                            "img"
-                        );
-
-                    img.className =
-                        "card-logo";
-
-                    img.src =
-                        appData.logo ||
-                        "https://i.postimg.cc/D0nfWPDg/IMG-20260816-100335.png";
-
-                    img.onerror =
-                        ()=>{
-                            img.src =
-                                "https://i.postimg.cc/D0nfWPDg/IMG-20260816-100335.png";
-                        };
-
-                    img.alt =
-                        appData.name || "App Logo";
-
-                    const content =
-                        document.createElement(
-                            "div"
-                        );
-
-                    content.className =
-                        "card-content";
-
-                    const title =
-                        document.createElement(
-                            "div"
-                        );
-
-                    title.className =
-                        "card-title";
-
-                    title.textContent =
-                        appData.name || "Platform";
-
-                    const desc =
-                        document.createElement(
-                            "div"
-                        );
-
-                    desc.className =
-                        "card-desc";
-
-                    desc.textContent =
-                        appData.description ||
-                        "Open platform to explore content.";
-
-                    content.appendChild(
-                        title
-                    );
-
-                    content.appendChild(
-                        desc
-                    );
-
-                    const action =
-                        document.createElement(
-                            "div"
-                        );
-
-                    action.className =
-                        "card-action-btn";
-
-                    action.innerHTML =
-                        `<svg viewBox="0 0 24 24">
-                            <line x1="5" y1="12"
-                                  x2="19" y2="12"></line>
-                            <polyline points="12 5 19 12 12 19"></polyline>
-                        </svg>`;
-
-                    card.appendChild(img);
-                    card.appendChild(content);
-                    card.appendChild(action);
-
-                    container.appendChild(card);
-
+        const appsList = [];
+        if(snapshot.exists()){
+            const data = snapshot.val();
+            Object.keys(data).forEach(key=>{
+                const item = data[key];
+                if(item && item.status === "Published"){
+                    appsList.push({ id:key, ...item });
                 }
-            );
-
-        },
-        error => {
-            console.error("Apps fetch error:", error);
-            const container = document.getElementById("apps-container");
-            if(container){
-                container.innerHTML =
-                    `<div class="empty-state">
-                        <div class="empty-text" style="color:#ff4d8d;">
-                            Failed to load platforms. Please refresh or check connection.
-                        </div>
-                    </div>`;
-            }
+            });
         }
-    );
 
+        appsList.sort((a,b)=>(Number(a.order)||999) - (Number(b.order)||999));
+
+        if(!appsList.length){
+            container.innerHTML = `<div class="empty-state"><div class="empty-text">No Platforms Available</div></div>`;
+            return;
+        }
+
+        appsList.forEach(appData=>{
+            const card = document.createElement("div");
+            card.className = "app-card";
+            card.onclick = ()=>{ launchApp(appData.link); };
+
+            const img = document.createElement("img");
+            img.className = "card-logo";
+            img.src = appData.logo || "https://i.postimg.cc/D0nfWPDg/IMG-20260816-100335.png";
+            img.onerror = ()=>{ img.src = "https://i.postimg.cc/D0nfWPDg/IMG-20260816-100335.png"; };
+            img.alt = appData.name || "App Logo";
+
+            const content = document.createElement("div");
+            content.className = "card-content";
+
+            const title = document.createElement("div");
+            title.className = "card-title";
+            title.textContent = appData.name || "Platform";
+
+            const desc = document.createElement("div");
+            desc.className = "card-desc";
+            desc.textContent = appData.description || "Open platform to explore content.";
+
+            content.appendChild(title);
+            content.appendChild(desc);
+
+            const action = document.createElement("div");
+            action.className = "card-action-btn";
+            action.innerHTML = `<svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>`;
+
+            card.appendChild(img);
+            card.appendChild(content);
+            card.appendChild(action);
+
+            container.appendChild(card);
+        });
+    });
 }
 
 
-/* =========================================================
-   18B. PROMO BANNER (HERO SLIDER + ANALYTICS)
-
-   Firebase data shape (written by the admin panel):
-
-   banners/{bannerId} = {
-       imageUrl : string   (required, 16:9 image)
-       linkUrl  : string   (opened when the slide is tapped)
-       text     : string   (optional caption shown over the image)
-       order    : number   (optional, controls slide order)
-       active   : boolean  (optional, false hides the banner)
-   }
-
-   bannerAnalytics/{bannerId} = {
-       totalViews             : number (every time a slide is shown)
-       totalClicks            : number (every time a slide is tapped)
-       uniqueViewers/{userId} : true   (lifetime unique viewers)
-       clickUsers/{userId}    : true   (lifetime unique clickers)
-       dailyStats/{YYYY-MM-DD}/totalViews          : number
-       dailyStats/{YYYY-MM-DD}/totalClicks         : number
-       dailyStats/{YYYY-MM-DD}/uniqueUsers/{userId}: true
-
-   An admin dashboard can read totalViews / uniqueViewers for
-   all-time numbers, sum today's dailyStats entry for a 24-hour
-   figure, and sum the last 7 dailyStats date-keys for a 7-day
-   figure.
-   ========================================================= */
+/* ================= PROMO BANNER ================= */
 
 let bannerList = [];
 let bannerIndex = 0;
@@ -3255,265 +2349,143 @@ let bannerSwipeStartX = 0;
 let bannerWasDragged = false;
 
 function bannerDateKey(){
-
     const d = new Date();
-
-    return (
-        d.getFullYear() +
-        "-" +
-        String(d.getMonth() + 1).padStart(2, "0") +
-        "-" +
-        String(d.getDate()).padStart(2, "0")
-    );
-
+    return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
 }
 
 function listenToBanners(){
+    onValue(ref(db, "banners"), snapshot => {
+        const wrapper = document.getElementById("promo-banner-wrapper");
+        const track = document.getElementById("promo-banner-track");
+        const dotsBox = document.getElementById("promo-banner-dots");
+        if(!wrapper || !track || !dotsBox) return;
 
-    onValue(
-        ref(db, "banners"),
-        snapshot => {
+        const list = [];
+        if(snapshot.exists()){
+            const data = snapshot.val();
+            Object.keys(data).forEach(key => {
+                const b = data[key];
+                if(b && b.imageUrl && b.active !== false){
+                    list.push({ id:key, ...b });
+                }
+            });
+        }
 
-            const wrapper =
-                document.getElementById("promo-banner-wrapper");
+        list.sort((a, b) => (Number(a.order) || 999) - (Number(b.order) || 999));
+        bannerList = list;
+        bannerIndex = 0;
 
-            const track =
-                document.getElementById("promo-banner-track");
+        stopBannerAutoplay();
 
-            const dotsBox =
-                document.getElementById("promo-banner-dots");
-
-            if(!wrapper || !track || !dotsBox) return;
-
-            const list = [];
-
-            if(snapshot.exists()){
-
-                const data = snapshot.val();
-
-                Object.keys(data).forEach(key => {
-
-                    const b = data[key];
-
-                    if(b && b.imageUrl && b.active !== false){
-                        list.push({ id:key, ...b });
-                    }
-
-                });
-
-            }
-
-            list.sort(
-                (a, b) =>
-                    (Number(a.order) || 999) -
-                    (Number(b.order) || 999)
-            );
-
-            bannerList = list;
-            bannerIndex = 0;
-
-            stopBannerAutoplay();
-
-            if(!list.length){
-                wrapper.classList.remove("has-banners");
-                track.innerHTML = "";
-                dotsBox.innerHTML = "";
-                return;
-            }
-
-            wrapper.classList.add("has-banners");
-
+        if(!list.length){
+            wrapper.classList.remove("has-banners");
             track.innerHTML = "";
             dotsBox.innerHTML = "";
+            return;
+        }
 
-            list.forEach((banner, i) => {
+        wrapper.classList.add("has-banners");
+        track.innerHTML = "";
+        dotsBox.innerHTML = "";
 
-                const slide =
-                    document.createElement("div");
+        list.forEach((banner, i) => {
+            const slide = document.createElement("div");
+            slide.className = "promo-banner-slide";
 
-                slide.className = "promo-banner-slide";
+            const img = document.createElement("img");
+            img.src = banner.imageUrl;
+            img.alt = banner.text || "Banner";
+            img.loading = "lazy";
 
-                const img =
-                    document.createElement("img");
+            slide.appendChild(img);
 
-                img.src = banner.imageUrl;
-                img.alt = banner.text || "Banner";
-                img.loading = "lazy";
+            if(banner.text){
+                const textBar = document.createElement("div");
+                textBar.className = "promo-banner-textbar";
+                textBar.textContent = banner.text;
+                slide.appendChild(textBar);
+            }
 
-                slide.appendChild(img);
-
-                if(banner.text){
-
-                    const textBar =
-                        document.createElement("div");
-
-                    textBar.className = "promo-banner-textbar";
-                    textBar.textContent = banner.text;
-
-                    slide.appendChild(textBar);
-
-                }
-
-                slide.addEventListener("click", () => {
-
-                    if(bannerWasDragged) return;
-
-                    handleBannerClick(
-                        banner.id,
-                        banner.linkUrl
-                    );
-
-                });
-
-                track.appendChild(slide);
-
-                const dot =
-                    document.createElement("div");
-
-                dot.className =
-                    "promo-banner-dot" +
-                    (i === 0 ? " active" : "");
-
-                dotsBox.appendChild(dot);
-
+            slide.addEventListener("click", () => {
+                if(bannerWasDragged) return;
+                handleBannerClick(banner.id, banner.linkUrl);
             });
 
-            updateBannerTrackPosition();
-            trackBannerView(list[0].id);
-            startBannerAutoplay();
-            setupBannerSwipe();
+            track.appendChild(slide);
 
-        },
-        error => {
-            console.error("Banner fetch error:", error);
-        }
-    );
+            const dot = document.createElement("div");
+            dot.className = "promo-banner-dot" + (i === 0 ? " active" : "");
+            dotsBox.appendChild(dot);
+        });
 
+        updateBannerTrackPosition();
+        trackBannerView(list[0].id);
+        startBannerAutoplay();
+        setupBannerSwipe();
+    });
 }
 
 function updateBannerTrackPosition(){
-
-    const track =
-        document.getElementById("promo-banner-track");
-
-    const dotsBox =
-        document.getElementById("promo-banner-dots");
-
+    const track = document.getElementById("promo-banner-track");
+    const dotsBox = document.getElementById("promo-banner-dots");
     if(!track) return;
-
-    track.style.transform =
-        `translateX(-${bannerIndex * 100}%)`;
+    track.style.transform = `translateX(-${bannerIndex * 100}%)`;
 
     if(dotsBox){
-
         Array.from(dotsBox.children).forEach((dot, i) => {
             dot.classList.toggle("active", i === bannerIndex);
         });
-
     }
-
 }
 
 function goToBannerSlide(index){
-
     if(!bannerList.length) return;
-
-    bannerIndex =
-        (index + bannerList.length) % bannerList.length;
-
+    bannerIndex = (index + bannerList.length) % bannerList.length;
     updateBannerTrackPosition();
     trackBannerView(bannerList[bannerIndex].id);
-
 }
 
 function startBannerAutoplay(){
-
     stopBannerAutoplay();
-
     if(bannerList.length < 2) return;
-
-    bannerAutoplayTimer =
-        setInterval(
-            () => {
-                goToBannerSlide(bannerIndex + 1);
-            },
-            5000
-        );
-
+    bannerAutoplayTimer = setInterval(() => { goToBannerSlide(bannerIndex + 1); }, 5000);
 }
 
 function stopBannerAutoplay(){
-
     if(bannerAutoplayTimer){
         clearInterval(bannerAutoplayTimer);
         bannerAutoplayTimer = null;
     }
-
 }
 
 function setupBannerSwipe(){
-
-    const viewport =
-        document.querySelector(".promo-banner-viewport");
-
+    const viewport = document.querySelector(".promo-banner-viewport");
     if(!viewport || viewport.dataset.swipeReady) return;
-
     viewport.dataset.swipeReady = "true";
 
-    viewport.addEventListener(
-        "touchstart",
-        e => {
-            bannerSwipeStartX = e.touches[0].clientX;
-            bannerWasDragged = false;
-            stopBannerAutoplay();
-        },
-        { passive:true }
-    );
+    viewport.addEventListener("touchstart", e => {
+        bannerSwipeStartX = e.touches[0].clientX;
+        bannerWasDragged = false;
+        stopBannerAutoplay();
+    }, { passive:true });
 
-    viewport.addEventListener(
-        "touchmove",
-        e => {
+    viewport.addEventListener("touchmove", e => {
+        const diff = e.touches[0].clientX - bannerSwipeStartX;
+        if(Math.abs(diff) > 10) bannerWasDragged = true;
+    }, { passive:true });
 
-            const diff =
-                e.touches[0].clientX - bannerSwipeStartX;
-
-            if(Math.abs(diff) > 10){
-                bannerWasDragged = true;
-            }
-
-        },
-        { passive:true }
-    );
-
-    viewport.addEventListener(
-        "touchend",
-        e => {
-
-            const diff =
-                e.changedTouches[0].clientX -
-                bannerSwipeStartX;
-
-            if(Math.abs(diff) > 40 && bannerList.length > 1){
-
-                if(diff < 0){
-                    goToBannerSlide(bannerIndex + 1);
-                }else{
-                    goToBannerSlide(bannerIndex - 1);
-                }
-
-            }
-
-            startBannerAutoplay();
-
+    viewport.addEventListener("touchend", e => {
+        const diff = e.changedTouches[0].clientX - bannerSwipeStartX;
+        if(Math.abs(diff) > 40 && bannerList.length > 1){
+            if(diff < 0) goToBannerSlide(bannerIndex + 1);
+            else goToBannerSlide(bannerIndex - 1);
         }
-    );
-
+        startBannerAutoplay();
+    });
 }
 
 async function trackBannerView(bannerId){
-
     if(!bannerId) return;
-
     const date = bannerDateKey();
     const sessionKey = bannerId + "_" + date;
 
@@ -3521,265 +2493,108 @@ async function trackBannerView(bannerId){
     bannerViewedThisSession.add(sessionKey);
 
     try{
-
-        const uniqueTodaySnap =
-            await get(
-                ref(
-                    db,
-                    `bannerAnalytics/${bannerId}/dailyStats/${date}/uniqueUsers/${userId}`
-                )
-            );
-
+        const uniqueTodaySnap = await get(ref(db, `bannerAnalytics/${bannerId}/dailyStats/${date}/uniqueUsers/${userId}`));
         const updates = {
-
-            totalViews:
-                increment(1),
-
-            [`dailyStats/${date}/totalViews`]:
-                increment(1),
-
-            [`dailyStats/${date}/uniqueUsers/${userId}`]:
-                true,
-
-            lastViewedAt:
-                serverTimestamp()
-
+            totalViews: increment(1),
+            [`dailyStats/${date}/totalViews`]: increment(1),
+            [`dailyStats/${date}/uniqueUsers/${userId}`]: true,
+            lastViewedAt: serverTimestamp()
         };
-
         if(!uniqueTodaySnap.exists()){
             updates[`uniqueViewers/${userId}`] = true;
         }
-
-        await update(
-            ref(db, `bannerAnalytics/${bannerId}`),
-            updates
-        );
-
+        await update(ref(db, `bannerAnalytics/${bannerId}`), updates);
     }catch(error){
         console.error("Banner view tracking failed:", error);
     }
-
 }
 
 async function trackBannerClick(bannerId){
-
     if(!bannerId) return;
-
     const date = bannerDateKey();
-
     try{
-
-        await update(
-            ref(db, `bannerAnalytics/${bannerId}`),
-            {
-
-                totalClicks:
-                    increment(1),
-
-                [`dailyStats/${date}/totalClicks`]:
-                    increment(1),
-
-                [`clickUsers/${userId}`]:
-                    true,
-
-                lastClickedAt:
-                    serverTimestamp()
-
-            }
-        );
-
+        await update(ref(db, `bannerAnalytics/${bannerId}`), {
+            totalClicks: increment(1),
+            [`dailyStats/${date}/totalClicks`]: increment(1),
+            [`clickUsers/${userId}`]: true,
+            lastClickedAt: serverTimestamp()
+        });
     }catch(error){
         console.error("Banner click tracking failed:", error);
     }
-
 }
 
 function handleBannerClick(bannerId, url){
-
     trackBannerClick(bannerId);
-
-    if(url){
-        launchExternal(url, "Opening...");
-    }else{
-        alert("This banner has no link configured.");
-    }
-
+    if(url) launchExternal(url, "Opening...");
+    else alert("This banner has no link configured.");
 }
 
 
-/* =========================================================
-   19. UPCOMING
-   ========================================================= */
+/* ================= UPCOMING ================= */
 
 function listenToUpcoming(){
+    onValue(ref(db,"upcoming"), snapshot=>{
+        const container = document.getElementById("upcoming-container");
+        if(!container) return;
+        container.innerHTML = "";
 
-    onValue(
-        ref(db,"upcoming"),
-        snapshot=>{
-
-            const container =
-                document.getElementById(
-                    "upcoming-container"
-                );
-
-            if(!container) return;
-
-            container.innerHTML = "";
-
-            const list = [];
-
-            if(snapshot.exists()){
-
-                const data =
-                    snapshot.val();
-
-                Object.keys(data)
-                    .forEach(
-                        key=>{
-
-                            list.push({
-                                id:key,
-                                ...data[key]
-                            });
-
-                        }
-                    );
-
-            }
-
-            list.sort(
-                (a,b)=>
-                    (
-                        Number(a.order)||999
-                    ) -
-                    (
-                        Number(b.order)||999
-                    )
-            );
-
-            if(!list.length){
-
-                container.innerHTML =
-                    `<div class="empty-state">
-                        <div class="empty-text">
-                            No Upcoming Releases
-                        </div>
-                    </div>`;
-
-                return;
-
-            }
-
-            list.forEach(
-                item=>{
-
-                    const card =
-                        document.createElement(
-                            "div"
-                        );
-
-                    card.className =
-                        "app-card";
-
-                    card.style.cursor =
-                        "default";
-
-                    const img =
-                        document.createElement(
-                            "img"
-                        );
-
-                    img.className =
-                        "card-logo";
-
-                    img.src =
-                        item.logo ||
-                        "https://i.postimg.cc/D0nfWPDg/IMG-20260816-100335.png";
-
-                    img.onerror =
-                        ()=>{
-                            img.src =
-                                "https://i.postimg.cc/D0nfWPDg/IMG-20260816-100335.png";
-                        };
-
-                    const content =
-                        document.createElement(
-                            "div"
-                        );
-
-                    content.className =
-                        "card-content";
-
-                    const title =
-                        document.createElement(
-                            "div"
-                        );
-
-                    title.className =
-                        "card-title";
-
-                    title.textContent =
-                        item.name || "Upcoming";
-
-                    const desc =
-                        document.createElement(
-                            "div"
-                        );
-
-                    desc.className =
-                        "card-desc";
-
-                    desc.textContent =
-                        item.description ||
-                        "New features coming soon.";
-
-                    const badge =
-                        document.createElement(
-                            "div"
-                        );
-
-                    badge.className =
-                        "status-badge";
-
-                    badge.textContent =
-                        "Coming Soon";
-
-                    content.appendChild(title);
-                    content.appendChild(desc);
-                    content.appendChild(badge);
-
-                    card.appendChild(img);
-                    card.appendChild(content);
-
-                    container.appendChild(card);
-
-                }
-            );
-
-        },
-        error => {
-            console.error("Upcoming fetch error:", error);
-            const container = document.getElementById("upcoming-container");
-            if(container){
-                container.innerHTML =
-                    `<div class="empty-state">
-                        <div class="empty-text" style="color:#ff4d8d;">
-                            Failed to load upcoming items.
-                        </div>
-                    </div>`;
-            }
+        const list = [];
+        if(snapshot.exists()){
+            const data = snapshot.val();
+            Object.keys(data).forEach(key=>{
+                list.push({ id:key, ...data[key] });
+            });
         }
-    );
 
+        list.sort((a,b)=>(Number(a.order)||999) - (Number(b.order)||999));
+
+        if(!list.length){
+            container.innerHTML = `<div class="empty-state"><div class="empty-text">No Upcoming Releases</div></div>`;
+            return;
+        }
+
+        list.forEach(item=>{
+            const card = document.createElement("div");
+            card.className = "app-card";
+            card.style.cursor = "default";
+
+            const img = document.createElement("img");
+            img.className = "card-logo";
+            img.src = item.logo || "https://i.postimg.cc/D0nfWPDg/IMG-20260816-100335.png";
+            img.onerror = ()=>{ img.src = "https://i.postimg.cc/D0nfWPDg/IMG-20260816-100335.png"; };
+
+            const content = document.createElement("div");
+            content.className = "card-content";
+
+            const title = document.createElement("div");
+            title.className = "card-title";
+            title.textContent = item.name || "Upcoming";
+
+            const desc = document.createElement("div");
+            desc.className = "card-desc";
+            desc.textContent = item.description || "New features coming soon.";
+
+            const badge = document.createElement("div");
+            badge.className = "status-badge";
+            badge.textContent = "Coming Soon";
+
+            content.appendChild(title);
+            content.appendChild(desc);
+            content.appendChild(badge);
+
+            card.appendChild(img);
+            card.appendChild(content);
+
+            container.appendChild(card);
+        });
+    });
 }
 
 
-/* =========================================================
-   20. MASTER DATABASE LISTENERS TRIGGER
-   ========================================================= */
+/* ================= MASTER LISTENERS TRIGGER ================= */
 
 function startDatabaseListeners(){
-
     if(isDataListeningStarted) return;
     isDataListeningStarted = true;
 
@@ -3787,121 +2602,40 @@ function startDatabaseListeners(){
     listenToBanners();
     listenToUpcoming();
     listenToUpdates();
-
 }
 
 
-/* =========================================================
-   21. INITIAL FLOW & SPLASH
-   ========================================================= */
+/* ================= INITIAL FLOW ================= */
 
-function checkRegistrationFlow(){
+const loaderBar = document.getElementById("top-loader-bar");
+loaderBar.style.width = "40%";
 
-    const savedName =
-        localStorage.getItem(
-            "student_name"
-        );
+setTimeout(()=>{ loaderBar.style.width = "80%"; }, 400);
 
-    if(!savedName){
+window.addEventListener("DOMContentLoaded", ()=>{
 
-        const modal =
-            document.getElementById(
-                "onboard-modal"
-            );
-
-        modal.style.display =
-            "flex";
-
-        setTimeout(
-            ()=>{
-                modal.classList.add(
-                    "active"
-                );
-            },
-            50
-        );
-
-        return;
-
+    // Verify Telegram Binding First
+    const isBound = verifyTelegramBinding();
+    if(!isBound){
+        return; // Pause execution if not bound
     }
 
-    initStudentTracking(
-        savedName
-    );
+    initStudentTracking();
 
-    setTimeout(
-        ()=>{
-            showTelegramIfNeeded();
-        },
-        600
-    );
+    setTimeout(()=>{ startDatabaseListeners(); }, 1000);
 
-}
+    setTimeout(()=>{
+        loaderBar.style.width = "100%";
+        setTimeout(()=>{ loaderBar.style.opacity = "0"; }, 300);
 
-const loaderBar =
-    document.getElementById(
-        "top-loader-bar"
-    );
+        const splash = document.getElementById("splash-screen");
+        splash.classList.add("hide");
 
-loaderBar.style.width =
-    "40%";
+        document.getElementById("main-app").classList.add("show");
 
-setTimeout(
-    ()=>{
-        loaderBar.style.width =
-            "80%";
-    },
-    400
-);
-
-window.addEventListener(
-    "DOMContentLoaded",
-    ()=>{
-
-        // Safety fallback: 1 sec ke andar agar listeners activate nahi hue to trigger kar do
-        setTimeout(()=>{
-            startDatabaseListeners();
-        }, 1000);
-
-        setTimeout(
-            ()=>{
-
-                loaderBar.style.width =
-                    "100%";
-
-                setTimeout(
-                    ()=>{
-                        loaderBar.style.opacity =
-                            "0";
-                    },
-                    300
-                );
-
-                const splash =
-                    document.getElementById(
-                        "splash-screen"
-                    );
-
-                splash.classList.add(
-                    "hide"
-                );
-
-                document
-                    .getElementById(
-                        "main-app"
-                    )
-                    .classList.add(
-                        "show"
-                    );
-
-                checkRegistrationFlow();
-
-            },
-            2600
-        );
-
-    }
-);
+        setTimeout(()=>{ showTelegramIfNeeded(); }, 600);
+    }, 2600);
+});
 
 </script>
 
