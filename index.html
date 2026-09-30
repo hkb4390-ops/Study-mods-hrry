@@ -1,2643 +1,976 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0,
-      maximum-scale=1.0,user-scalable=no,
-      viewport-fit=cover">
-
-<title>studymods.hrry - Himanshu Raj Yadav</title>
-
-<!-- Telegram Web App SDK -->
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>study mods hrry+</title>
+<meta name="description" content="study mods hrry+ — Batches and educational platforms in one place.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;700;900&display=swap"
-      rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<!-- NON-BLOCKING FONTS: page ka JS ab fonts ka wait NAHI karega (fast load) -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&display=swap"></noscript>
+<!-- Firebase modules turant download shuru ho jayein -->
 
 <style>
-:root{
-    --bg-base:#030407;
-    --bg-surface:#0a0d14;
-    --bg-card:rgba(15,20,32,.65);
-    --bg-card-hover:rgba(25,33,52,.85);
-
-    --neon-cyan:#00f2fe;
-    --neon-blue:#4facfe;
-    --neon-pink:#ff0844;
-    --neon-gold:#ffb347;
-    --neon-amber:#ffcc33;
-    --neon-green:#00e676;
-
-    --grad-cyan-blue:
-        linear-gradient(135deg,#00f2fe 0%,#4facfe 100%);
-
-    --grad-gold-amber:
-        linear-gradient(135deg,#ffb347 0%,#ffcc33 100%);
-
-    --border-glow-cyan:rgba(0,242,254,.35);
-    --text-main:#fff;
-    --text-muted:#94a3b8;
-
-    --safe-top:env(safe-area-inset-top,24px);
-    --safe-bottom:env(safe-area-inset-bottom,24px);
-}
-
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-    user-select:none;
-    -webkit-user-select:none;
-}
-
-body{
-    background:#030407;
-    color:#fff;
-    font-family:'Plus Jakarta Sans',
-        -apple-system,BlinkMacSystemFont,sans-serif;
-    -webkit-font-smoothing:antialiased;
-    -webkit-tap-highlight-color:transparent;
-    overflow-x:hidden;
-    min-height:100vh;
-}
-
-input{
-    user-select:text;
-    -webkit-user-select:text;
-}
-
-button,
-a{
-    -webkit-tap-highlight-color:transparent;
-}
-
-/* ================= BACKGROUND ================= */
-
-#particle-canvas{
-    position:fixed;
-    inset:0;
-    width:100vw;
-    height:100vh;
-    z-index:-2;
-    pointer-events:none;
-}
-
-.ambient-background{
-    position:fixed;
-    inset:0;
-    z-index:-1;
-    pointer-events:none;
-    overflow:hidden;
-}
-
-.glow-sphere-1,
-.glow-sphere-2,
-.glow-sphere-3{
-    position:absolute;
-    border-radius:50%;
-    filter:blur(80px);
-}
-
-.glow-sphere-1{
-    top:-15%;
-    left:-15%;
-    width:450px;
-    height:450px;
-    background:radial-gradient(
-        circle,
-        rgba(0,242,254,.18) 0%,
-        transparent 70%
-    );
-    animation:pulseGlowCyan 7s ease-in-out infinite alternate;
-}
-
-.glow-sphere-2{
-    bottom:-15%;
-    right:-15%;
-    width:500px;
-    height:500px;
-    background:radial-gradient(
-        circle,
-        rgba(255,8,68,.15) 0%,
-        transparent 70%
-    );
-    animation:pulseGlowPink 9s ease-in-out infinite alternate-reverse;
-}
-
-.glow-sphere-3{
-    top:40%;
-    left:30%;
-    width:350px;
-    height:350px;
-    background:radial-gradient(
-        circle,
-        rgba(255,179,71,.12) 0%,
-        transparent 70%
-    );
-    animation:pulseGlowGold 8s ease-in-out infinite alternate;
-}
-
-@keyframes pulseGlowCyan{
-    0%{
-        transform:scale(1) translate(0,0);
-        opacity:.5
-    }
-    100%{
-        transform:scale(1.35) translate(40px,50px);
-        opacity:.9
-    }
-}
-
-@keyframes pulseGlowPink{
-    0%{
-        transform:scale(1) translate(0,0);
-        opacity:.4
-    }
-    100%{
-        transform:scale(1.4) translate(-50px,-40px);
-        opacity:.85
-    }
-}
-
-@keyframes pulseGlowGold{
-    0%{
-        transform:scale(.9);
-        opacity:.3
-    }
-    100%{
-        transform:scale(1.25) translate(30px,-30px);
-        opacity:.7
-    }
-}
-
-/* ================= BINDING LOCK SCREEN ================= */
-
-#binding-lock-screen{
-    position:fixed;
-    inset:0;
-    background:#030407;
-    z-index:9999999;
-    display:none;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    padding:30px;
-    text-align:center;
-}
-
-.lock-card{
-    background:rgba(15,20,32,.95);
-    border:1.5px solid var(--neon-pink);
-    padding:40px 30px;
-    border-radius:32px;
-    box-shadow:0 0 50px rgba(255,8,68,.3);
-    max-width:380px;
-    width:100%;
-}
-
-.lock-icon{
-    width:80px;
-    height:80px;
-    margin:0 auto 20px;
-    background:rgba(255,8,68,.15);
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:var(--neon-pink);
-    border:1px solid rgba(255,8,68,.4);
-}
-
-.lock-icon svg{
-    width:40px;
-    height:40px;
-    stroke:currentColor;
-    fill:none;
-    stroke-width:2;
-}
-
-.lock-title{
-    font-size:24px;
-    font-weight:900;
-    color:#fff;
-    margin-bottom:12px;
-}
-
-.lock-desc{
-    font-size:14px;
-    color:var(--text-muted);
-    line-height:1.6;
-    margin-bottom:24px;
-}
-
-/* ================= LOADER ================= */
-
-#top-loader-bar{
-    position:fixed;
-    top:0;
-    left:0;
-    width:0;
-    height:3px;
-    background:var(--grad-cyan-blue);
-    z-index:999999;
-    transition:
-        width .4s cubic-bezier(.1,.8,.3,1),
-        opacity .3s ease;
-    box-shadow:0 0 15px var(--neon-cyan);
-}
-
-/* ================= SPLASH ================= */
-
-#splash-screen{
-    position:fixed;
-    inset:0;
-    background:#030407;
-    z-index:99999;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    overflow:hidden;
-    transition:
-        opacity .8s cubic-bezier(.77,0,.175,1),
-        transform .8s cubic-bezier(.77,0,.175,1);
-}
-
-.splash-ring-container{
-    position:relative;
-    width:170px;
-    height:170px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.splash-pulse-ring{
-    position:absolute;
-    inset:-25px;
-    border-radius:50%;
-    background:conic-gradient(
-        from 0deg,
-        var(--neon-cyan),
-        var(--neon-pink),
-        var(--neon-gold),
-        var(--neon-cyan)
-    );
-    filter:blur(25px);
-    opacity:.6;
-    animation:
-        rotateRing 4s linear infinite,
-        ringPulse 2s ease-in-out infinite alternate;
-}
-
-@keyframes rotateRing{
-    100%{transform:rotate(360deg)}
-}
-
-@keyframes ringPulse{
-    0%{
-        transform:scale(.85);
-        opacity:.4
-    }
-    100%{
-        transform:scale(1.2);
-        opacity:.8
-    }
-}
-
-.splash-logo-box{
-    position:relative;
-    width:130px;
-    height:130px;
-    border-radius:36px;
-    background:rgba(15,20,32,.9);
-    border:2px solid var(--border-glow-cyan);
-    box-shadow:0 0 50px rgba(0,242,254,.4);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    overflow:hidden;
-    transform:scale(.3);
-    opacity:0;
-    animation:logoZoomIn 1.2s
-        cubic-bezier(.175,.885,.32,1.275)
-        forwards .2s;
-}
-
-.splash-logo-img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
-
-@keyframes logoZoomIn{
-    0%{
-        transform:scale(.3) rotate(-15deg);
-        opacity:0
-    }
-    100%{
-        transform:scale(1) rotate(0);
-        opacity:1
-    }
-}
-
-.splash-brand-title{
-    margin-top:30px;
-    font-family:'Space Grotesk',sans-serif;
-    font-size:38px;
-    font-weight:900;
-    letter-spacing:-1px;
-    display:flex;
-    align-items:center;
-    opacity:0;
-    transform:translateY(30px);
-    animation:textRiseUp .8s
-        cubic-bezier(.175,.885,.32,1.275)
-        forwards .6s;
-}
-
-.splash-brand-title .text-part-1{
-    color:#fff;
-    text-shadow:0 0 20px rgba(255,255,255,.6);
-}
-
-.splash-brand-title .text-part-2{
-    background:var(--grad-gold-amber);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-    filter:drop-shadow(0 0 15px rgba(255,179,71,.6));
-}
-
-.splash-author-badge{
-    margin-top:10px;
-    font-size:14px;
-    font-weight:800;
-    letter-spacing:2px;
-    text-transform:uppercase;
-    padding:6px 18px;
-    border-radius:30px;
-    background:rgba(255,255,255,.04);
-    border:1px solid rgba(255,255,255,.12);
-    backdrop-filter:blur(10px);
-    opacity:0;
-    transform:translateY(20px);
-    animation:textRiseUp .8s ease forwards .8s;
-    display:flex;
-    gap:6px;
-}
-
-.author-white{
-    color:#fff;
-}
-
-.author-cyan{
-    color:var(--neon-cyan);
-    text-shadow:0 0 10px var(--neon-cyan);
-}
-
-@keyframes textRiseUp{
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-#splash-screen.hide{
-    opacity:0;
-    transform:scale(1.1);
-    pointer-events:none;
-}
-
-/* ================= MAIN APP ================= */
-
-#main-app{
-    opacity:0;
-    transition:opacity .8s ease;
-    padding-bottom:calc(110px + var(--safe-bottom));
-    display:none;
-}
-
-#main-app.show{
-    opacity:1;
-    display:block;
-}
-
-header{
-    padding:
-        calc(var(--safe-top) + 12px)
-        20px
-        14px;
-
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    background:rgba(3,4,7,.85);
-    backdrop-filter:blur(25px);
-    -webkit-backdrop-filter:blur(25px);
-
-    position:sticky;
-    top:0;
-    z-index:100;
-
-    border-bottom:1px solid rgba(255,255,255,.08);
-}
-
-.header-left{
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-
-.header-logo{
-    width:44px;
-    height:44px;
-    object-fit:cover;
-    border-radius:14px;
-    background:rgba(255,255,255,.04);
-    border:1.5px solid var(--border-glow-cyan);
-    box-shadow:0 0 20px rgba(0,242,254,.25);
-}
-
-.header-title-box{
-    display:flex;
-    flex-direction:column;
-}
-
-.header-title{
-    font-family:'Space Grotesk',sans-serif;
-    font-size:20px;
-    font-weight:900;
-    letter-spacing:-.5px;
-    line-height:1.1;
-}
-
-.h-part-1{
-    color:#fff;
-}
-
-.h-part-2{
-    background:var(--grad-gold-amber);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-}
-
-.header-subtitle{
-    font-size:10px;
-    color:var(--neon-cyan);
-    font-weight:800;
-    margin-top:2px;
-    letter-spacing:1px;
-    text-transform:uppercase;
-}
-
-/* TOP TAB SWITCHER BUTTONS IN HEADER */
-
-.top-nav-tabs{
-    display:flex;
-    background:rgba(15,20,32,.8);
-    padding:4px;
-    border-radius:22px;
-    border:1px solid rgba(255,255,255,.12);
-    gap:4px;
-}
-
-.top-tab-btn{
-    padding:8px 16px;
-    border-radius:18px;
-    border:none;
-    background:transparent;
-    color:var(--text-muted);
-    font-size:13px;
-    font-weight:800;
-    cursor:pointer;
-    display:flex;
-    align-items:center;
-    gap:6px;
-    transition:all .3s ease;
-}
-
-.top-tab-btn svg{
-    width:16px;
-    height:16px;
-    stroke:currentColor;
-    fill:none;
-    stroke-width:2.2;
-}
-
-.top-tab-btn.active{
-    background:var(--grad-cyan-blue);
-    color:#000;
-    box-shadow:0 0 15px rgba(0,242,254,.4);
-}
-
-/* ================= PROMO BANNER ================= */
-
-.promo-banner-wrapper{
-    padding:18px 20px 0;
-    display:none;
-}
-
-.promo-banner-wrapper.has-banners{
-    display:block;
-}
-
-.promo-banner-viewport{
-    position:relative;
-    width:100%;
-    aspect-ratio:16/9;
-    border-radius:24px;
-    overflow:hidden;
-    background:var(--bg-card);
-    border:1px solid rgba(255,255,255,.1);
-    box-shadow:0 15px 40px rgba(0,0,0,.6);
-}
-
-.promo-banner-track{
-    display:flex;
-    width:100%;
-    height:100%;
-    touch-action:pan-y;
-    transition:transform .45s cubic-bezier(.65,0,.35,1);
-}
-
-.promo-banner-slide{
-    flex:0 0 100%;
-    width:100%;
-    height:100%;
-    position:relative;
-    cursor:pointer;
-}
-
-.promo-banner-slide img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    display:block;
-    pointer-events:none;
-}
-
-.promo-banner-textbar{
-    position:absolute;
-    left:0;
-    right:0;
-    bottom:0;
-    padding:22px 18px 14px;
-    background:linear-gradient(
-        to top,
-        rgba(0,0,0,.85) 0%,
-        rgba(0,0,0,.35) 55%,
-        transparent 100%
-    );
-    font-size:14px;
-    font-weight:700;
-    line-height:1.4;
-    color:#fff;
-    pointer-events:none;
-}
-
-.promo-banner-dots{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:6px;
-    margin-top:12px;
-}
-
-.promo-banner-dot{
-    width:6px;
-    height:6px;
-    border-radius:50%;
-    background:rgba(255,255,255,.25);
-    transition:.3s;
-}
-
-.promo-banner-dot.active{
-    width:18px;
-    border-radius:4px;
-    background:var(--neon-cyan);
-    box-shadow:0 0 8px var(--neon-cyan);
-}
-
-/* ================= HERO ================= */
-
-.hero-section{
-    padding:26px 20px 12px;
-    text-align:center;
-}
-
-.ecosystem-pill{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    background:rgba(0,242,254,.08);
-    border:1px solid rgba(0,242,254,.35);
-    padding:8px 18px;
-    border-radius:30px;
-    margin-bottom:18px;
-    box-shadow:0 0 20px rgba(0,242,254,.2);
-}
-
-.pill-dot{
-    width:8px;
-    height:8px;
-    background:#00f2fe;
-    border-radius:50%;
-    box-shadow:0 0 10px #00f2fe;
-}
-
-.pill-text{
-    font-size:12px;
-    font-weight:900;
-    letter-spacing:1.5px;
-    color:#00f2fe;
-}
-
-.main-heading-bold{
-    font-family:'Space Grotesk',sans-serif;
-    font-size:36px;
-    font-weight:900;
-    letter-spacing:-1.2px;
-    color:#fff;
-    margin-bottom:22px;
-    line-height:1.15;
-}
-
-.bold-gold{
-    background:var(--grad-gold-amber);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-    display:inline-block;
-    filter:drop-shadow(0 0 12px rgba(255,179,71,.4));
-}
-
-.search-box{
-    position:relative;
-    margin-bottom:16px;
-}
-
-.search-input{
-    width:100%;
-    background:rgba(15,20,32,.85);
-    border:1px solid rgba(255,255,255,.15);
-    border-radius:22px;
-    padding:16px 20px 16px 52px;
-    color:#fff;
-    font-size:15px;
-    font-weight:600;
-    outline:none;
-    backdrop-filter:blur(20px);
-}
-
-.search-input:focus{
-    border-color:var(--neon-cyan);
-    box-shadow:0 0 30px rgba(0,242,254,.35);
-}
-
-.search-icon{
-    position:absolute;
-    left:20px;
-    top:50%;
-    transform:translateY(-50%);
-    width:20px;
-    height:20px;
-    color:var(--text-muted);
-}
-
-/* ================= VIEWS ================= */
-
-.view-section{
-    display:none;
-    padding:10px 20px 20px;
-}
-
-.view-section.active{
-    display:block;
-}
-
-.app-card{
-    background:var(--bg-card);
-    backdrop-filter:blur(25px);
-    -webkit-backdrop-filter:blur(25px);
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:26px;
-    padding:20px;
-    margin-bottom:18px;
-    display:flex;
-    align-items:center;
-    gap:18px;
-    cursor:pointer;
-    position:relative;
-    overflow:hidden;
-    transition:.3s;
-    box-shadow:0 12px 35px rgba(0,0,0,.6);
-}
-
-.app-card::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    border-radius:26px;
-    padding:1px;
-    background:
-        linear-gradient(
-            135deg,
-            rgba(0,242,254,.4),
-            transparent 60%,
-            rgba(255,8,68,.3)
-        );
-
-    -webkit-mask:
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-
-    -webkit-mask-composite:xor;
-    mask-composite:exclude;
-    pointer-events:none;
-}
-
-.app-card:active{
-    transform:scale(.985);
-}
-
-.card-logo{
-    width:64px;
-    height:64px;
-    border-radius:20px;
-    object-fit:cover;
-    background:rgba(255,255,255,.05);
-    border:1px solid rgba(255,255,255,.15);
-    flex-shrink:0;
-}
-
-.card-content{
-    flex:1;
-    min-width:0;
-}
-
-.card-title{
-    font-size:20px;
-    font-weight:800;
-    margin-bottom:6px;
-    color:#fff;
-    letter-spacing:-.4px;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-}
-
-.card-desc{
-    font-size:13px;
-    color:var(--text-muted);
-    line-height:1.45;
-    font-weight:500;
-
-    display:-webkit-box;
-    -webkit-line-clamp:2;
-    -webkit-box-orient:vertical;
-    overflow:hidden;
-}
-
-.card-action-btn{
-    width:44px;
-    height:44px;
-    border-radius:50%;
-    background:rgba(0,242,254,.15);
-    color:var(--neon-cyan);
-    border:1px solid rgba(0,242,254,.35);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-shrink:0;
-}
-
-.card-action-btn svg{
-    width:20px;
-    height:20px;
-    stroke:currentColor;
-    fill:none;
-    stroke-linecap:round;
-    stroke-linejoin:round;
-    stroke-width:2.5;
-}
-
-.status-badge{
-    display:inline-block;
-    margin-top:8px;
-    padding:5px 14px;
-    border-radius:12px;
-    font-size:11px;
-    font-weight:800;
-    text-transform:uppercase;
-    letter-spacing:.8px;
-    background:rgba(255,179,71,.15);
-    color:#ffb347;
-    border:1px solid rgba(255,179,71,.35);
-}
-
-/* ================= PROFILE PAGE VIEW ================= */
-
-.profile-page-card{
-    background:rgba(15,20,32,.8);
-    border:1.5px solid var(--border-glow-cyan);
-    border-radius:30px;
-    padding:30px 20px;
-    text-align:center;
-    box-shadow:0 20px 60px rgba(0,0,0,.7);
-    margin-top:10px;
-}
-
-.profile-avatar-wrapper{
-    position:relative;
-    width:110px;
-    height:110px;
-    margin:0 auto 20px;
-}
-
-.profile-avatar-img{
-    width:100%;
-    height:100%;
-    border-radius:50%;
-    object-fit:cover;
-    border:3px solid var(--neon-cyan);
-    box-shadow:0 0 30px rgba(0,242,254,.4);
-}
-
-.profile-avatar-fallback{
-    width:100%;
-    height:100%;
-    border-radius:50%;
-    background:var(--grad-cyan-blue);
-    color:#000;
-    font-size:42px;
-    font-weight:900;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border:3px solid var(--neon-cyan);
-    box-shadow:0 0 30px rgba(0,242,254,.4);
-}
-
-.profile-tg-badge{
-    position:absolute;
-    bottom:2px;
-    right:2px;
-    background:#229ED9;
-    width:32px;
-    height:32px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border:2px solid #030407;
-}
-
-.profile-tg-badge svg{
-    width:18px;
-    height:18px;
-    fill:#fff;
-}
-
-.profile-user-name{
-    font-size:24px;
-    font-weight:900;
-    color:#fff;
-    margin-bottom:4px;
-}
-
-.profile-user-handle{
-    font-size:14px;
-    color:var(--neon-cyan);
-    font-weight:700;
-    margin-bottom:20px;
-}
-
-/* ================= EMPTY ================= */
-
-.empty-state{
-    text-align:center;
-    padding:60px 20px;
-    color:var(--text-muted);
-}
-
-.empty-icon{
-    width:64px;
-    height:64px;
-    margin:0 auto 16px;
-    opacity:.35;
-}
-
-.empty-icon svg{
-    width:100%;
-    height:100%;
-    stroke:currentColor;
-    fill:none;
-    stroke-width:1.5;
-}
-
-.empty-text{
-    font-size:16px;
-    font-weight:600;
-}
-
-/* ================= NAV ================= */
-
-.bottom-nav-wrapper{
-    position:fixed;
-    bottom:var(--safe-bottom);
-    left:0;
-    right:0;
-    display:flex;
-    justify-content:center;
-    z-index:1000;
-    pointer-events:none;
-}
-
-.bottom-nav{
-    background:rgba(15,20,32,.9);
-    backdrop-filter:blur(35px);
-    -webkit-backdrop-filter:blur(35px);
-    border:1px solid rgba(255,255,255,.12);
-    border-radius:36px;
-    padding:6px;
-    display:flex;
-    gap:8px;
-    pointer-events:auto;
-    box-shadow:
-        0 20px 50px rgba(0,0,0,.95),
-        0 0 25px rgba(0,242,254,.2);
-    width:88%;
-    max-width:360px;
-}
-
-.nav-item{
-    flex:1;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    padding:10px 0;
-    border-radius:30px;
-    cursor:pointer;
-    transition:.3s;
-    color:var(--text-muted);
-    gap:4px;
-}
-
-.nav-icon{
-    width:22px;
-    height:22px;
-}
-
-.nav-icon svg{
-    width:100%;
-    height:100%;
-    stroke:currentColor;
-    stroke-width:2.2;
-    fill:none;
-    stroke-linecap:round;
-    stroke-linejoin:round;
-}
-
-.nav-label{
-    font-size:11px;
-    font-weight:800;
-}
-
-.nav-item.active{
-    background:rgba(0,242,254,.15);
-    color:var(--neon-cyan);
-    border:1px solid rgba(0,242,254,.35);
-    box-shadow:0 0 20px rgba(0,242,254,.25);
-}
-
-/* ================= LOADER ================= */
-
-#launch-loader{
-    position:fixed;
-    inset:0;
-    background:rgba(3,4,7,.96);
-    backdrop-filter:blur(35px);
-    z-index:99999;
-
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-
-    opacity:0;
-    pointer-events:none;
-    transition:opacity .4s ease;
-}
-
-#launch-loader.active{
-    opacity:1;
-    pointer-events:auto;
-}
-
-.launch-card{
-    background:rgba(15,20,32,.95);
-    border:1.5px solid var(--border-glow-cyan);
-    padding:40px 50px;
-    border-radius:36px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    box-shadow:0 0 60px rgba(0,242,254,.35);
-}
-
-.mono-spinner{
-    width:52px;
-    height:52px;
-    margin-bottom:22px;
-    animation:rotate 1s linear infinite;
-}
-
-.mono-spinner circle{
-    fill:none;
-    stroke:var(--neon-cyan);
-    stroke-width:4;
-    stroke-dasharray:1 100;
-    stroke-linecap:round;
-    animation:dash 1.4s ease-in-out infinite;
-}
-
-@keyframes rotate{
-    100%{transform:rotate(360deg)}
-}
-
-@keyframes dash{
-    0%{
-        stroke-dasharray:1 100;
-        stroke-dashoffset:0
-    }
-    50%{
-        stroke-dasharray:85 100;
-        stroke-dashoffset:-35
-    }
-    100%{
-        stroke-dasharray:85 100;
-        stroke-dashoffset:-124
-    }
-}
-
-.launch-text{
-    font-size:18px;
-    font-weight:800;
-}
-
-/* ================= MODAL ================= */
-
-.modal-overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.88);
-    backdrop-filter:blur(25px);
-    -webkit-backdrop-filter:blur(25px);
-
-    z-index:5000;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    opacity:0;
-    pointer-events:none;
-    transition:opacity .4s ease;
-
-    padding:20px;
-}
-
-.modal-overlay.active{
-    opacity:1;
-    pointer-events:auto;
-}
-
-.modal-card{
-    background:rgba(15,20,32,.97);
-    border:1.5px solid var(--border-glow-cyan);
-    padding:38px 30px 30px;
-    border-radius:36px;
-    width:100%;
-    max-width:375px;
-    text-align:center;
-
-    transform:scale(.8) translateY(30px);
-    transition:all .4s cubic-bezier(.175,.885,.32,1.275);
-
-    box-shadow:
-        0 30px 80px rgba(0,0,0,.95),
-        0 0 40px rgba(0,242,254,.25);
-}
-
-.modal-overlay.active .modal-card{
-    transform:scale(1) translateY(0);
-}
-
-.tg-icon{
-    width:72px;
-    height:72px;
-    margin:0 auto 22px;
-    background:rgba(0,242,254,.15);
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:var(--neon-cyan);
-    border:1px solid rgba(0,242,254,.4);
-    box-shadow:0 0 30px rgba(0,242,254,.35);
-}
-
-.tg-icon svg{
-    width:36px;
-    height:36px;
-    stroke-width:2.2;
-    stroke:currentColor;
-    fill:none;
-}
-
-.modal-title{
-    font-size:25px;
-    font-weight:900;
-    margin-bottom:8px;
-}
-
-.modal-desc{
-    font-size:14px;
-    color:var(--text-muted);
-    margin-bottom:24px;
-    line-height:1.5;
-    font-weight:500;
-}
-
-.form-input{
-    width:100%;
-    padding:16px 20px;
-    font-size:15px;
-    font-weight:600;
-    background:rgba(255,255,255,.05);
-    border:1px solid rgba(255,255,255,.15);
-    border-radius:20px;
-    color:#fff;
-    outline:none;
-    margin-bottom:16px;
-}
-
-.form-input:focus{
-    border-color:var(--neon-cyan);
-    box-shadow:0 0 25px rgba(0,242,254,.3);
-}
-
-.btn-primary{
-    background:var(--grad-cyan-blue);
-    color:#000;
-    padding:16px;
-    border-radius:20px;
-    width:100%;
-    border:none;
-    font-size:16px;
-    font-weight:900;
-    margin-bottom:10px;
-    cursor:pointer;
-    text-decoration:none;
-    display:block;
-    box-shadow:0 0 25px rgba(0,242,254,.4);
-}
-
-.btn-secondary{
-    background:transparent;
-    color:var(--text-muted);
-    padding:12px;
-    border:none;
-    font-size:14px;
-    font-weight:600;
-    width:100%;
-    cursor:pointer;
-}
-
-.profile-info-box{
-    background:rgba(255,255,255,.03);
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:22px;
-    padding:20px;
-    margin-bottom:22px;
-    text-align:left;
-}
-
-.profile-row{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:10px 0;
-    border-bottom:1px solid rgba(255,255,255,.06);
-    gap:15px;
-}
-
-.profile-row:last-child{
-    border-bottom:none;
-}
-
-.profile-label{
-    font-size:13px;
-    color:var(--text-muted);
-    font-weight:600;
-}
-
-.profile-val{
-    font-size:15px;
-    color:#fff;
-    font-weight:800;
-    text-align:right;
-    word-break:break-word;
-}
-
-#update-modal{
-    z-index:9999999;
-}
-
-.update-icon{
-    width:72px;
-    height:72px;
-    margin:0 auto 20px;
-    background:rgba(0,242,254,.15);
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:var(--neon-cyan);
-    border:1px solid rgba(0,242,254,.35);
-}
-
-.update-icon svg{
-    width:36px;
-    height:36px;
-    stroke-width:2.5;
-    stroke:currentColor;
-    fill:none;
-}
-
-.update-version-badge{
-    display:inline-block;
-    background:rgba(255,255,255,.08);
-    color:#fff;
-    padding:6px 18px;
-    border-radius:20px;
-    font-size:13px;
-    font-weight:900;
-    letter-spacing:1px;
-    margin-bottom:18px;
-    border:1px solid rgba(255,255,255,.15);
-}
-
-.update-message-box{
-    background:rgba(0,0,0,.4);
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:20px;
-    padding:18px;
-    margin-bottom:18px;
-}
-
-.update-message-box .modal-desc{
-    margin-bottom:0;
-    color:#fff;
-    font-weight:600;
-}
-
-.update-note{
-    font-size:13px;
-    color:var(--text-muted);
-    margin-bottom:24px;
-}
-
-/* mobile */
-@media(max-width:420px){
-    .splash-brand-title{
-        font-size:32px;
-    }
-
-    .main-heading-bold{
-        font-size:32px;
-    }
-
-    .app-card{
-        padding:16px;
-        gap:12px;
-    }
-
-    .card-logo{
-        width:58px;
-        height:58px;
-    }
-
-    .card-title{
-        font-size:17px;
-    }
-}
-
-/* GLASS REFRESH */
-:root{
-    --bg-base:#07090f;
-    --bg-surface:#0b0f18;
-    --bg-card:rgba(18,24,38,.58);
-    --bg-card-hover:rgba(27,35,55,.78);
-    --neon-cyan:#4fd8ff;
-    --neon-blue:#6d8cff;
-    --neon-pink:#ff4d8d;
-    --neon-gold:#f6c85f;
-    --neon-amber:#ffd978;
-    --neon-green:#43e6a5;
-    --grad-cyan-blue:linear-gradient(135deg,#4fd8ff 0%,#6d8cff 100%);
-    --grad-gold-amber:linear-gradient(135deg,#f6c85f 0%,#ffd978 100%);
-    --border-glow-cyan:rgba(79,216,255,.30);
-    --text-main:#f8fafc;
-    --text-muted:#9aa7bb;
-}
-
-html{background:var(--bg-base);scroll-behavior:smooth}
-body{
-    background:
-      radial-gradient(circle at 15% 5%,rgba(79,216,255,.08),transparent 30%),
-      radial-gradient(circle at 90% 85%,rgba(255,77,141,.07),transparent 32%),
-      #07090f;
+/* ===================================================================
+   STUDY HELPER — Stylesheet
+   =================================================================== */
+
+:root {
+  --bg: #0B0B0D;
+  --bg-soft: #111114;
+  --surface: #17171A;
+  --surface-hi: #1E1E22;
+  --border: #2A2A2F;
+  --border-glow: rgba(245, 166, 35, 0.35);
+  --accent: #F5A623;
+  --accent-dim: #C9821A;
+  --accent-tint: rgba(245, 166, 35, 0.12);
+  --text: #F3F3F1;
+  --text-muted: #A3A3AA;
+  --text-faint: #6C6C74;
+  --success: #3FC97A;
+  --danger: #E8574F;
+  --danger-tint: rgba(232, 87, 79, 0.12);
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-sm: 10px;
+  --font-display: 'Fraunces', serif;
+  --font-body: 'Inter', sans-serif;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.hidden { display: none !important; }
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+input, textarea { font-family: inherit; }
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+
+/* ===================== APP WRAPPER ===================== */
+/* Header scrolls naturally with the page (not fixed) — page itself scrolls */
+
+.app-wrapper {
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding-top: var(--safe-top);
+  padding-bottom: calc(24px + var(--safe-bottom));
+  position: relative;
+}
+
+/* ===================== HEADER (scrolls with content) ===================== */
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 16px 18px 0;
+}
+
+.bell-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+  position: relative;
+  flex: 0 0 auto;
+}
+.bell-btn:active { background: var(--surface-hi); }
+.bell-btn svg { width: 19px; height: 19px; }
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 18px 24px 26px;
 }
+
+.hero-logo-wrap {
+  width: 84px;
+  height: 84px;
+  border-radius: 20px;
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 24px var(--border-glow);
+  overflow: hidden;
+  margin-bottom: 20px;
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-logo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 700;
+  margin: 0 0 6px;
+  line-height: 1.25;
+}
+.hero-title .accent-word { color: var(--accent); }
+
+.hero-tagline {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* ===================== SEARCH ===================== */
+
+.search-wrap {
+  padding: 0 18px 18px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 13px 18px;
+}
+.search-box svg {
+  width: 18px;
+  height: 18px;
+  color: var(--text-faint);
+  flex: 0 0 auto;
+}
+.search-input {
+  flex: 1 1 auto;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text);
+  font-size: 14.5px;
+  min-width: 0;
+}
+.search-input::placeholder { color: var(--text-faint); }
+
+/* ===================== GRID ===================== */
+
+.grid-section {
+  padding: 4px 18px 10px;
+}
+
+.results-count {
+  font-size: 12.5px;
+  color: var(--text-faint);
+  margin: 0 2px 12px;
+}
+
+.tile-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+@media (min-width: 640px) {
+  .tile-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 900px) {
+  .tile-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+.tile {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 20px 14px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  min-width: 0;
+  width: 100%;
+  position: relative;
+}
+.tile:active {
+  transform: scale(0.97);
+  border-color: var(--accent-dim);
+}
+
+.tile-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px 7px;
+  border-radius: 999px;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  line-height: 1;
+}
+.tile-badge.unlocked {
+  background: rgba(63,201,122,0.15);
+  color: var(--success);
+}
+.tile-badge.locked {
+  background: rgba(255,255,255,0.06);
+  color: var(--text-faint);
+}
+.tile-badge svg { width: 9px; height: 9px; }
+
+.tile-icon-wrap {
+  width: 62px;
+  height: 62px;
+  border-radius: 16px;
+  border: 1.5px solid var(--accent);
+  box-shadow: 0 0 14px var(--border-glow);
+  overflow: hidden;
+  background: var(--bg-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+.tile-icon-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tile-name {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 50px 20px;
+  color: var(--text-muted);
+  font-size: 13.5px;
+}
+
+.loader-inline {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 0;
+}
+
+.spinner {
+  width: 26px;
+  height: 26px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+.spinner-sm { width: 16px; height: 16px; border-width: 2px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ===================== FOOTER ===================== */
+
+.app-footer {
+  text-align: center;
+  padding: 30px 18px 10px;
+  font-size: 11.5px;
+  color: var(--text-faint);
+}
+
+/* ===================== TELEGRAM POPUP ===================== */
+
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(3px);
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: fadeIn 0.25s ease;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.popup-card {
+  width: 100%;
+  max-width: 380px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 30px 24px 24px;
+  position: relative;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(245,166,35,0.08);
+}
+
+.popup-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--surface-hi);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 18px;
+}
+.popup-close:active { background: var(--border); }
+
+.popup-logo {
+  width: 70px;
+  height: 70px;
+  border-radius: 18px;
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 20px var(--border-glow);
+  margin: 0 auto 18px;
+  overflow: hidden;
+  background: var(--bg-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.popup-logo img { width: 100%; height: 100%; object-fit: cover; }
+
+.popup-title {
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 700;
+  margin: 0 0 10px;
+  line-height: 1.3;
+}
+.popup-title .accent-word { color: var(--accent); }
+
+.popup-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin: 0 0 18px;
+}
+
+.popup-members {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+.popup-members .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--success);
+}
+
+.popup-join-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 100%;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dim) 100%);
+  color: #1A1200;
+  font-size: 14.5px;
+  font-weight: 700;
+  padding: 14px;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 16px rgba(245,166,35,0.3);
+}
+.popup-join-btn:active { filter: brightness(0.95); }
+.popup-join-btn svg { width: 17px; height: 17px; }
+
+.popup-timer-track {
+  width: 100%;
+  height: 3px;
+  background: var(--border);
+  border-radius: 2px;
+  margin-top: 18px;
+  overflow: hidden;
+}
+.popup-timer-fill {
+  height: 100%;
+  width: 100%;
+  background: var(--accent);
+  transform-origin: left;
+  animation: timerShrink 5s linear forwards;
+}
+@keyframes timerShrink {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0); }
+}
+
+/* ===================== ADMIN LOGIN ===================== */
+
+.admin-screen {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 600;
+  overflow-y: auto;
+  padding: var(--safe-top) 0 var(--safe-bottom);
+}
+
+.admin-topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--border);
+}
+.admin-back-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+.admin-back-btn:active { background: var(--surface-hi); }
+.admin-topbar-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.admin-login-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  padding: 20px;
+}
+
+.admin-login-card {
+  width: 100%;
+  max-width: 340px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 30px 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.admin-login-logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  border: 1.5px solid var(--accent);
+  overflow: hidden;
+  margin-bottom: 16px;
+  background: var(--bg-soft);
+}
+.admin-login-logo img { width: 100%; height: 100%; object-fit: cover; }
+
+.admin-login-card h2 {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+.admin-login-sub {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  margin: 0 0 22px;
+}
+
+.admin-input {
+  width: 100%;
+  padding: 13px 15px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  color: var(--text);
+  background: var(--bg-soft);
+  margin-bottom: 12px;
+}
+.admin-input:focus { outline: none; border-color: var(--accent); }
+.admin-input::placeholder { color: var(--text-faint); }
+
+.admin-btn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dim) 100%);
+  color: #1A1200;
+  font-size: 14.5px;
+  font-weight: 700;
+  padding: 13px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+.admin-btn:active { filter: brightness(0.95); }
+.admin-btn:disabled { opacity: 0.6; }
+
+.admin-btn-outline {
+  width: 100%;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+}
+.admin-btn-outline:active { background: var(--surface-hi); }
+
+.admin-error {
+  width: 100%;
+  background: var(--danger-tint);
+  color: var(--danger);
+  font-size: 12.5px;
+  font-weight: 500;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 12px;
+  text-align: left;
+}
+.admin-success-msg {
+  width: 100%;
+  background: rgba(63,201,122,0.12);
+  color: var(--success);
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+/* ===================== BOOT / LOADING SCREEN ===================== */
+#bootScreen {
+  position: fixed; inset: 0; z-index: 900;
+  background: var(--bg);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 14px; text-align: center; padding: 24px;
+  transition: opacity .35s ease;
+}
+.boot-logo {
+  width: 84px; height: 84px; border-radius: 20px;
+  border: 2px solid var(--accent); box-shadow: 0 0 24px var(--border-glow);
+  background: var(--surface); overflow: hidden; position: relative;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 38px;
+}
+.boot-logo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+#bootScreen h1 { font-family: var(--font-display); font-size: 26px; font-weight: 700; margin: 0; }
+#bootScreen h1 span { color: var(--accent); }
+#bootMsg { font-size: 13px; color: var(--text-muted); font-weight: 600; margin: 0; }
+#bootRetry {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dim) 100%);
+  color: #1A1200; font-weight: 700; font-size: 14px;
+  padding: 12px 28px; border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(245,166,35,0.3);
+}
+
+/* ================= TELEGRAM USER UI ================= */
+.profile-btn{width:44px;height:44px;border-radius:50%;overflow:hidden;background:var(--surface);border:1px solid var(--border);padding:2px;box-shadow:0 0 16px rgba(42,143,255,.18)}
+.profile-btn img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.telegram-gate{position:fixed;inset:0;z-index:1200;background:rgba(5,6,9,.96);display:flex;align-items:center;justify-content:center;padding:22px;backdrop-filter:blur(12px)}
+.telegram-gate-card{width:min(420px,100%);background:linear-gradient(180deg,#17191f,#101115);border:1px solid #2c3038;border-radius:24px;padding:28px 22px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.gate-logo{width:86px;height:86px;margin:0 auto 14px;border-radius:22px;overflow:hidden;border:2px solid #2a8fff;box-shadow:0 0 28px rgba(42,143,255,.25)}
+.gate-logo img{width:100%;height:100%;object-fit:cover}
+.gate-kicker{font-size:11px;letter-spacing:1.5px;font-weight:800;color:#58adff;margin-bottom:7px}
+.telegram-gate-card h2{margin:0 0 8px;font-family:var(--font-display);font-size:25px}
+.telegram-gate-card p{margin:0 auto 18px;color:var(--text-muted);font-size:13px;line-height:1.55;max-width:320px}
+.telegram-primary,.telegram-secondary{width:100%;padding:13px 16px;border-radius:13px;font-weight:800;font-size:14px}
+.telegram-primary{background:#2a8fff;color:white;box-shadow:0 7px 22px rgba(42,143,255,.25)}
+.telegram-secondary{margin-top:9px;background:var(--surface-hi);border:1px solid var(--border);color:var(--text)}
+.telegram-primary:disabled,.telegram-secondary:disabled{opacity:.55}
+.telegram-verify-msg{min-height:18px;margin-top:11px;font-size:12px;color:#ffbd58}
+.gate-profile-row{margin-top:18px;padding-top:15px;border-top:1px solid var(--border);display:flex;align-items:center;gap:11px;text-align:left}
+.gate-profile-row img{width:42px;height:42px;border-radius:50%;object-fit:cover;background:var(--surface-hi)}
+.gate-profile-row strong,.gate-profile-row span{display:block}.gate-profile-row strong{font-size:13px}.gate-profile-row span{font-size:11px;color:var(--text-muted);margin-top:2px}
+.profile-sheet{position:fixed;inset:0;z-index:1100;background:rgba(0,0,0,.68);display:flex;align-items:flex-end;justify-content:center;padding:0 14px;backdrop-filter:blur(7px)}
+.profile-sheet-card{width:min(520px,100%);background:var(--surface);border:1px solid var(--border);border-radius:24px 24px 0 0;padding:26px 20px calc(26px + var(--safe-bottom));text-align:center;position:relative}
+.profile-sheet-close{position:absolute;right:14px;top:12px;width:34px;height:34px;border-radius:50%;background:var(--surface-hi);font-size:24px;color:var(--text-muted)}
+.profile-sheet-avatar{width:92px;height:92px;border-radius:50%;object-fit:cover;margin:0 auto 12px;border:2px solid #2a8fff;box-shadow:0 0 24px rgba(42,143,255,.22)}
+.profile-sheet-card h2{margin:0;font-size:21px}.profile-sheet-card>p{margin:4px 0 18px;color:#58adff;font-size:13px}
+.profile-info-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}.profile-info-grid div{background:var(--surface-hi);border:1px solid var(--border);border-radius:12px;padding:11px 6px}.profile-info-grid span{display:block;font-size:10px;color:var(--text-faint);margin-bottom:4px}.profile-info-grid strong{display:block;font-size:11px;overflow:hidden;text-overflow:ellipsis}
+body.telegram-locked #appWrapper{filter:blur(2px);pointer-events:none;user-select:none}
+#bootScreen.boot-hide{opacity:0;pointer-events:none}
+@keyframes hrryPulse{0%,100%{transform:scale(.96);box-shadow:0 0 20px rgba(42,143,255,.15)}50%{transform:scale(1.04);box-shadow:0 0 38px rgba(42,143,255,.35)}}
+.boot-logo{animation:hrryPulse 1.7s ease-in-out infinite}
 </style>
 </head>
-
 <body>
 
-<canvas id="particle-canvas"></canvas>
-
-<div class="ambient-background">
-    <div class="glow-sphere-1"></div>
-    <div class="glow-sphere-2"></div>
-    <div class="glow-sphere-3"></div>
+<!-- ============ BOOT SCREEN — "Loading, please wait" ============ -->
+<div id="bootScreen">
+  <div class="boot-logo">📚<img src="https://i.ibb.co/hRDqcbmg/file-0000000035a48211842ec377eca6f642.png" alt="study mods hrry+"></div>
+  <h1>study mods <span>hrry+</span></h1>
+  <div class="loader-inline" style="padding:0"><div class="spinner"></div></div>
+  <p id="bootMsg">Opening study mods hrry+…</p>
+  <button id="bootRetry" class="hidden" onclick="location.reload()">↻ Retry</button>
 </div>
 
-<div id="top-loader-bar"></div>
+<!-- ============ MAIN APP ============ -->
+<div class="app-wrapper" id="appWrapper">
 
-<!-- ================= ACCESS RESTRICTED SCREEN (BINDING CHECK) ================= -->
+  <div class="top-bar">
+    <button id="telegramProfileBtn" class="profile-btn" aria-label="Telegram profile">
+      <img id="telegramProfileAvatar" src="https://i.ibb.co/hRDqcbmg/file-0000000035a48211842ec377eca6f642.png" alt="Profile">
+    </button>
+  </div>
 
-<div id="binding-lock-screen">
-    <div class="lock-card">
-        <div class="lock-icon">
-            <svg viewBox="0 0 24 24">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-            </svg>
-        </div>
-        <h2 class="lock-title">Access Restricted</h2>
-        <p class="lock-desc">
-            यह ऐप केवल Telegram Bot से बाइंडेड यूज़र्स के लिए उपलब्ध है। कृपया पहले Telegram Bot में अपना अकाउंट बाइंड करें और Bot के अंदर से इसे खोलें।
-        </p>
+  <div class="hero">
+    <div class="hero-logo-wrap">
+      <img src="https://i.ibb.co/hRDqcbmg/file-0000000035a48211842ec377eca6f642.png" alt="study mods hrry+">
     </div>
-</div>
+    <h1 class="hero-title">study mods <span class="accent-word">hrry+</span></h1>
+    <p class="hero-tagline">Your study space • Powered by Telegram</p>
+  </div>
 
-<!-- ================= SPLASH ================= -->
-
-<div id="splash-screen">
-
-    <div class="splash-ring-container">
-
-        <div class="splash-pulse-ring"></div>
-
-        <div class="splash-logo-box">
-            <img
-                src="https://i.postimg.cc/D0nfWPDg/IMG-20260816-100335.png"
-                class="splash-logo-img"
-                alt="Logo">
-        </div>
-
+  <div class="search-wrap">
+    <div class="search-box">
+      <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"></circle><line x1="21" y1="21" x2="16.65" y2="16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line></svg>
+      <input type="text" id="searchInput" class="search-input" placeholder="Search platforms..." autocomplete="off">
     </div>
+  </div>
 
-    <div class="splash-brand-title">
-        <span class="text-part-1">studymods.</span>
-        <span class="text-part-2">hrry</span>
+  <div class="grid-section">
+    <p class="results-count" id="resultsCount"></p>
+    <div class="tile-grid" id="tileGrid">
+      <div class="loader-inline"><div class="spinner"></div></div>
     </div>
+  </div>
 
-    <div class="splash-author-badge">
-        <span class="author-white">Himanshu</span>
-        <span class="author-cyan">Raj Yadav</span>
-    </div>
+  <div class="app-footer">
+    © <span id="footerYear"></span> study mods hrry+. All rights reserved.<br>
+    Developed by Krishna
+  </div>
 
 </div>
 
-<!-- ================= LAUNCH LOADER ================= -->
-
-<div id="launch-loader">
-
-    <div class="launch-card">
-
-        <svg class="mono-spinner"
-             viewBox="25 25 50 50">
-
-            <circle cx="50"
-                    cy="50"
-                    r="20"></circle>
-
-        </svg>
-
-        <div class="launch-text"
-             id="loader-text">
-            Launching Platform...
-        </div>
-
+<!-- ============ TELEGRAM SUBSCRIPTION GATE ============ -->
+<div id="telegramGate" class="telegram-gate hidden">
+  <div class="telegram-gate-card">
+    <div class="gate-logo"><img src="https://i.ibb.co/hRDqcbmg/file-0000000035a48211842ec377eca6f642.png" alt="study mods hrry+"></div>
+    <div class="gate-kicker">TELEGRAM ACCESS</div>
+    <h2>Join our Telegram channel</h2>
+    <p>App access unlock karne ke liye pehle official channel subscribe/join karo.</p>
+    <button id="joinTelegramBtn" class="telegram-primary">Join Channel</button>
+    <button id="verifyTelegramBtn" class="telegram-secondary">I have subscribed</button>
+    <div id="telegramVerifyMsg" class="telegram-verify-msg"></div>
+    <div class="gate-profile-row">
+      <img id="gateProfileAvatar" src="https://i.ibb.co/hRDqcbmg/file-0000000035a48211842ec377eca6f642.png" alt="Telegram profile">
+      <div><strong id="gateProfileName">Telegram user</strong><span id="gateProfileUsername">Open in Telegram</span></div>
     </div>
-
+  </div>
 </div>
 
-<!-- ================= MAIN APP ================= -->
-
-<div id="main-app">
-
-<header>
-
-    <div class="header-left">
-
-        <img
-            src="https://i.postimg.cc/D0nfWPDg/IMG-20260816-100335.png"
-            class="header-logo"
-            alt="Logo">
-
-        <div class="header-title-box">
-
-            <h1 class="header-title">
-                <span class="h-part-1">studymods.</span>
-                <span class="h-part-2">hrry</span>
-            </h1>
-
-            <div class="header-subtitle">
-                Himanshu Raj Yadav
-            </div>
-
-        </div>
-
+<!-- Telegram profile sheet -->
+<div id="profileSheet" class="profile-sheet hidden">
+  <div class="profile-sheet-card">
+    <button id="profileSheetClose" class="profile-sheet-close" aria-label="Close">×</button>
+    <img id="profileSheetAvatar" class="profile-sheet-avatar" src="https://i.ibb.co/hRDqcbmg/file-0000000035a48211842ec377eca6f642.png" alt="Telegram profile">
+    <h2 id="profileSheetName">Telegram User</h2>
+    <p id="profileSheetUsername">@username</p>
+    <div class="profile-info-grid">
+      <div><span>ID</span><strong id="profileSheetId">—</strong></div>
+      <div><span>Language</span><strong id="profileSheetLang">—</strong></div>
+      <div><span>Telegram</span><strong>Connected</strong></div>
     </div>
-
-    <!-- TOP OPTION BUTTONS: STUDY & PROFILE -->
-    <div class="top-nav-tabs">
-        <button class="top-tab-btn active" id="btn-top-study" onclick="switchMainView('study')">
-            <svg viewBox="0 0 24 24">
-                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-            </svg>
-            Study
-        </button>
-
-        <button class="top-tab-btn" id="btn-top-profile" onclick="switchMainView('profile')">
-            <svg viewBox="0 0 24 24">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-            Profile
-        </button>
-    </div>
-
-</header>
-
-<!-- MAIN STUDY VIEW (INDEX CONTENT) -->
-<div id="main-study-view">
-
-    <!-- ================= PROMO BANNER ================= -->
-
-    <div id="promo-banner-wrapper" class="promo-banner-wrapper">
-
-        <div class="promo-banner-viewport">
-
-            <div id="promo-banner-track" class="promo-banner-track"></div>
-
-        </div>
-
-        <div id="promo-banner-dots" class="promo-banner-dots"></div>
-
-    </div>
-
-    <div class="hero-section">
-
-        <div class="ecosystem-pill">
-
-            <span class="pill-dot"></span>
-
-            <span class="pill-text">
-                ULTRA PLATFORM HUB
-            </span>
-
-        </div>
-
-        <h2 class="main-heading-bold">
-
-            <span>Choose Your</span>
-
-            <span class="bold-gold">
-                Platform
-            </span>
-
-        </h2>
-
-        <div class="search-box">
-
-            <svg
-                class="search-icon"
-                viewBox="0 0 24 24">
-
-                <circle cx="11"
-                        cy="11"
-                        r="8"></circle>
-
-                <line x1="21"
-                      y1="21"
-                      x2="16.65"
-                      y2="16.65"></line>
-
-            </svg>
-
-            <input
-                type="text"
-                id="app-search-input"
-                class="search-input"
-                placeholder="Search platforms, notes, features..."
-                onkeyup="filterApps()">
-
-        </div>
-
-    </div>
-
-    <!-- HOME -->
-
-    <div id="view-home"
-         class="view-section active">
-
-        <div id="apps-container">
-
-            <div class="empty-state">
-
-                <div class="empty-icon">
-
-                    <svg viewBox="0 0 24 24">
-
-                        <circle cx="12"
-                                cy="12"
-                                r="10"></circle>
-
-                        <polyline points="12 6 12 12 16 14"></polyline>
-
-                    </svg>
-
-                </div>
-
-                <div class="empty-text">
-                    Loading platforms...
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- UPCOMING -->
-
-    <div id="view-upcoming"
-         class="view-section">
-
-        <div id="upcoming-container">
-
-            <div class="empty-state">
-
-                <div class="empty-icon">
-
-                    <svg viewBox="0 0 24 24">
-
-                        <circle cx="12"
-                                cy="12"
-                                r="10"></circle>
-
-                        <polyline points="12 6 12 12 16 14"></polyline>
-
-                    </svg>
-
-                </div>
-
-                <div class="empty-text">
-                    Loading upcoming...
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
+  </div>
 </div>
 
-<!-- MAIN PROFILE VIEW (BOUND TELEGRAM USER DETAILS) -->
-<div id="main-profile-view" class="view-section">
-
-    <div class="profile-page-card">
-
-        <div class="profile-avatar-wrapper" id="profile-avatar-container">
-            <!-- Dynamic Avatar or Initials -->
-            <div class="profile-avatar-fallback" id="profile-avatar-fallback">S</div>
-            <div class="profile-tg-badge">
-                <svg viewBox="0 0 24 24">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .24z"></path>
-                </svg>
-            </div>
-        </div>
-
-        <h3 class="profile-user-name" id="view-prof-name">Student Name</h3>
-        <p class="profile-user-handle" id="view-prof-handle">@username</p>
-
-        <div class="profile-info-box">
-
-            <div class="profile-row">
-                <span class="profile-label">Binding Status</span>
-                <span class="profile-val" style="color:var(--neon-green);">
-                    ✔ Bound Account
-                </span>
-            </div>
-
-            <div class="profile-row">
-                <span class="profile-label">Telegram ID</span>
-                <span class="profile-val" id="view-prof-tgid">-</span>
-            </div>
-
-            <div class="profile-row">
-                <span class="profile-label">Active Time</span>
-                <span class="profile-val" id="view-prof-time">0m</span>
-            </div>
-
-            <div class="profile-row">
-                <span class="profile-label">Access Level</span>
-                <span class="profile-val">Full Access (Free)</span>
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-</div>
-
-<!-- ================= NAV ================= -->
-
-<div class="bottom-nav-wrapper">
-
-    <div class="bottom-nav">
-
-        <div
-            class="nav-item active"
-            onclick="switchTab('home',this)">
-
-            <div class="nav-icon">
-
-                <svg viewBox="0 0 24 24">
-
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-
-                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
-
-                </svg>
-
-            </div>
-
-            <div class="nav-label">
-                Platforms
-            </div>
-
-        </div>
-
-        <div
-            class="nav-item"
-            onclick="switchTab('upcoming',this)">
-
-            <div class="nav-icon">
-
-                <svg viewBox="0 0 24 24">
-
-                    <rect x="3"
-                          y="4"
-                          width="18"
-                          height="18"
-                          rx="2"
-                          ry="2"></rect>
-
-                    <line x1="16"
-                          y1="2"
-                          x2="16"
-                          y2="6"></line>
-
-                    <line x1="8"
-                          y1="2"
-                          x2="8"
-                          y2="6"></line>
-
-                    <line x1="3"
-                          y1="10"
-                          x2="21"
-                          y2="10"></line>
-
-                </svg>
-
-            </div>
-
-            <div class="nav-label">
-                Upcoming
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-<!-- ================= TELEGRAM MODAL ================= -->
-
-<div
-    class="modal-overlay"
-    id="tg-modal">
-
-    <div class="modal-card">
-
-        <div class="tg-icon">
-
-            <svg viewBox="0 0 24 24"
-                 style="fill:currentColor;stroke:none">
-
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .24z"></path>
-
-            </svg>
-
-        </div>
-
-        <h3 class="modal-title">
-            Join Telegram
-        </h3>
-
-        <p class="modal-desc">
-            Join our official channel for latest updates,
-            notes & new platform announcements.
-        </p>
-
-        <a
-            href="javascript:void(0)"
-            class="btn-primary"
-            onclick="joinTelegram()">
-
-            Join Channel
-
-        </a>
-
-        <button
-            class="btn-secondary"
-            onclick="closeTelegram()">
-
-            Skip for now
-
-        </button>
-
-    </div>
-
-</div>
-
-<!-- ================= UPDATE ================= -->
-
-<div
-    class="modal-overlay"
-    id="update-modal"
-    style="display:none;">
-
-    <div class="modal-card">
-
-        <div class="update-icon">
-
-            <svg viewBox="0 0 24 24">
-
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-
-                <polyline points="7 10 12 15 17 10"></polyline>
-
-                <line x1="12"
-                      y1="15"
-                      x2="12"
-                      y2="3"></line>
-
-            </svg>
-
-        </div>
-
-        <h3 class="modal-title">
-            MANDATORY UPDATE
-        </h3>
-
-        <div
-            class="update-version-badge"
-            id="update-version-text">
-
-            VERSION X
-
-        </div>
-
-        <div class="update-message-box">
-
-            <p
-                class="modal-desc"
-                id="update-important-message">
-            </p>
-
-        </div>
-
-        <p class="update-note">
-            Please install the update to access platforms.
-        </p>
-
-        <button
-            class="btn-primary"
-            onclick="processUpdate()">
-
-            DOWNLOAD NOW ↓
-
-        </button>
-
-    </div>
-
-</div>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-database-compat.js"></script>
 
 <script>
-/* TELEGRAM BINDING & AUTO-EXTRACT CHECK */
-window.telegramBoundUser = null;
+// ===================================================================
+// STUDY HELPER — App Logic
+// ===================================================================
 
-function verifyTelegramBinding(){
-    const tg = window.Telegram?.WebApp;
-    if(tg){
-        tg.ready();
-        tg.expand();
-    }
-    
-    const tgUser = tg?.initDataUnsafe?.user;
-    
-    // अगर यूज़र बाइंडेड नहीं है तो एक्सेस ब्लॉक करें
-    if(!tgUser || !tgUser.id){
-        document.getElementById("splash-screen").style.display = "none";
-        document.getElementById("binding-lock-screen").style.display = "flex";
-        return false;
-    }
-
-    // यूज़र डेटा एक्सट्रैक्ट करें
-    const fullName = `${tgUser.first_name || ''} ${tgUser.last_name || ''}`.trim() || 'Student';
-    const username = tgUser.username ? `@${tgUser.username}` : 'No Username';
-    const userId = tgUser.id;
-    const photoUrl = tgUser.photo_url || '';
-
-    window.telegramBoundUser = {
-        name: fullName,
-        username: username,
-        id: userId,
-        photo: photoUrl
-    };
-
-    localStorage.setItem("student_name", fullName);
-
-    // प्रोफाइल व्यू को यूज़र डेटा से अपडेट करें
-    document.getElementById("view-prof-name").textContent = fullName;
-    document.getElementById("view-prof-handle").textContent = username;
-    document.getElementById("view-prof-tgid").textContent = userId;
-
-    const avatarContainer = document.getElementById("profile-avatar-container");
-    if(photoUrl){
-        avatarContainer.innerHTML = `
-            <img src="${photoUrl}" class="profile-avatar-img" alt="Profile Picture" onerror="this.style.display='none'; document.getElementById('profile-avatar-fallback').style.display='flex';">
-            <div class="profile-avatar-fallback" id="profile-avatar-fallback" style="display:none;">${fullName.charAt(0)}</div>
-            <div class="profile-tg-badge">
-                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .24z"></path></svg>
-            </div>
-        `;
-    }else{
-        document.getElementById("profile-avatar-fallback").textContent = fullName.charAt(0).toUpperCase();
-    }
-
-    return true;
-}
-
-/* TOP VIEW SWITCHING (STUDY & PROFILE) */
-window.switchMainView = function(viewName){
-    const btnStudy = document.getElementById("btn-top-study");
-    const btnProfile = document.getElementById("btn-top-profile");
-
-    const studyView = document.getElementById("main-study-view");
-    const profileView = document.getElementById("main-profile-view");
-
-    if(viewName === 'study'){
-        btnStudy.classList.add("active");
-        btnProfile.classList.remove("active");
-
-        studyView.style.display = "block";
-        profileView.classList.remove("active");
-        profileView.style.display = "none";
-    }else if(viewName === 'profile'){
-        btnProfile.classList.add("active");
-        btnStudy.classList.remove("active");
-
-        studyView.style.display = "none";
-        profileView.style.display = "block";
-        profileView.classList.add("active");
-    }
-
-    window.scrollTo({top:0, behavior:"smooth"});
-};
-
-/* ================= BACKGROUND PARTICLES ================= */
-
-const canvas = document.getElementById("particle-canvas");
-const ctx = canvas.getContext("2d");
-
-function resizeCanvas(){
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-
-resizeCanvas();
-window.addEventListener("resize", resizeCanvas);
-
-const particles = [];
-const particleCount = Math.min(Math.floor(window.innerWidth / 15), 45);
-
-class Particle{
-    constructor(){ this.reset(); }
-    reset(){
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2 + .8;
-        this.speedX = (Math.random()-.5)*.4;
-        this.speedY = (Math.random()-.5)*.4;
-        this.opacity = Math.random()*.5+.2;
-    }
-    update(){
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if(this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height){
-            this.reset();
-        }
-    }
-    draw(){
-        ctx.fillStyle = `rgba(0,242,254,${this.opacity})`;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
-        ctx.fill();
-    }
-}
-
-for(let i=0; i<particleCount; i++){
-    particles.push(new Particle());
-}
-
-function animateParticles(){
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p=>{ p.update(); p.draw(); });
-    requestAnimationFrame(animateParticles);
-}
-animateParticles();
-</script>
-
-<script type="module">
-
-/* ================= FIREBASE IMPORTS ================= */
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-
-import {
-    getDatabase,
-    ref,
-    onValue,
-    update,
-    get,
-    increment,
-    onDisconnect,
-    serverTimestamp
-} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
-
-import {
-    getAuth,
-    signInAnonymously,
-    onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-
-
-/* ================= FIREBASE CONFIG ================= */
-
+// Firebase config
 const firebaseConfig = {
-    apiKey:"AIzaSyAGJsBtv72SIH0rQjk42SMFgMb2DpzwlBI",
-    authDomain:"ewhe-1827a.firebaseapp.com",
-    databaseURL:"https://ewhe-1827a-default-rtdb.firebaseio.com/",
-    projectId:"ewhe-1827a",
-    storageBucket:"ewhe-1827a.firebasestorage.app",
-    messagingSenderId:"528686843390",
-    appId:"1:528686843390:web:08daf51901bd1c58ffacaf"
+  apiKey: "AIzaSyDCOOfkF7Ru8HH_3s8JDAZZCmzK6BHxE40",
+  authDomain: "study-helper-ae829.firebaseapp.com",
+  databaseURL: "https://study-helper-ae829-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "study-helper-ae829",
+  storageBucket: "study-helper-ae829.firebasestorage.app",
+  messagingSenderId: "897746526097",
+  appId: "1:897746526097:web:fe166e0557aaf129628430"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-const auth = getAuth(app);
+const app = firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
+// Firebase compatibility wrappers for this single-file user app.
+const ref = (database, path) => database.ref(path);
+const onValue = (databaseRef, callback, errorCallback) => databaseRef.on('value', callback, errorCallback);
+const runTransaction = (databaseRef, updateFn) => databaseRef.transaction(updateFn);
 
-/* ================= LINK CONFIGURATION ================= */
+// ===================== DOM HELPERS =====================
+const $ = (sel, root = document) => root.querySelector(sel);
+const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
-const KEY_CONFIG = {
-    TELEGRAM_URL:"https://t.me/hrbseb10thallcorse"
-};
-
-
-/* ================= ACCESS SETTINGS ================= */
-
-window.CURRENT_APP_VERSION = "5";
-window.isUpdateMandatory = false;
-window.updateDownloadLink = "";
-
-window.firebaseUser = null;
-window.firebaseAuthReady = false;
-
-let realtimeUserRef = null;
-let totalSecondsSpent = 0;
-let trackingTimer = null;
-let isDataListeningStarted = false;
-
-
-/* ================= LOCAL USER ID ================= */
-
-let userId = localStorage.getItem("study_user_id");
-
-if(!userId){
-    userId = "usr_" + Date.now() + "_" + Math.random().toString(36).substring(2,8);
-    localStorage.setItem("study_user_id", userId);
+function escapeHtml(str) {
+  if (str == null) return '';
+  return String(str).replace(/[&<>"']/g, (c) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[c]));
 }
 
+// ===================== STATE =====================
+let platforms = {};
+let telegramUser = null;
+let currentSearchTerm = '';
+let bootDone = false;
 
-/* ================= AUTH & INITIALIZATION ================= */
+const TELEGRAM_CHANNEL_URL = 'https://t.me/hrbseb10thallcorse';
+// Set these when your Telegram bot backend is ready.
+const TELEGRAM_BOT_USERNAME = 'YOUR_BOT_USERNAME';
+const TELEGRAM_VERIFY_ENDPOINT = 'YOUR_VERIFY_ENDPOINT';
 
-signInAnonymously(auth).catch(error=>{
-    console.error("Anonymous authentication failed:", error);
-    startDatabaseListeners();
+window.addEventListener('error', (event) => {
+  console.error('study mods hrry+ error:', event.error || event.message);
+  if (!bootDone) showBootRetry('Loading failed. Check internet and tap Retry.');
 });
 
-onAuthStateChanged(auth, async user=>{
-    if(user){
-        window.firebaseUser = user;
-        userId = user.uid;
-        localStorage.setItem("study_user_id", userId);
-        window.firebaseAuthReady = true;
-
-        try{
-            await startUserRealtime();
-        }catch(error){
-            console.error("User realtime setup failed:", error);
-        }
-    }else{
-        window.firebaseUser = null;
-        window.firebaseAuthReady = false;
-    }
-    startDatabaseListeners();
+document.addEventListener('DOMContentLoaded', () => {
+  const year = document.getElementById('footerYear');
+  if (year) year.textContent = new Date().getFullYear();
+  initTelegramMiniApp();
+  initSearch();
+  initProfileSheet();
+  bindPlatformsData();
+  trackVisitor();
+  setTimeout(() => { if (!bootDone) showBootRetry('Still loading… agar atka lage to Retry dabao.'); }, 12000);
 });
 
-
-/* ================= USER REALTIME RECORD ================= */
-
-async function startUserRealtime(){
-    if(!window.firebaseUser) return;
-
-    realtimeUserRef = ref(db, "users/" + userId);
-
-    onValue(realtimeUserRef, snapshot=>{
-        if(!snapshot.exists()) return;
-        const data = snapshot.val();
-        if(data.totalSeconds){
-            totalSecondsSpent = Number(data.totalSeconds);
-            updateProfileTimeDisplay();
-        }
-    });
+function hideBootScreen() {
+  if (bootDone) return;
+  bootDone = true;
+  const el = document.getElementById('bootScreen');
+  if (!el) return;
+  el.classList.add('boot-hide');
+  setTimeout(() => el.remove(), 500);
+}
+function showBootRetry(msg) {
+  const m = document.getElementById('bootMsg');
+  const r = document.getElementById('bootRetry');
+  if (m && msg) m.textContent = msg;
+  if (r) r.classList.remove('hidden');
 }
 
-function updateProfileTimeDisplay(){
-    const hrs = Math.floor(totalSecondsSpent / 3600);
-    const mins = Math.floor((totalSecondsSpent % 3600) / 60);
-    const timeText = `${hrs}h ${mins}m`;
-    const elem = document.getElementById("view-prof-time");
-    if(elem) elem.textContent = timeText;
-}
-
-
-/* ================= STUDENT TRACKING ================= */
-
-async function initStudentTracking(){
-    if(!window.firebaseUser) return;
-
-    const boundName = window.telegramBoundUser?.name || localStorage.getItem("student_name") || "Telegram Student";
-
-    const userRef = ref(db, "users/" + userId);
-
-    onValue(userRef, snapshot=>{
-        if(snapshot.exists()){
-            const data = snapshot.val();
-            if(data.totalSeconds){
-                totalSecondsSpent = Number(data.totalSeconds);
-                updateProfileTimeDisplay();
-            }
-        }
-    }, { onlyOnce:true });
-
-    await update(userRef, {
-        id: userId,
-        uid: userId,
-        deviceId: userId,
-        name: boundName,
-        telegramId: window.telegramBoundUser?.id || '',
-        telegramUsername: window.telegramBoundUser?.username || '',
-        online: true,
-        lastSeen: serverTimestamp()
-    });
-
-    onDisconnect(ref(db, `users/${userId}/online`)).set(false);
-    onDisconnect(ref(db, `users/${userId}/lastSeen`)).set(serverTimestamp());
-
-    if(!trackingTimer){
-        trackingTimer = setInterval(()=>{
-            totalSecondsSpent += 5;
-            updateProfileTimeDisplay();
-            update(userRef, {
-                totalSeconds: totalSecondsSpent,
-                online: true,
-                lastSeen: serverTimestamp()
-            });
-        }, 5000);
+function initTelegramMiniApp() {
+  try {
+    if (window.Telegram && Telegram.WebApp) {
+      Telegram.WebApp.ready();
+      Telegram.WebApp.expand();
+      if (Telegram.WebApp.setHeaderColor) Telegram.WebApp.setHeaderColor('#0B0B0D');
+      if (Telegram.WebApp.setBackgroundColor) Telegram.WebApp.setBackgroundColor('#0B0B0D');
+      telegramUser = Telegram.WebApp.initDataUnsafe?.user || null;
     }
+  } catch (e) { console.warn('Telegram WebApp init failed', e); }
+
+  if (telegramUser) {
+    renderTelegramUser(telegramUser);
+    checkSubscriptionGate();
+  } else {
+    showTelegramGate('App ko Telegram Mini App ke andar open karo.');
+  }
+
+  const join = document.getElementById('joinTelegramBtn');
+  const verify = document.getElementById('verifyTelegramBtn');
+  if (join) join.addEventListener('click', () => {
+    if (window.Telegram?.WebApp?.openTelegramLink) Telegram.WebApp.openTelegramLink(TELEGRAM_CHANNEL_URL);
+    else window.open(TELEGRAM_CHANNEL_URL, '_blank', 'noopener,noreferrer');
+  });
+  if (verify) verify.addEventListener('click', verifyTelegramSubscription);
+  const retry = document.getElementById('bootRetry');
+  if (retry) retry.addEventListener('click', () => location.reload());
 }
 
-
-/* ================= TELEGRAM ================= */
-
-function showTelegramIfNeeded(){
-    if(!sessionStorage.getItem("telegram_popup_seen")){
-        document.getElementById("tg-modal").classList.add("active");
-    }
+function renderTelegramUser(user) {
+  const fullName = [user.first_name, user.last_name].filter(Boolean).join(' ') || 'Telegram User';
+  const username = user.username ? '@' + user.username : 'Username not set';
+  const avatar = user.photo_url || 'https://i.ibb.co/hRDqcbmg/file-0000000035a48211842ec377eca6f642.png';
+  ['telegramProfileAvatar','gateProfileAvatar','profileSheetAvatar'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.src = avatar;
+  });
+  const set = (id, value) => { const el=document.getElementById(id); if(el) el.textContent=value; };
+  set('gateProfileName', fullName); set('gateProfileUsername', username);
+  set('profileSheetName', fullName); set('profileSheetUsername', username);
+  set('profileSheetId', String(user.id || '—')); set('profileSheetLang', user.language_code || '—');
 }
 
-window.closeTelegram = function(){
-    sessionStorage.setItem("telegram_popup_seen", "1");
-    document.getElementById("tg-modal").classList.remove("active");
-};
-
-window.joinTelegram = function(){
-    sessionStorage.setItem("telegram_popup_seen", "1");
-    document.getElementById("tg-modal").classList.remove("active");
-    launchExternal(KEY_CONFIG.TELEGRAM_URL, "Connecting to Telegram...");
-};
-
-
-/* ================= APP ACCESS ================= */
-
-window.launchApp = function(url){
-    if(!url || window.isUpdateMandatory) return;
-    launchExternal(url, "Launching Platform...");
-};
-
-function launchExternal(url, message){
-    if(!url){
-        alert("Link is not configured.");
-        return;
-    }
-    const loader = document.getElementById("launch-loader");
-    const text = document.getElementById("loader-text");
-    text.textContent = message || "Launching...";
-    loader.classList.add("active");
-    setTimeout(()=>{ window.location.href = url; }, 650);
+function initProfileSheet() {
+  const btn = document.getElementById('telegramProfileBtn');
+  const sheet = document.getElementById('profileSheet');
+  const close = document.getElementById('profileSheetClose');
+  if (btn) btn.addEventListener('click', () => sheet?.classList.remove('hidden'));
+  if (close) close.addEventListener('click', () => sheet?.classList.add('hidden'));
+  if (sheet) sheet.addEventListener('click', e => { if (e.target === sheet) sheet.classList.add('hidden'); });
 }
 
+function showTelegramGate(message) {
+  const gate = document.getElementById('telegramGate');
+  const msg = document.getElementById('telegramVerifyMsg');
+  if (msg && message) msg.textContent = message;
+  if (gate) gate.classList.remove('hidden');
+  document.body.classList.add('telegram-locked');
+}
+function hideTelegramGate() {
+  const gate = document.getElementById('telegramGate');
+  if (gate) gate.classList.add('hidden');
+  document.body.classList.remove('telegram-locked');
+}
 
-/* ================= TABS ================= */
+async function checkSubscriptionGate() {
+  // A real Telegram channel-membership check cannot be done securely from browser-only JS.
+  // It must be verified by a bot/backend using Telegram Bot API.
+  if (TELEGRAM_VERIFY_ENDPOINT === 'YOUR_VERIFY_ENDPOINT') {
+    showTelegramGate('Channel verification backend abhi connect nahi hai.');
+    return;
+  }
+  await verifyTelegramSubscription();
+}
 
-window.switchTab = function(tabName, element){
-    document.querySelectorAll(".view-section").forEach(el => el.classList.remove("active"));
-    document.querySelectorAll(".nav-item").forEach(el => el.classList.remove("active"));
-
-    document.getElementById("view-" + tabName).classList.add("active");
-    element.classList.add("active");
-
-    window.scrollTo({ top:0, behavior:"smooth" });
-};
-
-
-/* ================= SEARCH ================= */
-
-window.filterApps = function(){
-    const query = document.getElementById("app-search-input").value.toLowerCase().trim();
-    document.querySelectorAll("#apps-container .app-card").forEach(card=>{
-        const title = card.querySelector(".card-title").textContent.toLowerCase();
-        const desc = card.querySelector(".card-desc").textContent.toLowerCase();
-        card.style.display = (title.includes(query) || desc.includes(query)) ? "flex" : "none";
+async function verifyTelegramSubscription() {
+  const msg = document.getElementById('telegramVerifyMsg');
+  const btn = document.getElementById('verifyTelegramBtn');
+  if (!telegramUser) { showTelegramGate('App ko Telegram Mini App ke andar open karo.'); return; }
+  if (TELEGRAM_VERIFY_ENDPOINT === 'YOUR_VERIFY_ENDPOINT') {
+    if (msg) msg.textContent = 'Bot verification endpoint add karna hoga.';
+    return;
+  }
+  if (btn) { btn.disabled = true; btn.textContent = 'Checking…'; }
+  if (msg) msg.textContent = 'Subscription check ho raha hai…';
+  try {
+    const response = await fetch(TELEGRAM_VERIFY_ENDPOINT, {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ initData: Telegram.WebApp.initData, user: telegramUser, channel: TELEGRAM_CHANNEL_URL })
     });
-};
-
-
-/* ================= UPDATE SYSTEM ================= */
-
-function listenToUpdates(){
-    const updateRef = ref(db, "appUpdate/live");
-    onValue(updateRef, snapshot=>{
-        if(!snapshot.exists()) return;
-        const data = snapshot.val();
-        if(!data || data.enabled === false) return;
-
-        const currentVer = parseFloat(String(window.CURRENT_APP_VERSION).replace(/[^0-9.]/g, ""));
-        const liveVer = parseFloat(String(data.version || "0").replace(/[^0-9.]/g, ""));
-
-        if(liveVer > currentVer){
-            window.isUpdateMandatory = true;
-            window.updateDownloadLink = data.downloadLink || "";
-
-            document.getElementById("update-version-text").textContent = `VERSION ${data.version}`;
-            document.getElementById("update-important-message").textContent = data.importantMessage || "A new update is available.";
-            
-            const modal = document.getElementById("update-modal");
-            modal.style.display = "flex";
-            setTimeout(()=>{ modal.classList.add("active"); }, 40);
-        }
-    });
-}
-
-window.processUpdate = function(){
-    if(!window.updateDownloadLink) return;
-    launchExternal(window.updateDownloadLink, "Downloading Update...");
-};
-
-
-/* ================= FETCH PUBLISHED APPS ================= */
-
-function listenToApps(){
-    onValue(ref(db,"apps"), snapshot=>{
-        const container = document.getElementById("apps-container");
-        if(!container) return;
-        container.innerHTML = "";
-
-        const appsList = [];
-        if(snapshot.exists()){
-            const data = snapshot.val();
-            Object.keys(data).forEach(key=>{
-                const item = data[key];
-                if(item && item.status === "Published"){
-                    appsList.push({ id:key, ...item });
-                }
-            });
-        }
-
-        appsList.sort((a,b)=>(Number(a.order)||999) - (Number(b.order)||999));
-
-        if(!appsList.length){
-            container.innerHTML = `<div class="empty-state"><div class="empty-text">No Platforms Available</div></div>`;
-            return;
-        }
-
-        appsList.forEach(appData=>{
-            const card = document.createElement("div");
-            card.className = "app-card";
-            card.onclick = ()=>{ launchApp(appData.link); };
-
-            const img = document.createElement("img");
-            img.className = "card-logo";
-            img.src = appData.logo || "https://i.postimg.cc/D0nfWPDg/IMG-20260816-100335.png";
-            img.onerror = ()=>{ img.src = "https://i.postimg.cc/D0nfWPDg/IMG-20260816-100335.png"; };
-            img.alt = appData.name || "App Logo";
-
-            const content = document.createElement("div");
-            content.className = "card-content";
-
-            const title = document.createElement("div");
-            title.className = "card-title";
-            title.textContent = appData.name || "Platform";
-
-            const desc = document.createElement("div");
-            desc.className = "card-desc";
-            desc.textContent = appData.description || "Open platform to explore content.";
-
-            content.appendChild(title);
-            content.appendChild(desc);
-
-            const action = document.createElement("div");
-            action.className = "card-action-btn";
-            action.innerHTML = `<svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>`;
-
-            card.appendChild(img);
-            card.appendChild(content);
-            card.appendChild(action);
-
-            container.appendChild(card);
-        });
-    });
-}
-
-
-/* ================= PROMO BANNER ================= */
-
-let bannerList = [];
-let bannerIndex = 0;
-let bannerAutoplayTimer = null;
-let bannerViewedThisSession = new Set();
-let bannerSwipeStartX = 0;
-let bannerWasDragged = false;
-
-function bannerDateKey(){
-    const d = new Date();
-    return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
-}
-
-function listenToBanners(){
-    onValue(ref(db, "banners"), snapshot => {
-        const wrapper = document.getElementById("promo-banner-wrapper");
-        const track = document.getElementById("promo-banner-track");
-        const dotsBox = document.getElementById("promo-banner-dots");
-        if(!wrapper || !track || !dotsBox) return;
-
-        const list = [];
-        if(snapshot.exists()){
-            const data = snapshot.val();
-            Object.keys(data).forEach(key => {
-                const b = data[key];
-                if(b && b.imageUrl && b.active !== false){
-                    list.push({ id:key, ...b });
-                }
-            });
-        }
-
-        list.sort((a, b) => (Number(a.order) || 999) - (Number(b.order) || 999));
-        bannerList = list;
-        bannerIndex = 0;
-
-        stopBannerAutoplay();
-
-        if(!list.length){
-            wrapper.classList.remove("has-banners");
-            track.innerHTML = "";
-            dotsBox.innerHTML = "";
-            return;
-        }
-
-        wrapper.classList.add("has-banners");
-        track.innerHTML = "";
-        dotsBox.innerHTML = "";
-
-        list.forEach((banner, i) => {
-            const slide = document.createElement("div");
-            slide.className = "promo-banner-slide";
-
-            const img = document.createElement("img");
-            img.src = banner.imageUrl;
-            img.alt = banner.text || "Banner";
-            img.loading = "lazy";
-
-            slide.appendChild(img);
-
-            if(banner.text){
-                const textBar = document.createElement("div");
-                textBar.className = "promo-banner-textbar";
-                textBar.textContent = banner.text;
-                slide.appendChild(textBar);
-            }
-
-            slide.addEventListener("click", () => {
-                if(bannerWasDragged) return;
-                handleBannerClick(banner.id, banner.linkUrl);
-            });
-
-            track.appendChild(slide);
-
-            const dot = document.createElement("div");
-            dot.className = "promo-banner-dot" + (i === 0 ? " active" : "");
-            dotsBox.appendChild(dot);
-        });
-
-        updateBannerTrackPosition();
-        trackBannerView(list[0].id);
-        startBannerAutoplay();
-        setupBannerSwipe();
-    });
-}
-
-function updateBannerTrackPosition(){
-    const track = document.getElementById("promo-banner-track");
-    const dotsBox = document.getElementById("promo-banner-dots");
-    if(!track) return;
-    track.style.transform = `translateX(-${bannerIndex * 100}%)`;
-
-    if(dotsBox){
-        Array.from(dotsBox.children).forEach((dot, i) => {
-            dot.classList.toggle("active", i === bannerIndex);
-        });
+    const data = await response.json();
+    if (data.subscribed === true) {
+      localStorage.setItem('telegram_bound_user', JSON.stringify(telegramUser));
+      hideTelegramGate();
+      if (msg) msg.textContent = '';
+    } else {
+      showTelegramGate('Pehle channel subscribe/join karo, phir dobara check karo.');
     }
+  } catch (e) {
+    console.error('Telegram subscription verification failed', e);
+    showTelegramGate('Verification server se connect nahi ho pa raha.');
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = 'I have subscribed'; }
+  }
 }
 
-function goToBannerSlide(index){
-    if(!bannerList.length) return;
-    bannerIndex = (index + bannerList.length) % bannerList.length;
-    updateBannerTrackPosition();
-    trackBannerView(bannerList[bannerIndex].id);
+function bindPlatformsData() {
+  onValue(ref(db, 'platforms'), (snap) => {
+    platforms = snap.val() || {};
+    renderTiles();
+    hideBootScreen();
+  }, (err) => {
+    console.error('Failed to load platforms:', err);
+    const grid = document.getElementById('tileGrid');
+    if (grid) grid.innerHTML = '<div class="empty-state">Couldn\'t load platforms right now. Please check your connection.</div>';
+    showBootRetry('Loading failed. Tap Retry to try again.');
+  });
+}
+function trackVisitor() {
+  try { runTransaction(ref(db, 'stats/visitors'), current => (current || 0) + 1); } catch(e) {}
+}
+function trackClick(id) {
+  try { runTransaction(ref(db, `platforms/${id}/clicks`), current => (current || 0) + 1); } catch(e) {}
+}
+function renderTiles() {
+  const container = document.getElementById('tileGrid');
+  const countEl = document.getElementById('resultsCount');
+  if (!container) return;
+  let entries = Object.entries(platforms || {});
+  const term = currentSearchTerm.trim().toLowerCase();
+  if (term) entries = entries.filter(([,item]) => (item.title || '').toLowerCase().includes(term));
+  if (!Object.keys(platforms || {}).length) { container.innerHTML='<div class="empty-state">No platforms available yet. Check back soon!</div>'; if(countEl)countEl.textContent=''; return; }
+  if (!entries.length) { container.innerHTML='<div class="empty-state">No matches found. Try a different search.</div>'; if(countEl)countEl.textContent=''; return; }
+  if (countEl) countEl.textContent = `${entries.length} platform${entries.length !== 1 ? 's' : ''} found`;
+  container.innerHTML = entries.map(([id,item]) => `
+    <div class="tile" data-id="${escapeHtml(id)}" role="link" tabindex="0">
+      <div class="tile-icon-wrap"><img src="${escapeHtml(item.logo || '')}" alt="" onerror="this.style.opacity=0"></div>
+      <div class="tile-name">${escapeHtml(item.title || 'Untitled')}</div>
+    </div>`).join('');
+  $$('.tile', container).forEach(tile => {
+    const openDirect = () => {
+      if (document.body.classList.contains('telegram-locked')) { showTelegramGate('Pehle Telegram channel subscribe/join karo.'); return; }
+      const id = tile.getAttribute('data-id'); const item = platforms[id]; if(!item?.link) return;
+      trackClick(id); window.open(item.link, '_blank', 'noopener,noreferrer');
+    };
+    tile.addEventListener('click', openDirect);
+    tile.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){e.preventDefault();openDirect();} });
+  });
+}
+function initSearch() {
+  const input = document.getElementById('searchInput'); if(!input) return;
+  let t; input.addEventListener('input', () => { clearTimeout(t); t=setTimeout(()=>{currentSearchTerm=input.value;renderTiles();},120); });
 }
 
-function startBannerAutoplay(){
-    stopBannerAutoplay();
-    if(bannerList.length < 2) return;
-    bannerAutoplayTimer = setInterval(() => { goToBannerSlide(bannerIndex + 1); }, 5000);
-}
-
-function stopBannerAutoplay(){
-    if(bannerAutoplayTimer){
-        clearInterval(bannerAutoplayTimer);
-        bannerAutoplayTimer = null;
-    }
-}
-
-function setupBannerSwipe(){
-    const viewport = document.querySelector(".promo-banner-viewport");
-    if(!viewport || viewport.dataset.swipeReady) return;
-    viewport.dataset.swipeReady = "true";
-
-    viewport.addEventListener("touchstart", e => {
-        bannerSwipeStartX = e.touches[0].clientX;
-        bannerWasDragged = false;
-        stopBannerAutoplay();
-    }, { passive:true });
-
-    viewport.addEventListener("touchmove", e => {
-        const diff = e.touches[0].clientX - bannerSwipeStartX;
-        if(Math.abs(diff) > 10) bannerWasDragged = true;
-    }, { passive:true });
-
-    viewport.addEventListener("touchend", e => {
-        const diff = e.changedTouches[0].clientX - bannerSwipeStartX;
-        if(Math.abs(diff) > 40 && bannerList.length > 1){
-            if(diff < 0) goToBannerSlide(bannerIndex + 1);
-            else goToBannerSlide(bannerIndex - 1);
-        }
-        startBannerAutoplay();
-    });
-}
-
-async function trackBannerView(bannerId){
-    if(!bannerId) return;
-    const date = bannerDateKey();
-    const sessionKey = bannerId + "_" + date;
-
-    if(bannerViewedThisSession.has(sessionKey)) return;
-    bannerViewedThisSession.add(sessionKey);
-
-    try{
-        const uniqueTodaySnap = await get(ref(db, `bannerAnalytics/${bannerId}/dailyStats/${date}/uniqueUsers/${userId}`));
-        const updates = {
-            totalViews: increment(1),
-            [`dailyStats/${date}/totalViews`]: increment(1),
-            [`dailyStats/${date}/uniqueUsers/${userId}`]: true,
-            lastViewedAt: serverTimestamp()
-        };
-        if(!uniqueTodaySnap.exists()){
-            updates[`uniqueViewers/${userId}`] = true;
-        }
-        await update(ref(db, `bannerAnalytics/${bannerId}`), updates);
-    }catch(error){
-        console.error("Banner view tracking failed:", error);
-    }
-}
-
-async function trackBannerClick(bannerId){
-    if(!bannerId) return;
-    const date = bannerDateKey();
-    try{
-        await update(ref(db, `bannerAnalytics/${bannerId}`), {
-            totalClicks: increment(1),
-            [`dailyStats/${date}/totalClicks`]: increment(1),
-            [`clickUsers/${userId}`]: true,
-            lastClickedAt: serverTimestamp()
-        });
-    }catch(error){
-        console.error("Banner click tracking failed:", error);
-    }
-}
-
-function handleBannerClick(bannerId, url){
-    trackBannerClick(bannerId);
-    if(url) launchExternal(url, "Opening...");
-    else alert("This banner has no link configured.");
-}
-
-
-/* ================= UPCOMING ================= */
-
-function listenToUpcoming(){
-    onValue(ref(db,"upcoming"), snapshot=>{
-        const container = document.getElementById("upcoming-container");
-        if(!container) return;
-        container.innerHTML = "";
-
-        const list = [];
-        if(snapshot.exists()){
-            const data = snapshot.val();
-            Object.keys(data).forEach(key=>{
-                list.push({ id:key, ...data[key] });
-            });
-        }
-
-        list.sort((a,b)=>(Number(a.order)||999) - (Number(b.order)||999));
-
-        if(!list.length){
-            container.innerHTML = `<div class="empty-state"><div class="empty-text">No Upcoming Releases</div></div>`;
-            return;
-        }
-
-        list.forEach(item=>{
-            const card = document.createElement("div");
-            card.className = "app-card";
-            card.style.cursor = "default";
-
-            const img = document.createElement("img");
-            img.className = "card-logo";
-            img.src = item.logo || "https://i.postimg.cc/D0nfWPDg/IMG-20260816-100335.png";
-            img.onerror = ()=>{ img.src = "https://i.postimg.cc/D0nfWPDg/IMG-20260816-100335.png"; };
-
-            const content = document.createElement("div");
-            content.className = "card-content";
-
-            const title = document.createElement("div");
-            title.className = "card-title";
-            title.textContent = item.name || "Upcoming";
-
-            const desc = document.createElement("div");
-            desc.className = "card-desc";
-            desc.textContent = item.description || "New features coming soon.";
-
-            const badge = document.createElement("div");
-            badge.className = "status-badge";
-            badge.textContent = "Coming Soon";
-
-            content.appendChild(title);
-            content.appendChild(desc);
-            content.appendChild(badge);
-
-            card.appendChild(img);
-            card.appendChild(content);
-
-            container.appendChild(card);
-        });
-    });
-}
-
-
-/* ================= MASTER LISTENERS TRIGGER ================= */
-
-function startDatabaseListeners(){
-    if(isDataListeningStarted) return;
-    isDataListeningStarted = true;
-
-    listenToApps();
-    listenToBanners();
-    listenToUpcoming();
-    listenToUpdates();
-}
-
-
-/* ================= INITIAL FLOW ================= */
-
-const loaderBar = document.getElementById("top-loader-bar");
-loaderBar.style.width = "40%";
-
-setTimeout(()=>{ loaderBar.style.width = "80%"; }, 400);
-
-window.addEventListener("DOMContentLoaded", ()=>{
-
-    // Verify Telegram Binding First
-    const isBound = verifyTelegramBinding();
-    if(!isBound){
-        return; // Pause execution if not bound
-    }
-
-    initStudentTracking();
-
-    setTimeout(()=>{ startDatabaseListeners(); }, 1000);
-
-    setTimeout(()=>{
-        loaderBar.style.width = "100%";
-        setTimeout(()=>{ loaderBar.style.opacity = "0"; }, 300);
-
-        const splash = document.getElementById("splash-screen");
-        splash.classList.add("hide");
-
-        document.getElementById("main-app").classList.add("show");
-
-        setTimeout(()=>{ showTelegramIfNeeded(); }, 600);
-    }, 2600);
-});
-
+// No admin login/panel is included in this user app.
+// No 24-hour access timer, Vplink or confirmation redirect is used.
 </script>
 
-</body>
-</html>
+
+</body></html>
