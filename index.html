@@ -624,32 +624,32 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ================= TELEGRAM USER UI ================= */
-.profile-btn{width:44px;height:44px;border-radius:50%;overflow:hidden;background:var(--surface);border:1px solid var(--border);padding:2px;box-shadow:0 0 16px rgba(42,143,255,.18)}
+.profile-btn{width:48px;height:48px;border-radius:50%;overflow:hidden;background:linear-gradient(145deg,#1d2027,#101115);border:1px solid rgba(88,173,255,.45);padding:3px;box-shadow:0 0 0 4px rgba(42,143,255,.06),0 8px 28px rgba(0,0,0,.35),0 0 22px rgba(42,143,255,.16);transition:transform .18s ease,box-shadow .18s ease}
+.profile-btn:active{transform:scale(.94)}
 .profile-btn img{width:100%;height:100%;object-fit:cover;border-radius:50%}
-.telegram-gate{position:fixed;inset:0;z-index:1200;background:rgba(5,6,9,.96);display:flex;align-items:center;justify-content:center;padding:22px;backdrop-filter:blur(12px)}
-.telegram-gate-card{width:min(420px,100%);background:linear-gradient(180deg,#17191f,#101115);border:1px solid #2c3038;border-radius:24px;padding:28px 22px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.45)}
-.gate-logo{width:86px;height:86px;margin:0 auto 14px;border-radius:22px;overflow:hidden;border:2px solid #2a8fff;box-shadow:0 0 28px rgba(42,143,255,.25)}
+.telegram-gate{position:fixed;inset:0;z-index:1200;background:radial-gradient(circle at 50% 20%,rgba(42,143,255,.12),transparent 38%),rgba(4,5,8,.88);display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(18px)}
+.telegram-gate-card{width:min(430px,100%);background:linear-gradient(145deg,rgba(28,31,39,.98),rgba(12,14,18,.99));border:1px solid rgba(255,255,255,.10);border-radius:30px;padding:30px 22px 22px;text-align:center;box-shadow:0 30px 90px rgba(0,0,0,.58),inset 0 1px 0 rgba(255,255,255,.05);animation:gateIn .35s cubic-bezier(.2,.8,.2,1)}
+@keyframes gateIn{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:none}}
+.gate-logo{width:92px;height:92px;margin:0 auto 15px;border-radius:26px;overflow:hidden;border:1px solid rgba(245,166,35,.8);box-shadow:0 0 0 6px rgba(245,166,35,.05),0 0 38px rgba(245,166,35,.22)}
 .gate-logo img{width:100%;height:100%;object-fit:cover}
-.gate-kicker{font-size:11px;letter-spacing:1.5px;font-weight:800;color:#58adff;margin-bottom:7px}
-.telegram-gate-card h2{margin:0 0 8px;font-family:var(--font-display);font-size:25px}
-.telegram-gate-card p{margin:0 auto 18px;color:var(--text-muted);font-size:13px;line-height:1.55;max-width:320px}
-.telegram-primary,.telegram-secondary{width:100%;padding:13px 16px;border-radius:13px;font-weight:800;font-size:14px}
-.telegram-primary{background:#2a8fff;color:white;box-shadow:0 7px 22px rgba(42,143,255,.25)}
-.telegram-secondary{margin-top:9px;background:var(--surface-hi);border:1px solid var(--border);color:var(--text)}
-.telegram-primary:disabled,.telegram-secondary:disabled{opacity:.55}
-.telegram-verify-msg{min-height:18px;margin-top:11px;font-size:12px;color:#ffbd58}
-.gate-profile-row{margin-top:18px;padding-top:15px;border-top:1px solid var(--border);display:flex;align-items:center;gap:11px;text-align:left}
-.gate-profile-row img{width:42px;height:42px;border-radius:50%;object-fit:cover;background:var(--surface-hi)}
+.gate-kicker{display:inline-flex;align-items:center;gap:7px;font-size:10px;letter-spacing:1.8px;font-weight:800;color:#6db9ff;background:rgba(42,143,255,.08);border:1px solid rgba(42,143,255,.18);border-radius:999px;padding:6px 10px;margin-bottom:11px}
+.telegram-gate-card h2{margin:0 0 9px;font-family:var(--font-display);font-size:27px;letter-spacing:-.3px}
+.telegram-gate-card p{margin:0 auto 19px;color:#aeb3bd;font-size:13px;line-height:1.65;max-width:330px}
+.telegram-primary,.telegram-secondary{width:100%;padding:14px 16px;border-radius:15px;font-weight:800;font-size:14px;transition:transform .16s ease,filter .16s ease}
+.telegram-primary{background:linear-gradient(135deg,#35a7ff,#227be8);color:white;box-shadow:0 10px 28px rgba(42,143,255,.27)}
+.telegram-primary:active,.telegram-secondary:active{transform:scale(.985)}
+.telegram-secondary{margin-top:9px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.09);color:var(--text)}
+.gate-profile-row{margin-top:18px;padding-top:15px;border-top:1px solid rgba(255,255,255,.07);display:flex;align-items:center;gap:11px;text-align:left}
+.gate-profile-row img{width:44px;height:44px;border-radius:50%;object-fit:cover;background:var(--surface-hi);border:1px solid rgba(255,255,255,.10)}
 .gate-profile-row strong,.gate-profile-row span{display:block}.gate-profile-row strong{font-size:13px}.gate-profile-row span{font-size:11px;color:var(--text-muted);margin-top:2px}
-.profile-sheet{position:fixed;inset:0;z-index:1100;background:rgba(0,0,0,.68);display:flex;align-items:flex-end;justify-content:center;padding:0 14px;backdrop-filter:blur(7px)}
-.profile-sheet-card{width:min(520px,100%);background:var(--surface);border:1px solid var(--border);border-radius:24px 24px 0 0;padding:26px 20px calc(26px + var(--safe-bottom));text-align:center;position:relative}
-.profile-sheet-close{position:absolute;right:14px;top:12px;width:34px;height:34px;border-radius:50%;background:var(--surface-hi);font-size:24px;color:var(--text-muted)}
-.profile-sheet-avatar{width:92px;height:92px;border-radius:50%;object-fit:cover;margin:0 auto 12px;border:2px solid #2a8fff;box-shadow:0 0 24px rgba(42,143,255,.22)}
-.profile-sheet-card h2{margin:0;font-size:21px}.profile-sheet-card>p{margin:4px 0 18px;color:#58adff;font-size:13px}
-.profile-info-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}.profile-info-grid div{background:var(--surface-hi);border:1px solid var(--border);border-radius:12px;padding:11px 6px}.profile-info-grid span{display:block;font-size:10px;color:var(--text-faint);margin-bottom:4px}.profile-info-grid strong{display:block;font-size:11px;overflow:hidden;text-overflow:ellipsis}
-body.telegram-locked #appWrapper{filter:blur(2px);pointer-events:none;user-select:none}
+.profile-sheet{position:fixed;inset:0;z-index:1100;background:rgba(0,0,0,.68);display:flex;align-items:flex-end;justify-content:center;padding:0 14px;backdrop-filter:blur(10px)}
+.profile-sheet-card{width:min(520px,100%);background:linear-gradient(145deg,#1b1e25,#101216);border:1px solid rgba(255,255,255,.09);border-radius:28px 28px 0 0;padding:28px 20px calc(26px + var(--safe-bottom));text-align:center;position:relative;box-shadow:0 -20px 70px rgba(0,0,0,.5)}
+.profile-sheet-close{position:absolute;right:14px;top:12px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.06);font-size:23px;color:var(--text-muted)}
+.profile-sheet-avatar{width:96px;height:96px;border-radius:50%;object-fit:cover;margin:0 auto 12px;border:2px solid #2a8fff;box-shadow:0 0 0 6px rgba(42,143,255,.05),0 0 28px rgba(42,143,255,.22)}
+.profile-sheet-card h2{margin:0;font-size:22px}.profile-sheet-card>p{margin:4px 0 18px;color:#58adff;font-size:13px}
+.profile-info-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}.profile-info-grid div{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:12px 6px}.profile-info-grid span{display:block;font-size:10px;color:var(--text-faint);margin-bottom:4px}.profile-info-grid strong{display:block;font-size:11px;overflow:hidden;text-overflow:ellipsis}
 #bootScreen.boot-hide{opacity:0;pointer-events:none}
-@keyframes hrryPulse{0%,100%{transform:scale(.96);box-shadow:0 0 20px rgba(42,143,255,.15)}50%{transform:scale(1.04);box-shadow:0 0 38px rgba(42,143,255,.35)}}
+@keyframes hrryPulse{0%,100%{transform:scale(.96);box-shadow:0 0 20px rgba(245,166,35,.15)}50%{transform:scale(1.04);box-shadow:0 0 38px rgba(245,166,35,.35)}}
 .boot-logo{animation:hrryPulse 1.7s ease-in-out infinite}
 </style>
 </head>
@@ -702,19 +702,18 @@ body.telegram-locked #appWrapper{filter:blur(2px);pointer-events:none;user-selec
 
 </div>
 
-<!-- ============ TELEGRAM SUBSCRIPTION GATE ============ -->
+<!-- ============ ONE-TIME TELEGRAM CHANNEL PROMPT ============ -->
 <div id="telegramGate" class="telegram-gate hidden">
   <div class="telegram-gate-card">
     <div class="gate-logo"><img src="https://i.ibb.co/hRDqcbmg/file-0000000035a48211842ec377eca6f642.png" alt="study mods hrry+"></div>
-    <div class="gate-kicker">TELEGRAM ACCESS</div>
-    <h2>Join our Telegram channel</h2>
-    <p>App access unlock karne ke liye pehle official channel subscribe/join karo.</p>
-    <button id="joinTelegramBtn" class="telegram-primary">Join Channel</button>
-    <button id="verifyTelegramBtn" class="telegram-secondary">I have subscribed</button>
-    <div id="telegramVerifyMsg" class="telegram-verify-msg"></div>
+    <div class="gate-kicker">✦ OFFICIAL TELEGRAM</div>
+    <h2>Join our channel</h2>
+    <p>Latest batches, updates aur important announcements ke liye hamare official Telegram channel ko join kar lo.</p>
+    <button id="joinTelegramBtn" class="telegram-primary">Join Channel ↗</button>
+    <button id="continueTelegramBtn" class="telegram-secondary">Continue to App</button>
     <div class="gate-profile-row">
       <img id="gateProfileAvatar" src="https://i.ibb.co/hRDqcbmg/file-0000000035a48211842ec377eca6f642.png" alt="Telegram profile">
-      <div><strong id="gateProfileName">Telegram user</strong><span id="gateProfileUsername">Open in Telegram</span></div>
+      <div><strong id="gateProfileName">Telegram user</strong><span id="gateProfileUsername">Telegram connected</span></div>
     </div>
   </div>
 </div>
@@ -780,9 +779,8 @@ let currentSearchTerm = '';
 let bootDone = false;
 
 const TELEGRAM_CHANNEL_URL = 'https://t.me/hrbseb10thallcorse';
-// Set these when your Telegram bot backend is ready.
-const TELEGRAM_BOT_USERNAME = 'YOUR_BOT_USERNAME';
-const TELEGRAM_VERIFY_ENDPOINT = 'YOUR_VERIFY_ENDPOINT';
+const TELEGRAM_GATE_SEEN_KEY = 'study_mods_hrry_telegram_prompt_seen_v1';
+const TELEGRAM_BOUND_KEY = 'study_mods_hrry_telegram_user_v1';
 
 window.addEventListener('error', (event) => {
   console.error('study mods hrry+ error:', event.error || event.message);
@@ -828,21 +826,36 @@ function initTelegramMiniApp() {
 
   if (telegramUser) {
     renderTelegramUser(telegramUser);
-    checkSubscriptionGate();
-  } else {
-    showTelegramGate('App ko Telegram Mini App ke andar open karo.');
+    // Automatically bind the Telegram account locally. No subscription check.
+    try { localStorage.setItem(TELEGRAM_BOUND_KEY, JSON.stringify(telegramUser)); } catch (e) {}
   }
 
+  // Show the channel invitation only once on this browser/device.
+  // Joining is encouraged but never checked or required for access.
+  let alreadySeen = false;
+  try { alreadySeen = localStorage.getItem(TELEGRAM_GATE_SEEN_KEY) === '1'; } catch (e) {}
+  if (!alreadySeen) showTelegramGate();
+
   const join = document.getElementById('joinTelegramBtn');
-  const verify = document.getElementById('verifyTelegramBtn');
+  const cont = document.getElementById('continueTelegramBtn');
   if (join) join.addEventListener('click', () => {
+    markTelegramPromptSeen();
     if (window.Telegram?.WebApp?.openTelegramLink) Telegram.WebApp.openTelegramLink(TELEGRAM_CHANNEL_URL);
     else window.open(TELEGRAM_CHANNEL_URL, '_blank', 'noopener,noreferrer');
+    hideTelegramGate();
   });
-  if (verify) verify.addEventListener('click', verifyTelegramSubscription);
+  if (cont) cont.addEventListener('click', () => {
+    markTelegramPromptSeen();
+    hideTelegramGate();
+  });
   const retry = document.getElementById('bootRetry');
   if (retry) retry.addEventListener('click', () => location.reload());
 }
+
+function markTelegramPromptSeen() {
+  try { localStorage.setItem(TELEGRAM_GATE_SEEN_KEY, '1'); } catch (e) {}
+}
+
 
 function renderTelegramUser(user) {
   const fullName = [user.first_name, user.last_name].filter(Boolean).join(' ') || 'Telegram User';
@@ -868,56 +881,11 @@ function initProfileSheet() {
 
 function showTelegramGate(message) {
   const gate = document.getElementById('telegramGate');
-  const msg = document.getElementById('telegramVerifyMsg');
-  if (msg && message) msg.textContent = message;
   if (gate) gate.classList.remove('hidden');
-  document.body.classList.add('telegram-locked');
 }
 function hideTelegramGate() {
   const gate = document.getElementById('telegramGate');
   if (gate) gate.classList.add('hidden');
-  document.body.classList.remove('telegram-locked');
-}
-
-async function checkSubscriptionGate() {
-  // A real Telegram channel-membership check cannot be done securely from browser-only JS.
-  // It must be verified by a bot/backend using Telegram Bot API.
-  if (TELEGRAM_VERIFY_ENDPOINT === 'YOUR_VERIFY_ENDPOINT') {
-    showTelegramGate('Channel verification backend abhi connect nahi hai.');
-    return;
-  }
-  await verifyTelegramSubscription();
-}
-
-async function verifyTelegramSubscription() {
-  const msg = document.getElementById('telegramVerifyMsg');
-  const btn = document.getElementById('verifyTelegramBtn');
-  if (!telegramUser) { showTelegramGate('App ko Telegram Mini App ke andar open karo.'); return; }
-  if (TELEGRAM_VERIFY_ENDPOINT === 'YOUR_VERIFY_ENDPOINT') {
-    if (msg) msg.textContent = 'Bot verification endpoint add karna hoga.';
-    return;
-  }
-  if (btn) { btn.disabled = true; btn.textContent = 'Checking…'; }
-  if (msg) msg.textContent = 'Subscription check ho raha hai…';
-  try {
-    const response = await fetch(TELEGRAM_VERIFY_ENDPOINT, {
-      method: 'POST', headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({ initData: Telegram.WebApp.initData, user: telegramUser, channel: TELEGRAM_CHANNEL_URL })
-    });
-    const data = await response.json();
-    if (data.subscribed === true) {
-      localStorage.setItem('telegram_bound_user', JSON.stringify(telegramUser));
-      hideTelegramGate();
-      if (msg) msg.textContent = '';
-    } else {
-      showTelegramGate('Pehle channel subscribe/join karo, phir dobara check karo.');
-    }
-  } catch (e) {
-    console.error('Telegram subscription verification failed', e);
-    showTelegramGate('Verification server se connect nahi ho pa raha.');
-  } finally {
-    if (btn) { btn.disabled = false; btn.textContent = 'I have subscribed'; }
-  }
 }
 
 function bindPlatformsData() {
@@ -955,7 +923,6 @@ function renderTiles() {
     </div>`).join('');
   $$('.tile', container).forEach(tile => {
     const openDirect = () => {
-      if (document.body.classList.contains('telegram-locked')) { showTelegramGate('Pehle Telegram channel subscribe/join karo.'); return; }
       const id = tile.getAttribute('data-id'); const item = platforms[id]; if(!item?.link) return;
       trackClick(id); window.open(item.link, '_blank', 'noopener,noreferrer');
     };
