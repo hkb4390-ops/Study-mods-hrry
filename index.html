@@ -2,376 +2,1142 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="theme-color" content="#0B0B0D">
-<meta name="description" content="Study Mods HRRY+ — Educational platforms and study resources in one place.">
-<title>study mods hrry+</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#080808">
+<title>Study Mods HRRY+</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- Official Telegram Mini App SDK -->
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <style>
-:root{
---bg:#0B0B0D;
---bg-soft:#111114;
---surface:#17171A;
---surface-hi:#1E1E22;
---border:#2A2A2F;
---border-glow:rgba(245,166,35,.35);
---accent:#F5A623;
---accent-dim:#C9821A;
---accent-tint:rgba(245,166,35,.12);
---text:#F3F3F1;
---text-muted:#A3A3AA;
---text-faint:#6C6C74;
---success:#3FC97A;
---danger:#E8574F;
---radius-lg:20px;
---radius-md:14px;
---radius-sm:10px;
---font-display:'Fraunces',Georgia,serif;
---font-body:'Inter',Arial,sans-serif;
---safe-top:env(safe-area-inset-top,0px);
---safe-bottom:env(safe-area-inset-bottom,0px)
+:root {
+  --bg: #080808;
+  --panel: rgba(255,255,255,.055);
+  --gold: #f3c969;
+  --gold2: #b88732;
+  --text: #fff;
+  --muted: #a5a5a5;
+  --border: rgba(243,201,105,.2);
 }
-*{box-sizing:border-box}
-html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:var(--font-body);-webkit-text-size-adjust:100%}
-body{min-height:100vh;min-height:100dvh}
-.hidden{display:none!important}
-button,input{font-family:inherit}
-button{cursor:pointer;border:0;background:none;color:inherit}
-img{max-width:100%;display:block}
-a{text-decoration:none;color:inherit}
-.app-wrapper{min-height:100vh;min-height:100dvh;width:100%;max-width:720px;margin:auto;padding-top:var(--safe-top);padding-bottom:calc(24px + var(--safe-bottom))}
-.top-bar{display:flex;align-items:center;justify-content:flex-end;padding:16px 18px 0}
-.profile-btn{width:48px;height:48px;border-radius:50%;overflow:hidden;background:linear-gradient(145deg,#1d2027,#101115);border:1px solid rgba(88,173,255,.45);padding:3px;box-shadow:0 0 0 4px rgba(42,143,255,.06),0 8px 28px rgba(0,0,0,.35),0 0 22px rgba(42,143,255,.16);transition:transform .18s}
-.profile-btn:active{transform:scale(.94)}
-.profile-btn img{width:100%;height:100%;object-fit:cover;border-radius:50%}
-.hero{display:flex;flex-direction:column;align-items:center;text-align:center;padding:18px 24px 26px}
-.hero-logo-wrap{width:84px;height:84px;border-radius:20px;border:2px solid var(--accent);box-shadow:0 0 24px var(--border-glow);overflow:hidden;margin-bottom:20px;background:var(--surface);display:flex;align-items:center;justify-content:center}
-.hero-logo-wrap img{width:100%;height:100%;object-fit:cover}
-.hero-title{font-family:var(--font-display);font-size:30px;font-weight:700;margin:0 0 6px;line-height:1.25}
-.accent-word{color:var(--accent)}
-.hero-tagline{font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin:0}
-.search-wrap{padding:0 18px 18px}
-.search-box{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:13px 18px}
-.search-box svg{width:18px;height:18px;color:var(--text-faint);flex-shrink:0}
-.search-input{flex:1;background:transparent;border:none;outline:none;color:var(--text);font-size:14.5px;min-width:0}
-.search-input::placeholder{color:var(--text-faint)}
-.grid-section{padding:4px 18px 10px}
-.results-count{font-size:12.5px;color:var(--text-faint);margin:0 2px 12px}
-.tile-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-@media(min-width:640px){.tile-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(min-width:900px){.tile-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
-.tile{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:20px 14px 16px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;transition:transform .15s,border-color .15s,box-shadow .15s;min-width:0;width:100%;position:relative;cursor:pointer}
-.tile:active{transform:scale(.97);border-color:var(--accent-dim)}
-.tile:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-.tile-icon-wrap{width:62px;height:62px;border-radius:16px;border:1.5px solid var(--accent);box-shadow:0 0 14px var(--border-glow);overflow:hidden;background:var(--bg-soft);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.tile-icon-wrap img{width:100%;height:100%;object-fit:cover}
-.tile-name{font-size:13.5px;font-weight:600;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
-.empty-state{grid-column:1/-1;text-align:center;padding:50px 20px;color:var(--text-muted);font-size:13.5px}
-.app-footer{text-align:center;padding:30px 18px 10px;font-size:11.5px;color:var(--text-faint);line-height:1.9}
-.popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(3px);z-index:500;display:flex;align-items:center;justify-content:center;padding:24px;animation:fadeIn .25s}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.popup-card{width:100%;max-width:380px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:30px 24px 24px;position:relative;text-align:center;box-shadow:0 0 40px rgba(245,166,35,.08)}
-.popup-close{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;background:var(--surface-hi);color:var(--text-muted);font-size:22px}
-.popup-logo{width:70px;height:70px;border-radius:18px;border:2px solid var(--accent);box-shadow:0 0 20px var(--border-glow);margin:0 auto 18px;overflow:hidden;background:var(--bg-soft)}
-.popup-logo img{width:100%;height:100%;object-fit:cover}
-.popup-title{font-family:var(--font-display);font-size:21px;margin:0 0 10px}
-.popup-desc{font-size:13px;color:var(--text-muted);line-height:1.6;margin:0 0 18px}
-.popup-join-btn{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;background:linear-gradient(135deg,var(--accent),var(--accent-dim));color:#1A1200;font-size:14.5px;font-weight:700;padding:14px;border-radius:var(--radius-md)}
-.popup-secondary{width:100%;margin-top:10px;padding:12px;border:1px solid var(--border);border-radius:var(--radius-md);font-size:13px;font-weight:600}
-.profile-sheet{position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.68);display:flex;align-items:flex-end;justify-content:center;padding:0 14px;backdrop-filter:blur(10px)}
-.profile-sheet-card{width:min(520px,100%);background:linear-gradient(145deg,#1b1e25,#101216);border:1px solid rgba(255,255,255,.09);border-radius:28px 28px 0 0;padding:28px 20px calc(26px + var(--safe-bottom));text-align:center;position:relative}
-.profile-sheet-close{position:absolute;right:14px;top:12px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.06);font-size:23px;color:var(--text-muted)}
-.profile-sheet-avatar{width:96px;height:96px;border-radius:50%;object-fit:cover;margin:0 auto 12px;border:2px solid #2a8fff}
-.profile-sheet-card h2{margin:0;font-size:22px}
-.profile-sheet-card>p{margin:4px 0 18px;color:#58adff;font-size:13px}
-.profile-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.profile-info-grid div{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:12px 6px;min-width:0}
-.profile-info-grid span{display:block;font-size:10px;color:var(--text-faint);margin-bottom:4px}
-.profile-info-grid strong{display:block;font-size:11px;overflow-wrap:anywhere}
-#bootScreen{position:fixed;inset:0;z-index:900;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:24px;transition:opacity .35s}
-#bootScreen.boot-hide{opacity:0;pointer-events:none}
-.boot-logo{width:84px;height:84px;border-radius:20px;border:2px solid var(--accent);box-shadow:0 0 24px var(--border-glow);background:var(--surface);overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center;font-size:38px;animation:pulse 1.7s infinite}
-.boot-logo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-#bootScreen h1{font-family:var(--font-display);font-size:26px;margin:0}
-#bootMsg{font-size:13px;color:var(--text-muted);font-weight:600}
-.spinner{width:26px;height:26px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes pulse{0%,100%{transform:scale(.96);box-shadow:0 0 20px rgba(245,166,35,.15)}50%{transform:scale(1.04);box-shadow:0 0 38px rgba(245,166,35,.35)}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  background: var(--bg);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 50% -20%, rgba(243,201,105,.15), transparent 55%),
+    var(--bg);
+  color: var(--text);
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+button, input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* LOADING SCREEN */
+#loader {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at center, rgba(243,201,105,.12), transparent 40%),
+    #080808;
+  transition: opacity .45s ease, visibility .45s ease;
+}
+
+#loader.fade {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader-logo {
+  width: 104px;
+  height: 104px;
+  border: 1px solid rgba(243,201,105,.6);
+  border-radius: 30px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(145deg, #242019, #090909);
+  box-shadow: 0 0 45px rgba(243,201,105,.18);
+  animation: logoPulse 1.5s infinite ease-in-out;
+}
+
+.loader-logo span {
+  font-size: 34px;
+  font-weight: 900;
+  letter-spacing: -3px;
+  color: var(--gold);
+}
+
+.loader-title {
+  margin-top: 25px;
+  font-size: 19px;
+  font-weight: 850;
+  letter-spacing: 2px;
+}
+
+.loader-sub {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 9px;
+}
+
+.loader-track {
+  margin-top: 27px;
+  width: 155px;
+  height: 3px;
+  border-radius: 20px;
+  background: #242424;
+  overflow: hidden;
+}
+
+.loader-track span {
+  display: block;
+  width: 45%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--gold);
+  animation: loading 1.1s infinite ease-in-out;
+}
+
+@keyframes loading {
+  from { transform: translateX(-110%); }
+  to { transform: translateX(340%); }
+}
+
+@keyframes logoPulse {
+  0%,100% { transform: scale(1); box-shadow: 0 0 25px rgba(243,201,105,.13); }
+  50% { transform: scale(1.045); box-shadow: 0 0 48px rgba(243,201,105,.28); }
+}
+
+/* ACCESS DENIED */
+#accessDenied {
+  min-height: 100vh;
+  padding: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.access-card {
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  padding: 30px 23px;
+  background: rgba(255,255,255,.045);
+  box-shadow: 0 20px 80px rgba(0,0,0,.3);
+}
+
+.access-icon {
+  width: 76px;
+  height: 76px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 20px;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  color: var(--gold);
+  font-size: 33px;
+  background: rgba(243,201,105,.08);
+}
+
+.access-card h1 {
+  margin: 0 0 12px;
+  font-size: 23px;
+}
+
+.access-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+.gold-btn {
+  width: 100%;
+  min-height: 49px;
+  margin-top: 23px;
+  border: 0;
+  border-radius: 15px;
+  color: #171108;
+  background: linear-gradient(135deg, #ffe7a2, #d6a342);
+  font-weight: 850;
+  box-shadow: 0 7px 25px rgba(243,201,105,.13);
+}
+
+.small-note {
+  margin-top: 15px !important;
+  font-size: 11px !important;
+}
+
+/* MAIN APP */
+#app {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 16px 16px calc(35px + env(safe-area-inset-bottom));
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 5px 0 20px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.brand-logo {
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 15px;
+  border: 1px solid var(--border);
+  background: linear-gradient(145deg, #292319, #111);
+  color: var(--gold);
+  font-weight: 950;
+  font-size: 17px;
+  box-shadow: 0 0 25px rgba(243,201,105,.08);
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: .5px;
+}
+
+.brand p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.profile-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 45%;
+  padding: 7px 10px 7px 7px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.09);
+  background: var(--panel);
+}
+
+.profile-chip img,
+.avatar-placeholder {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  object-fit: cover;
+  background: #252117;
+}
+
+.profile-chip .user-name {
+  max-width: 105px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.profile-chip .user-label {
+  color: var(--muted);
+  margin-top: 3px;
+  font-size: 10px;
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 24px 21px;
+  border-radius: 27px;
+  border: 1px solid var(--border);
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(243,201,105,.15), transparent 60%),
+    linear-gradient(145deg, #191711, #0d0d0d 70%);
+}
+
+.hero::after {
+  content: "HRY";
+  position: absolute;
+  right: -9px;
+  bottom: -35px;
+  font-size: 105px;
+  line-height: 1;
+  font-weight: 1000;
+  color: rgba(243,201,105,.045);
+  pointer-events: none;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--gold);
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 1.5px;
+}
+
+.live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #79e5a0;
+  box-shadow: 0 0 9px #79e5a0;
+}
+
+.hero h2 {
+  position: relative;
+  z-index: 1;
+  margin: 14px 0 8px;
+  font-size: clamp(26px, 7vw, 34px);
+  line-height: 1.12;
+  letter-spacing: -1px;
+}
+
+.hero h2 em {
+  font-style: normal;
+  color: var(--gold);
+}
+
+.hero > p {
+  position: relative;
+  z-index: 1;
+  max-width: 290px;
+  margin: 0;
+  color: #b9b5ac;
+  line-height: 1.6;
+  font-size: 12px;
+}
+
+.hero-actions {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.hero-actions .gold-btn {
+  width: auto;
+  margin: 0;
+  padding: 0 19px;
+}
+
+.secondary-btn {
+  min-height: 49px;
+  padding: 0 15px;
+  border-radius: 15px;
+  border: 1px solid rgba(255,255,255,.13);
+  background: rgba(255,255,255,.055);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin: 26px 0 13px;
+}
+
+.section-heading h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.section-heading span {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.sponsor {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 15px;
+  border: 1px solid rgba(243,201,105,.29);
+  border-radius: 21px;
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(243,201,105,.12), transparent 65%),
+    rgba(255,255,255,.035);
+}
+
+.sponsor-mark {
+  width: 49px;
+  height: 49px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  border-radius: 16px;
+  color: #161108;
+  background: linear-gradient(135deg, #ffe9a7, #c38b2c);
+  font-weight: 1000;
+  font-size: 13px;
+}
+
+.sponsor-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.sponsor-info .sponsored {
+  color: var(--gold);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1.4px;
+}
+
+.sponsor-info h4 {
+  margin: 5px 0 3px;
+  font-size: 15px;
+}
+
+.sponsor-info p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.sponsor-open {
+  border: 1px solid var(--border);
+  color: var(--gold);
+  border-radius: 12px;
+  padding: 10px 11px;
+  background: rgba(243,201,105,.07);
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.searchbox {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  height: 51px;
+  padding: 0 15px;
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 16px;
+  background: rgba(255,255,255,.045);
+}
+
+.searchbox span {
+  font-size: 18px;
+  color: var(--gold);
+}
+
+.searchbox input {
+  width: 100%;
+  min-width: 0;
+  outline: none;
+  border: none;
+  color: #fff;
+  background: transparent;
+  font-size: 13px;
+}
+
+.searchbox input::placeholder {
+  color: #777;
+}
+
+.platform-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 11px;
+}
+
+.platform-card {
+  min-width: 0;
+  min-height: 112px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 14px;
+  border: 1px solid rgba(255,255,255,.075);
+  border-radius: 19px;
+  background: linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.018));
+  transition: transform .2s, border-color .2s;
+}
+
+.platform-card:active {
+  transform: scale(.97);
+}
+
+.platform-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.platform-logo {
+  width: 43px;
+  height: 43px;
+  border-radius: 14px;
+  object-fit: cover;
+  background: #222;
+}
+
+.platform-fallback {
+  width: 43px;
+  height: 43px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: #242016;
+  color: var(--gold);
+  font-weight: 900;
+}
+
+.platform-arrow {
+  color: #777;
+  font-size: 16px;
+}
+
+.platform-card h4 {
+  margin: 12px 0 0;
+  font-size: 12px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.empty-state {
+  padding: 30px 10px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.bottom-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.bottom-actions button {
+  width: 100%;
+  margin: 0;
+}
+
+.footer {
+  padding: 24px 5px 10px;
+  text-align: center;
+  color: #686868;
+  font-size: 10px;
+  line-height: 1.8;
+}
+
+.footer strong {
+  color: var(--gold);
+}
+
+/* PROFILE DIALOG */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 15px;
+  background: rgba(0,0,0,.7);
+  backdrop-filter: blur(9px);
+}
+
+.profile-modal {
+  width: 100%;
+  max-width: 480px;
+  padding: 23px;
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  background: #111;
+  box-shadow: 0 20px 70px #000;
+  animation: slideUp .28s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(25px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.close-btn {
+  width: 35px;
+  height: 35px;
+  border: 1px solid #333;
+  border-radius: 12px;
+  color: #fff;
+  background: #202020;
+  font-size: 18px;
+}
+
+.profile-center {
+  text-align: center;
+}
+
+.profile-big {
+  width: 86px;
+  height: 86px;
+  margin: 0 auto 13px;
+  border: 2px solid var(--gold);
+  border-radius: 28px;
+  object-fit: cover;
+  background: #242016;
+}
+
+.profile-center h4 {
+  margin: 0;
+  font-size: 19px;
+}
+
+.profile-center p {
+  margin: 6px 0 20px;
+  color: var(--gold);
+  font-size: 12px;
+}
+
+.profile-detail {
+  padding: 13px 14px;
+  margin-top: 9px;
+  border: 1px solid #292929;
+  border-radius: 14px;
+  background: #171717;
+}
+
+.profile-detail small {
+  display: block;
+  margin-bottom: 5px;
+  color: #888;
+  font-size: 10px;
+}
+
+.profile-detail strong {
+  display: block;
+  overflow-wrap: anywhere;
+  font-size: 13px;
+}
+
+@media (min-width: 600px) {
+  #app { padding-top: 24px; }
+  .platform-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .hero { padding: 30px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
 </style>
 </head>
+
 <body>
 
-<div id="bootScreen">
-  <div class="boot-logo">📚<img src="https://i.ibb.co/hRDqcbmg/file-0000000035a48211842ec377eca6f642.png" alt=""></div>
-  <h1>study mods <span class="accent-word">hrry+</span></h1>
-  <div class="spinner"></div>
-  <p id="bootMsg">Opening study mods hrry+…</p>
+<!-- Loading -->
+<div id="loader">
+  <div class="loader-logo"><span>HRY+</span></div>
+  <div class="loader-title">STUDY MODS HRRY+</div>
+  <div class="loader-sub">Preparing your study experience...</div>
+  <div class="loader-track"><span></span></div>
 </div>
 
-<div class="app-wrapper">
-  <div class="top-bar">
-    <button id="telegramProfileBtn" class="profile-btn" aria-label="Open profile">
-      <img id="telegramProfileAvatar" src="https://i.ibb.co/hRDqcbmg/file-0000000035a48211842ec377eca6f642.png" alt="Profile">
-    </button>
+<!-- Access denied for normal browser -->
+<section id="accessDenied" class="hidden">
+  <div class="access-card">
+    <div class="access-icon">⌁</div>
+    <h1>Telegram Access Required</h1>
+    <p>
+      Study Mods HRRY+ is designed to work inside Telegram.
+      Open this page through the Telegram Mini App to continue.
+    </p>
+    <button class="gold-btn" id="openTelegram">Open Telegram Bot</button>
+    <p class="small-note">
+      This browser check is a convenience feature, not a security guarantee.
+    </p>
   </div>
+</section>
 
-  <header class="hero">
-    <div class="hero-logo-wrap">
-      <img src="https://i.ibb.co/hRDqcbmg/file-0000000035a48211842ec377eca6f642.png" alt="Study Mods HRRY+">
+<!-- Main app -->
+<main id="app" class="hidden">
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logo">HRY+</div>
+      <div>
+        <h1>STUDY MODS HRRY+</h1>
+        <p>Your learning universe</p>
+      </div>
     </div>
-    <h1 class="hero-title">study mods <span class="accent-word">hrry+</span></h1>
-    <p class="hero-tagline">Your study space • Powered by Telegram</p>
+
+    <button class="profile-chip" id="profileButton" aria-label="Open Telegram profile">
+      <img id="headerAvatar" alt="Profile" src="">
+      <div>
+        <div class="user-name" id="headerName">Telegram User</div>
+        <div class="user-label">Telegram Profile</div>
+      </div>
+    </button>
   </header>
 
-  <div class="search-wrap">
-    <label class="search-box">
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m16 16 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-      <input id="searchInput" class="search-input" type="search" placeholder="Search platforms..." autocomplete="off">
-    </label>
-  </div>
+  <section class="hero">
+    <div class="eyebrow"><span class="live-dot"></span> YOUR STUDY SPACE</div>
+    <h2>Learn More.<br><em>Achieve More.</em></h2>
+    <p>Explore your study platforms and resources in one premium learning space.</p>
 
-  <section class="grid-section">
-    <p class="results-count" id="resultsCount"></p>
-    <div class="tile-grid" id="tileGrid"></div>
+    <div class="hero-actions">
+      <button class="gold-btn" id="letsSee">Let's See&nbsp; ↗</button>
+      <button class="secondary-btn" id="shareHero">↗ Share App</button>
+    </div>
   </section>
 
-  <footer class="app-footer">
-    © <span id="footerYear"></span> study mods hrry+. All rights reserved.<br>
-    Developed by Krishna
-  </footer>
-</div>
-
-<!-- Optional Telegram invitation. Joining is NOT required. -->
-<div id="telegramGate" class="popup-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
-  <div class="popup-card">
-    <button id="gateClose" class="popup-close" aria-label="Close">×</button>
-    <div class="popup-logo"><img src="https://i.ibb.co/hRDqcbmg/file-0000000035a48211842ec377eca6f642.png" alt=""></div>
-    <h2 id="gateTitle" class="popup-title">Join our channel</h2>
-    <p class="popup-desc">Latest batches, updates aur important announcements ke liye hamare official Telegram channel ko visit karein.</p>
-    <button id="joinTelegramBtn" class="popup-join-btn">Join Channel ↗</button>
-    <button id="continueTelegramBtn" class="popup-secondary">Continue to App</button>
+  <!-- Permanent sponsor -->
+  <div class="section-heading">
+    <h3>Featured Sponsor</h3>
+    <span>PARTNER</span>
   </div>
-</div>
 
-<div id="profileSheet" class="profile-sheet hidden">
-  <div class="profile-sheet-card">
-    <button id="profileSheetClose" class="profile-sheet-close" aria-label="Close">×</button>
-    <img id="profileSheetAvatar" class="profile-sheet-avatar" src="https://i.ibb.co/hRDqcbmg/file-0000000035a48211842ec377eca6f642.png" alt="Profile">
-    <h2 id="profileSheetName">Study Mods HRRY+</h2>
-    <p id="profileSheetUsername">Offline platform directory</p>
-    <div class="profile-info-grid">
-      <div><span>Platforms</span><strong id="profilePlatformCount">34</strong></div>
-      <div><span>Data source</span><strong>Local HTML</strong></div>
+  <section class="sponsor">
+    <div class="sponsor-mark">HRRY</div>
+    <div class="sponsor-info">
+      <div class="sponsored">SPONSORED BY</div>
+      <h4>HRRY.ONLINE</h4>
+      <p>Explore more with HRRY</p>
     </div>
+    <button class="sponsor-open" id="sponsorButton">Visit ↗</button>
+  </section>
+
+  <div class="section-heading" id="platformHeading">
+    <h3>Study Platforms</h3>
+    <span id="platformCount">0 platforms</span>
   </div>
+
+  <label class="searchbox">
+    <span>⌕</span>
+    <input id="searchInput" type="search" placeholder="Search platforms..." autocomplete="off">
+  </label>
+
+  <div style="height:14px"></div>
+  <section class="platform-grid" id="platformGrid"></section>
+  <div id="emptyState" class="empty-state hidden">No matching platforms found.</div>
+
+  <div class="bottom-actions">
+    <button class="gold-btn" id="shareBottom">↗ Share App</button>
+    <button class="secondary-btn" id="profileBottom">👤 My Profile</button>
+  </div>
+
+  <footer class="footer">
+    <strong>STUDY MODS HRRY+</strong><br>
+    Powered by learning. Sponsored by HRRY.ONLINE.
+  </footer>
+</main>
+
+<!-- Telegram profile modal -->
+<div class="modal-backdrop hidden" id="profileModal">
+  <section class="profile-modal">
+    <div class="modal-header">
+      <h3>Telegram Profile</h3>
+      <button class="close-btn" id="closeProfile" aria-label="Close">×</button>
+    </div>
+
+    <div class="profile-center">
+      <img class="profile-big" id="modalAvatar" alt="Telegram profile picture">
+      <h4 id="modalName">Telegram User</h4>
+      <p id="modalUsername">@username</p>
+    </div>
+
+    <div class="profile-detail">
+      <small>TELEGRAM USER ID</small>
+      <strong id="modalId">Unavailable</strong>
+    </div>
+
+    <div class="profile-detail">
+      <small>USERNAME</small>
+      <strong id="modalUsernameFull">Not available</strong>
+    </div>
+
+    <button class="gold-btn" id="closeProfileBottom">Done</button>
+  </section>
 </div>
 
 <script>
-'use strict';
+(() => {
+  "use strict";
 
-/*
-  STUDY MODS HRRY+
-  All platform records are stored locally in this HTML file.
-  No Firebase, remote database, API, login or visitor tracking.
-*/
+  /*
+   * IMPORTANT:
+   * Replace this with the public URL of your actual Telegram bot.
+   * Example: https://t.me/YourBotUsername
+   */
+  const TELEGRAM_BOT_URL = "https://t.me/";
 
-const BRAND_LOGO =
-'https://i.ibb.co/hRDqcbmg/file-0000000035a48211842ec377eca6f642.png';
+  /*
+   * Put your existing 34 platform entries here.
+   * Each entry supports:
+   * { name: "Platform Name", logo: "https://...", url: "https://..." }
+   *
+   * The list below is a placeholder so the page can run immediately.
+   * Replace it with the platform array from your existing index.html.
+   */
+  const platforms = [
+    // Example:
+    // { name: "Study Platform", logo: "https://example.com/logo.png", url: "https://example.com" }
+  ];
 
-const TELEGRAM_CHANNEL_URL = 'https://t.me/hrbseb10thallcorse';
+  const $ = (id) => document.getElementById(id);
+  const tg = window.Telegram && window.Telegram.WebApp
+    ? window.Telegram.WebApp
+    : null;
 
-const platforms = [
-  {id:"-P2UB4UKbN66xlD2guBN",title:"PW",logo:"https://cdn.phototourl.com/member/2026-09-03-1c327ac5-685c-459c-8678-72d1541ae785.jpg",link:"https://www.learnxpw.site/study/batches"},
-  {id:"-P2UBCOZOqPmnup16026",title:"MISSION JEET",logo:"https://cdn.phototourl.com/member/2026-09-03-97859f60-2996-4637-970e-fa4939f81c55.webp?utm_source=chatgpt.com",link:"https://deltaverse.site/missionjeet"},
-  {id:"-P2UBJqJVEX3g4XfuPgo",title:"PW PI",logo:"https://cdn.phototourl.com/member/2026-09-03-9348e089-ead0-409c-a698-14be13791528.png",link:"https://pwxbooks.pages.dev/"},
-  {id:"-P2UBMMZkJQQTjkYDnzy",title:"PW BOOK",logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRer8oad1p28ArRprX_GU6yjym-n8P4gp4PPkXH2po9BQ&s=10",link:"https://pwxbooks.pages.dev/"},
-  {id:"-P2UBQ_RT7F4WM7pwQ25",title:"PW INFINTY PARTICE",logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQz_xnB-x6LjaHVWOWCuQEfDP_by-2_Rtb6KJMycca2tw&s=10",link:"https://rojgar"},
-  {id:"-P2UBYCRUW6Bp6i0waKa",title:"RWA",logo:"https://i.postimg.cc/9M4bMB6V/2024-11-04-0-2286575668500086.png",link:"https://rwa.edustream.indevs.in/"},
-  {id:"-P2UBda3_8g0QiWpiuyB",title:"VIDYKUL",logo:"https://play-lh.googleusercontent.com/DeA0hFzq0ZKXyK1BzciZWM_8wN9xrMzd006cDwB1atBW-QeRd2kNVontvx3F6W4C7Pi7BC7l3fkYvJAQnh8Wonc",link:"https://vidyakool.streamfiles.eu.org/"},
-  {id:"-P2UBii_MPiLSKPg6DBi",title:"TOPPER WISDOM",logo:"https://i.postimg.cc/mrKX7qNZ/logo.png",link:"https://studyapkmod-toperwis.vercel.app/"},
-  {id:"-P2UC5eZlty7FVieNFGa",title:"UNCADEMY",logo:"https://cdn.phototourl.com/member/2026-09-03-21e782c6-1026-4632-8665-c13968119954.png",link:"https://nexthope.pages.dev/unacademy/"},
-  {id:"-P2UCLPoUa69_gXvGegy",title:"GS VISION",logo:"https://play-lh.googleusercontent.com/EiHPbrbC5s0j8mmiR94GVySLX0T2Kq_TG2hNJ1KehxWJeRi0hgMJ6fWPj1_U8blzGEeqgAkJFdAkoL0aelPLUA",link:"https://nexthope.pages.dev/gsvision/"},
-  {id:"-P2UCSJ3RoEzm2q3o2GH",title:"FUTURE KUL",logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqlajElUhgAciW3pM7zB5MyGO9NGfhtKnsGr9J8c1TCZm9N-5CJSS-ZLeR&s=10",link:"https://fk.learntopper.in/"},
-  {id:"-P2UCXd3n3DMif2ccXA7",title:"APNA COLLEGE",logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSU9GHxgF2_qmbATaa67XpR01UeJtjDxR50Y0qDjPIPtc8cvFqnJGjYpOzz&s=10",link:"https://comming.soon"},
-  {id:"-P2UCcNoq4Hq9ki41jQ7",title:"SACHIN ACADEMY",logo:"https://play-lh.googleusercontent.com/TnviN91XD3zIZEuyQKKJNcf4K-dMuzDTCCf9jMGuoQya-PpPw7p5gI008ljv3-9ZWu51AwANiEhv3twXeXLTGw",link:"https://sachin.nexthope.site/"},
-  {id:"-P2UClGRIQW29tNJ6NrV",title:"MASTER SAHAB",logo:"https://play-lh.googleusercontent.com/99igwW2lTeXiS1OG6qtnYfnWyjcgGK8PCdt441Ji0vJz46vei2B-xlrK1kF8LD0M5PyS6WXnEVEO1I-T40Uy=w240-h480-rw",link:"https://nexthope.pages.dev/mastersahab/"},
-  {id:"-P2UCsYR8le97fu5tmr7",title:"UNCADEMY OFFLINE",logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxah2goYFehSsBUo9JU_--co1YXkLgpOXYUjobTa-yNdK2pF1sbV64maMW&s=10",link:"https://nexthope.pages.dev/uncoffline/"},
-  {id:"-P2UCx2Qxo6wnkSt19ja",title:"SELCTION WAY",logo:"https://play-lh.googleusercontent.com/oHpeA_STZrBuYHN7w27GUfOBh-BleLkaZWjV2xc4la2isk1-sCI6cpg-DXWDHdI6y7u-IYoovSBozVK4RwPyjD0",link:"https://nexthope.pages.dev/sw/"},
-  {id:"-P2UDQRK5TiWs3Bklpbe",title:"KHAN GLOBAL",logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBgRhJ8jLsKm_H3veE7BThYAMxBH4EBBX4D2vtcLu-cg&s",link:"https://bat.unuverse.workers.dev/app/ba535b18-1070-404c-8160-808b6ecb7040"},
-  {id:"-P2UDYhgCtsJn6a50xCO",title:"NEXT TOPPER",logo:"https://cdn.phototourl.com/member/2026-09-03-0727d7a4-423f-41ed-868e-2346553be542.jpg",link:"https://nt.nexthope.site/"},
-  {id:"-P2UDgAfDd1fC25dXEAT",title:"VIDYGRAM",logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8dE2DM9Zj8trC_eXfV74tQRTjqQYhDbi5A5FYf780XrSrtO85gIaymOA&s=10",link:"https://vidya.studybeepro.site/"},
-  {id:"-P2UFjjgFdEDIvAKDZt0",title:"CDS JORNEY",logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJloj9V4YJNO6MQh2oGBR2UetKAr8JAKLngFeMMcE5gaezN1YG5q27ssxA&s=10",link:"https://spidyuniversecds.vercel.app/"},
-  {id:"-P2UFpbHyFURyHmEUfkN",title:"VIBRANT ACADEMY",logo:"https://play-lh.googleusercontent.com/pnKjAHXFEYw_m2GXE0EBOxCxQ_sfMgmzyPM3dniWJiA8NSnXEa4mClvIwveRNVCNZSi8mcDsOYeBZg_sEO9PxQc",link:"https://vb.nexthope.site/"},
-  {id:"-P2UFtdFCHOJk-w07RT5",title:"STUDY IQ",logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUMOFanyLkRjxj_uicB3R0YmTBy4WWjrlGxIz50alLXA&s=10",link:"https://spidyiq.vercel.app/"},
-  {id:"-P2UG2xOZaRYc0zc4B5l",title:"EDUTERIA",logo:"https://play-lh.googleusercontent.com/p2eHOjA9acqp81Hi2wVccrJ9K7Vtw-frPrAzqdEDGBQ4ko09S4UvNnZKxbpaJAn0I0xiQv-5EJTfKNLrR-EX_6M",link:"https://yourbad.freedev.app/edu/?i=2"},
-  {id:"-P2UGKhHZLJaW4jPsC3F",title:"CAREER WALA",logo:"https://play-lh.googleusercontent.com/rX0jMBybGLekvi3rJRjW60FURrivhMk7syDtD0IaAumvvq7cIvRMzxfrGzINfoob1C9NxTWofxJJvuk4JB0g",link:"https://runtkyp.xo.je/?i=1"},
-  {id:"-P2UGP29oKeP_gCKrIsy",title:"DISHA ONLINE CLASSE",logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDlATTHTYcldlWgZjEeutIAAauF5pnt9Esxgx5FV3yCA&s",link:"https://bat.unuverse.workers.90ce-4b6f-999b-4aa23ea4c584"},
-  {id:"-P2UH6I9WZWbHd0u--sF",title:"ALLEN",logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnNaRMR1cMuMq53ij7UYsmrYtGkWzxh9ZlI5At23UzTxy9z3eczH4_sl-H&s=10",link:"https://others.streamfiles.eu.org/allen/"},
-  {id:"-P2UH89sdhoE8rKHLrgk",title:"TARGET BOARD",logo:"https://play-lh.googleusercontent.com/PjG-ouz0Z1S4aJyA2ZsjVaLLd8h1WgR8kzvP4ff0zP2Z7yvjDKy60K2R3OmGbJwaJRruf8aPf7aoGe8nM-EIcQ",link:"https://ais-pre-2nf54bq7hle7qcwczxouzs-561745921472.asia-east1.run.app/"},
-  {id:"-P2dZTc6RoWZIZHL0Ltd",title:"SCINCE AND FUN",logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQj591ofR9bdSy-ngGKCwuieEWkQi8nUYL5lQkv7qorHA&s",link:"https://scienceandfun.studybeepro.site/"},
-  {id:"-P2dZjZhDbzLAqOhgg01",title:"YES OFFICER",logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScZny55vpptX2twtIBslqV6JxeZVPZNUOyd8DgH3K0-_sAcpc4MdwGzrE&s=10",link:"https://yesofficer.studybeepro.site/"},
-  {id:"-P2lMjJQo-dyOboksfTr",title:"AASH OFFICIAL",logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq6pmnz5_32ytmZynsrHywQU5GWPh7F39oiU2aImH9_Q&s",link:"https://studyapkmod-aash.vercel.app/home"},
-  {id:"-P2lNpC_3qGTEywTcO3_",title:"GYAN BINDU",logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCctgOlr3Qjzlrw6l3kiWotXQ8CdrDP-c3aNeiB_FqYA&s",link:"https://studyapkmod-live.vercel.app/?app=gyan_bindu&view=courses"},
-  {id:"-P2lUZDHyw27litGjAbn",title:"MUNIL SIR",logo:"https://cdn.phototourl.com/member/2026-09-30-4b1f230d-04d0-4783-807a-2a0f67e5f7fa.jpg",link:"https://deltastudy.fun/munilsir/86?title=SPARK%201.0%20(2026-2027)%20FROM%201%20APRIL"},
-  {id:"-P2lV4FlPBCse-5W32rO",title:"JUST PADHLE",logo:"https://play-lh.googleusercontent.com/o29oDFqeOe9PgvcEuWRMJlV5-YguTrd3DkdPZwktgAG2mEUhXWr9cy12TvoJQCOOPNNWPIk5kDABLPM5X69Urw",link:"https://deltastudy.fun/padhle"},
-  {id:"-P2lVVNUNN9yuqL5dOOz",title:"MD CLASSES",logo:"https://cdn.phototourl.com/member/2026-09-30-3f600c56-e4a5-4a90-ac4e-02fdced36eb3.png",link:"https://mdclassesx.vercel.app/"},
-  {id:"-P2shedsSn-B0DHFEOKS",title:"pw book 2",logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRer8oad1p28ArRprX_GU6yjym-n8P4gp4PPkXH2po9BQ&s=10",link:"https://pikachu-books.vercel.app/?view=library"},
-  {id:"-P36M2O8MCjB7a-S4nD_",title:"KD LIVE",logo:"https://cdn.phototourl.com/member/2026-10-04-d493e21c-17aa-481a-b7ae-fe8fbd098ca5.jpg",link:"https://kd-live.netlify.app/"},
-  {id:"-P36Q90OonQ-MI5EpilE",title:"UTKARSH CLASSES",logo:"https://cdn.phototourl.com/member/2026-10-04-77e41c52-39ef-4cc6-b34b-1df2cf743774.jpg",link:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRer8oad1p28ArRprX_GU6yjym-n8P4gp4PPkXH2po9BQ&s=10"}
-];
+  let telegramUser = null;
+  let isTelegramContext = false;
 
-const $ = id => document.getElementById(id);
-
-function renderPlatforms(query = '') {
-  const grid = $('tileGrid');
-  const term = query.trim().toLowerCase();
-
-  const results = platforms.filter(p =>
-    p.title.toLowerCase().includes(term)
-  );
-
-  $('resultsCount').textContent =
-    `${results.length} platform${results.length === 1 ? '' : 's'} found`;
-
-  if (!results.length) {
-    grid.innerHTML =
-      '<div class="empty-state">No matches found. Try a different search.</div>';
-    return;
+  function initials(name) {
+    return (name || "HRY")
+      .trim()
+      .split(/\s+/)
+      .slice(0, 2)
+      .map(part => part.charAt(0))
+      .join("")
+      .toUpperCase() || "HRY";
   }
 
-  const fragment = document.createDocumentFragment();
+  function makeFallbackAvatar(name) {
+    const label = initials(name);
+    const svg = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120">
+        <defs>
+          <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+            <stop stop-color="#ffe8a0"/>
+            <stop offset="1" stop-color="#a87824"/>
+          </linearGradient>
+        </defs>
+        <rect width="120" height="120" rx="28" fill="#201b10"/>
+        <rect x="3" y="3" width="114" height="114" rx="25"
+              fill="none" stroke="url(#g)" stroke-width="2"/>
+        <text x="60" y="68" font-family="Arial,sans-serif"
+              font-size="36" font-weight="bold" fill="url(#g)"
+              text-anchor="middle">${label}</text>
+      </svg>`;
+    return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+  }
 
-  results.forEach(platform => {
-    const tile = document.createElement('div');
-    tile.className = 'tile';
-    tile.tabIndex = 0;
-    tile.setAttribute('role', 'link');
-    tile.setAttribute('aria-label', 'Open ' + platform.title);
-
-    const icon = document.createElement('div');
-    icon.className = 'tile-icon-wrap';
-
-    const img = document.createElement('img');
-    img.src = platform.logo;
-    img.alt = platform.title + ' logo';
-    img.loading = 'lazy';
+  function setAvatar(img, url, name) {
+    img.src = url || makeFallbackAvatar(name);
     img.onerror = () => {
       img.onerror = null;
-      img.remove();
-      icon.textContent = '📚';
-      icon.style.fontSize = '28px';
+      img.src = makeFallbackAvatar(name);
     };
+  }
 
-    icon.appendChild(img);
+  function getUserName(user) {
+    if (!user) return "Telegram User";
+    return [user.first_name, user.last_name].filter(Boolean).join(" ") ||
+      (user.username ? "@" + user.username : "Telegram User");
+  }
 
-    const name = document.createElement('div');
-    name.className = 'tile-name';
-    name.textContent = platform.title;
+  function initTelegram() {
+    if (!tg) return false;
 
-    tile.append(icon, name);
+    try {
+      tg.ready();
+      tg.expand();
 
-    const openPlatform = () => {
-      let url;
-      try {
-        url = new URL(platform.link);
-        if (!['http:', 'https:'].includes(url.protocol)) {
-          throw new Error('Unsupported URL protocol');
-        }
-      } catch {
-        alert('This platform has an invalid or incomplete link.');
-        return;
+      if (typeof tg.setHeaderColor === "function") {
+        tg.setHeaderColor("#080808");
+      }
+      if (typeof tg.setBackgroundColor === "function") {
+        tg.setBackgroundColor("#080808");
       }
 
-      window.open(url.href, '_blank', 'noopener,noreferrer');
-    };
+      telegramUser = tg.initDataUnsafe && tg.initDataUnsafe.user
+        ? tg.initDataUnsafe.user
+        : null;
 
-    tile.addEventListener('click', openPlatform);
-    tile.addEventListener('keydown', event => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        openPlatform();
+      /*
+       * A user object is a useful client-side signal, not cryptographic
+       * proof that Telegram supplied it. A static page cannot verify
+       * Telegram initData without a backend.
+       */
+      isTelegramContext = !!telegramUser;
+      return isTelegramContext;
+    } catch (err) {
+      return false;
+    }
+  }
+
+  function showAccessDenied() {
+    $("accessDenied").classList.remove("hidden");
+    $("app").classList.add("hidden");
+    $("openTelegram").onclick = () => {
+      window.location.href = TELEGRAM_BOT_URL;
+    };
+  }
+
+  function showApp() {
+    $("accessDenied").classList.add("hidden");
+    $("app").classList.remove("hidden");
+    fillProfile();
+    renderPlatforms(platforms);
+  }
+
+  function fillProfile() {
+    const name = getUserName(telegramUser);
+    const username = telegramUser && telegramUser.username
+      ? "@" + telegramUser.username
+      : "Username not available";
+    const photo = telegramUser && telegramUser.photo_url
+      ? telegramUser.photo_url
+      : "";
+
+    $("headerName").textContent = name;
+    setAvatar($("headerAvatar"), photo, name);
+    setAvatar($("modalAvatar"), photo, name);
+
+    $("modalName").textContent = name;
+    $("modalUsername").textContent = username;
+    $("modalUsernameFull").textContent = username;
+    $("modalId").textContent = telegramUser && telegramUser.id != null
+      ? String(telegramUser.id)
+      : "Unavailable";
+  }
+
+  function renderPlatforms(items) {
+    const grid = $("platformGrid");
+    grid.innerHTML = "";
+
+    $("platformCount").textContent =
+      items.length + (items.length === 1 ? " platform" : " platforms");
+
+    $("emptyState").classList.toggle("hidden", items.length !== 0);
+
+    items.forEach((platform) => {
+      const card = document.createElement("button");
+      card.type = "button";
+      card.className = "platform-card";
+      card.setAttribute("aria-label", "Open " + platform.name);
+
+      const top = document.createElement("div");
+      top.className = "platform-top";
+
+      if (platform.logo) {
+        const img = document.createElement("img");
+        img.className = "platform-logo";
+        img.alt = "";
+        img.loading = "lazy";
+        img.src = platform.logo;
+        img.onerror = () => {
+          const fallback = document.createElement("div");
+          fallback.className = "platform-fallback";
+          fallback.textContent = initials(platform.name);
+          img.replaceWith(fallback);
+        };
+        top.appendChild(img);
+      } else {
+        const fallback = document.createElement("div");
+        fallback.className = "platform-fallback";
+        fallback.textContent = initials(platform.name);
+        top.appendChild(fallback);
+      }
+
+      const arrow = document.createElement("span");
+      arrow.className = "platform-arrow";
+      arrow.textContent = "↗";
+      top.appendChild(arrow);
+
+      const title = document.createElement("h4");
+      title.textContent = platform.name || "Study Platform";
+
+      card.append(top, title);
+
+      card.addEventListener("click", () => {
+        openPlatform(platform);
+      });
+
+      grid.appendChild(card);
+    });
+  }
+
+  function openPlatform(platform) {
+    if (!platform || !platform.url) {
+      alert("This platform link is not available yet.");
+      return;
+    }
+
+    let target;
+    try {
+      target = new URL(platform.url);
+    } catch (_) {
+      alert("This platform has an invalid URL.");
+      return;
+    }
+
+    if (target.protocol !== "https:" && target.protocol !== "http:") {
+      alert("This link type is not supported.");
+      return;
+    }
+
+    /*
+     * Telegram's WebApp.openLink may open a browser or Telegram's
+     * configured link handler. It does not hide the destination URL.
+     */
+    if (tg && typeof tg.openLink === "function") {
+      tg.openLink(target.href);
+    } else {
+      window.open(target.href, "_blank", "noopener,noreferrer");
+    }
+  }
+
+  function shareApp() {
+    const botUrl = TELEGRAM_BOT_URL;
+
+    if (tg && tg.initData && typeof tg.openTelegramLink === "function") {
+      const shareUrl = "https://t.me/share/url?url=" +
+        encodeURIComponent(botUrl) +
+        "&text=" +
+        encodeURIComponent("Open Study Mods HRRY+ on Telegram!");
+
+      tg.openTelegramLink(shareUrl);
+      return;
+    }
+
+    if (navigator.share) {
+      navigator.share({
+        title: "Study Mods HRRY+",
+        text: "Open Study Mods HRRY+ on Telegram!",
+        url: botUrl
+      }).catch(() => {});
+      return;
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(botUrl).then(() => {
+        alert("Telegram link copied!");
+      }).catch(() => {
+        prompt("Copy the Telegram link:", botUrl);
+      });
+    } else {
+      prompt("Copy the Telegram link:", botUrl);
+    }
+  }
+
+  function openProfile() {
+    $("profileModal").classList.remove("hidden");
+  }
+
+  function closeProfile() {
+    $("profileModal").classList.add("hidden");
+  }
+
+  function initEvents() {
+    $("profileButton").addEventListener("click", openProfile);
+    $("profileBottom").addEventListener("click", openProfile);
+    $("closeProfile").addEventListener("click", closeProfile);
+    $("closeProfileBottom").addEventListener("click", closeProfile);
+
+    $("profileModal").addEventListener("click", (event) => {
+      if (event.target === $("profileModal")) closeProfile();
+    });
+
+    $("shareHero").addEventListener("click", shareApp);
+    $("shareBottom").addEventListener("click", shareApp);
+
+    $("sponsorButton").addEventListener("click", () => {
+      const url = "https://hrry.online/";
+      if (tg && typeof tg.openLink === "function") {
+        tg.openLink(url);
+      } else {
+        window.open(url, "_blank", "noopener,noreferrer");
       }
     });
 
-    fragment.appendChild(tile);
-  });
+    $("letsSee").addEventListener("click", () => {
+      $("platformHeading").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+      setTimeout(() => $("searchInput").focus({ preventScroll: true }), 350);
+    });
 
-  grid.replaceChildren(fragment);
-}
-
-function initProfile() {
-  $('telegramProfileBtn').addEventListener('click', () => {
-    $('profileSheet').classList.remove('hidden');
-  });
-
-  $('profileSheetClose').addEventListener('click', () => {
-    $('profileSheet').classList.add('hidden');
-  });
-
-  $('profileSheet').addEventListener('click', event => {
-    if (event.target === $('profileSheet')) {
-      $('profileSheet').classList.add('hidden');
-    }
-  });
-
-  $('profilePlatformCount').textContent = platforms.length;
-}
-
-function initTelegramPopup() {
-  const gate = $('telegramGate');
-
-  $('joinTelegramBtn').addEventListener('click', () => {
-    window.open(TELEGRAM_CHANNEL_URL, '_blank', 'noopener,noreferrer');
-    gate.classList.add('hidden');
-  });
-
-  $('continueTelegramBtn').addEventListener('click', () => {
-    gate.classList.add('hidden');
-  });
-
-  $('gateClose').addEventListener('click', () => {
-    gate.classList.add('hidden');
-  });
-
-  // The invitation is optional and appears only once per browser.
-  try {
-    if (!localStorage.getItem('study_mods_hrry_prompt_seen')) {
-      gate.classList.remove('hidden');
-      localStorage.setItem('study_mods_hrry_prompt_seen', '1');
-    }
-  } catch {
-    // Storage may be unavailable; the app still works.
+    $("searchInput").addEventListener("input", (event) => {
+      const query = event.target.value.trim().toLowerCase();
+      const filtered = platforms.filter((platform) =>
+        (platform.name || "").toLowerCase().includes(query)
+      );
+      renderPlatforms(filtered);
+    });
   }
-}
 
-function startApp() {
-  $('footerYear').textContent = new Date().getFullYear();
+  function start() {
+    initEvents();
 
-  $('searchInput').addEventListener('input', event => {
-    renderPlatforms(event.target.value);
-  });
+    const allowed = initTelegram();
 
-  initProfile();
-  initTelegramPopup();
-  renderPlatforms();
+    window.setTimeout(() => {
+      $("loader").classList.add("fade");
 
-  const boot = $('bootScreen');
-  requestAnimationFrame(() => {
-    boot.classList.add('boot-hide');
-    setTimeout(() => boot.remove(), 400);
-  });
-}
+      window.setTimeout(() => {
+        if (allowed) {
+          showApp();
+        } else {
+          showAccessDenied();
+        }
+      }, 450);
+    }, 1100);
+  }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', startApp, {once:true});
-} else {
-  startApp();
-}
+  start();
+})();
 </script>
 </body>
 </html>
